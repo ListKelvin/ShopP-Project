@@ -2,7 +2,16 @@ import { Formik } from "formik";
 import FormikControl from "../../Component/FormikControl";
 import { FormContainer } from "./sign-in.styles";
 import { BaseButton, OutlinedButton } from "../../Component/Button.styles";
-import { Container } from "@mui/system";
+import { Container, Box } from "@mui/system";
+
+import CssBaseline from "@mui/material/CssBaseline";
+
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 import * as Yup from "yup";
 const SignInComponent = () => {
   const initialValues = {
@@ -46,56 +55,103 @@ const SignInComponent = () => {
         "Password must One Uppercase, One Lowercase, One Number and one special case Character."
       ),
   });
-
+  const theme = createTheme();
   const onSubmit = (values) => {
     console.log("Form data", values);
   };
   return (
-    <Container maxWidth="lg">
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-      >
-        {(formik) => {
-          return (
-            <FormContainer>
-              <h2>Login Account</h2>
-              <FormikControl
-                // control="input"
-                control="MuiInput"
-                label="Email"
-                name="email"
-              />
-              <FormikControl
-                // control="input"
-                control="MuiInput"
-                type="password"
-                label="Password"
-                name="password"
-              />
-              <FormikControl
-                control="radio"
-                label="Sign In With "
-                name="phoneOrEmail"
-                options={options}
-              />
+    <ThemeProvider theme={theme}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: "url(https://source.unsplash.com/random)",
+            backgroundRepeat: "no-repeat",
+            backgroundColor: (t) =>
+              t.palette.mode === "light"
+                ? t.palette.grey[50]
+                : t.palette.grey[900],
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              px: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={onSubmit}
+            >
+              {(formik) => {
+                return (
+                  <FormContainer>
+                    <h2>Login Account</h2>
+                    <FormikControl
+                      // control="input"
+                      control="MuiInput"
+                      label="Email"
+                      name="email"
+                    />
+                    <FormikControl
+                      // control="input"
+                      control="MuiInput"
+                      type="password"
+                      label="Password"
+                      name="password"
+                    />
+                    <FormikControl
+                      control="radio"
+                      label="Sign In With "
+                      name="phoneOrEmail"
+                      options={options}
+                    />
 
-              <BaseButton
-                variant="contained"
-                type="submit"
-                disabled={!formik.isValid}
-              >
-                Submit
-              </BaseButton>
-              <OutlinedButton variant="outlined" type="button">
-                Continue without Sign in
-              </OutlinedButton>
-            </FormContainer>
-          );
-        }}
-      </Formik>
-    </Container>
+                    <BaseButton
+                      variant="contained"
+                      type="submit"
+                      disabled={!formik.isValid}
+                    >
+                      Submit
+                    </BaseButton>
+                    <OutlinedButton variant="outlined" type="button">
+                      Continue without Sign in
+                    </OutlinedButton>
+                    <Grid container>
+                      <Grid item xs>
+                        <Link href="#" variant="body2">
+                          Forgot password?
+                        </Link>
+                      </Grid>
+                      <Grid item>
+                        <Link href="#" variant="body2">
+                          {"Don't have an account? Sign Up"}
+                        </Link>
+                      </Grid>
+                    </Grid>
+                  </FormContainer>
+                );
+              }}
+            </Formik>
+          </Box>
+        </Grid>
+      </Grid>
+    </ThemeProvider>
   );
 };
 
