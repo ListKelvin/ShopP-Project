@@ -1,15 +1,12 @@
 import SignInComponent from "./pages/sign-in/sign-in.component";
 
+// <div className="">fdskjflksdjlkfdsjk</div>
+// <SignUp />
+// <MuiInput />
 // import SignUp from "./pages/sign-up/sign-up.component";
+// <SignInComponent />
 function App() {
-  // <div className="">fdskjflksdjlkfdsjk</div>
-  // <SignUp />
-  // <MuiInput />
-  return (
-    <div className="App">
-      <SignInComponent />
-    </div>
-  );
+  return <div className="App"></div>;
 }
 
 export default App;

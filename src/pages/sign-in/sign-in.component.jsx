@@ -2,14 +2,13 @@ import { Formik } from "formik";
 import FormikControl from "../../Component/FormikControl";
 import { FormContainer } from "./sign-in.styles";
 import { BaseButton, OutlinedButton } from "../../Component/Button.styles";
-import { Container, Box } from "@mui/system";
+import { Box } from "@mui/system";
 
 import CssBaseline from "@mui/material/CssBaseline";
 
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import * as Yup from "yup";
@@ -90,9 +89,6 @@ const SignInComponent = () => {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
