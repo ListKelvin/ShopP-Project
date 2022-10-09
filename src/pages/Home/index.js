@@ -6,7 +6,7 @@ import logo from "../../assets/logo.svg";
 import { actions } from "./slice";
 import { selectCounter, selectHello } from "./slice/selector";
 import { Wrapper, Logo, Header, Link } from "./style";
-
+import ProminentAppBar from "../../Component/NavBar";
 const Home = () => {
   const dispatch = useDispatch();
 

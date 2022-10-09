@@ -3,6 +3,7 @@ import FormikControl from "../../Component/FormikControl";
 import { FormContainer } from "./sign-in.styles";
 import { BaseButton, OutlinedButton } from "../../Component/Button.styles";
 import { Box } from "@mui/system";
+import { post } from "../../utils/ApiCaller";
 
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -18,18 +19,12 @@ const SignInComponent = () => {
     email: "",
     password: "",
   };
+
   const options = [
     { key: "Email", value: "isEmail" },
     { key: "Telephone", value: "isTelephone" },
   ];
   const validationSchema = Yup.object({
-    // email: Yup.string()
-    //   .email("Invalid email format")
-    //   .required("Required")
-    //   .matches(
-    //     /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/,
-    //     "Your email must match the following formats"
-    //   ),
     phoneOrEmail: Yup.string().required("Required"),
     email: Yup.string().when("phoneOrEmail", {
       is: "isEmail",
@@ -56,6 +51,15 @@ const SignInComponent = () => {
   });
   const theme = createTheme();
   const onSubmit = (values) => {
+    let data2 = {};
+    data2.emailOrPhone = values.email;
+    data2.password = values.password;
+    console.log(data2);
+
+    const response = post("/auth/login", data2, {}, {})
+      .then((data) => console.log(data.headers))
+      .catch((err) => console.error(err));
+
     console.log("Form data", values);
   };
   return (
@@ -112,7 +116,7 @@ const SignInComponent = () => {
                       name="password"
                     />
                     <FormikControl
-                      control="radio"
+                      control="select"
                       label="Sign In With "
                       name="phoneOrEmail"
                       options={options}

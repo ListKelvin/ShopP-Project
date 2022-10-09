@@ -20,7 +20,7 @@ const publicRoute = [
     restrict: true,
   },
   {
-    path: "signup",
+    path: "Register",
     component: <SignUp />,
     exact: true,
     restrict: true,
