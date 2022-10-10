@@ -4,6 +4,7 @@ import { FormContainer } from "./sign-in.styles";
 import { BaseButton, OutlinedButton } from "../../Component/Button.styles";
 import { Box } from "@mui/system";
 import { post } from "../../utils/ApiCaller";
+import { LinkStyle } from "../sign-up/Components/SignUpForm.styles";
 
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -126,12 +127,31 @@ const SignInComponent = () => {
                       variant="contained"
                       type="submit"
                       disabled={!formik.isValid}
+                      sx={{
+                        width: {
+                          xs: "220px",
+                          sm: "255px",
+                          md: "320px",
+                        },
+                      }}
                     >
                       Submit
                     </BaseButton>
-                    <OutlinedButton variant="outlined" type="button">
-                      Continue without Sign in
-                    </OutlinedButton>
+                    <LinkStyle to="/home">
+                      <OutlinedButton
+                        variant="outlined"
+                        type="button"
+                        sx={{
+                          width: {
+                            xs: "220px",
+                            sm: "255px",
+                            md: "320px",
+                          },
+                        }}
+                      >
+                        Continue without Sign in
+                      </OutlinedButton>
+                    </LinkStyle>
                     <Grid container>
                       <Grid item xs>
                         <Link href="#" variant="body2">

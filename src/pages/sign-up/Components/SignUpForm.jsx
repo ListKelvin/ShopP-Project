@@ -1,5 +1,6 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { post } from "../../../utils/ApiCaller";
 import { LinkStyle } from "./SignUpForm.styles";
 import FormikControl from "../../../Component/FormikControl";
 import {
@@ -12,9 +13,9 @@ import {
 const SignUpForm = () => {
   const initialValues = {
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
-    phone: "",
   };
 
   const validationSchema = Yup.object({
@@ -44,6 +45,9 @@ const SignUpForm = () => {
   });
 
   const onSubmit = (values) => {
+    const responsess = post("/account/sign-up", values, {}, {})
+      .then((data) => alert(data.data.message))
+      .catch((err) => console.error(err));
     console.log("Form data", values);
   };
   return (
