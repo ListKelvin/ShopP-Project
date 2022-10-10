@@ -57,7 +57,7 @@ const SignInComponent = () => {
     console.log(data2);
 
     const response = post("/auth/login", data2, {}, {})
-      .then((data) => console.log(data.headers))
+      .then((data) => console.log(data.headers["Authentication"]))
       .catch((err) => console.error(err));
 
     console.log("Form data", values);

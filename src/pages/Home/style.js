@@ -10,7 +10,7 @@ const spin = keyframes`
 `;
 
 export const Wrapper = styled.div`
-  background-color: black;
+  background-color: blueviolet;
   text-align: center;
 `;
 

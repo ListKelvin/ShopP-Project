@@ -14,7 +14,7 @@ export const slice = createSlice({
   initialState,
   reducers: {
     changeCounter: (state, action) => {
-      state.counter = action.payload;
+      // state.counter = action.payload;
     },
   },
 });
