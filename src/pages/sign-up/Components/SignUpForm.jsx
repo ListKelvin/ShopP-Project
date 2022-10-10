@@ -98,6 +98,7 @@ const SignUpForm = () => {
               <OutlinedRegister
                 sx={{
                   width: { xs: "220px", sm: "255px", md: "320px" },
+                  fontSize: { xs: "0.775rem", sm: "0.875rem" },
                 }}
                 variant="outlined"
                 type="button"

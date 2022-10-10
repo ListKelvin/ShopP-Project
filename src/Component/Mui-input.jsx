@@ -18,7 +18,7 @@ const MuiInput = ({ label, name, ...rest }) => {
                   md: "320px",
                 },
                 // "320px",
-                // height: "45px",
+                height: "90px",
                 "& .MuiOutlinedInput-root": {
                   borderRadius: "50px",
                 },

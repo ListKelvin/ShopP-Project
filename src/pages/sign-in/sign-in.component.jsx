@@ -112,14 +112,14 @@ const SignInComponent = () => {
                       // control="input"
                       control="MuiInput"
                       type="password"
+                      // <FormikControl
+                      //   control="select"
+                      //   label="Sign In With "
+                      //   name="phoneOrEmail"
+                      //   options={options}
+                      // />
                       label="Password"
                       name="password"
-                    />
-                    <FormikControl
-                      control="select"
-                      label="Sign In With "
-                      name="phoneOrEmail"
-                      options={options}
                     />
 
                     <BaseButton
