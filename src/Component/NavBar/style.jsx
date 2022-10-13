@@ -41,3 +41,11 @@ export const SearchIconWrapper = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
 }));
+
+export const RightToolbar = styled("div")(() => ({
+  maxWidth: 300,
+  width: 250,
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+}));

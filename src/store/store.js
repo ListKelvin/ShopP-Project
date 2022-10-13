@@ -9,7 +9,20 @@ import { configureStore } from "@reduxjs/toolkit";
 //   home:
 // };
 
-const store = configureStore({ reducer: createReducer() });
+const store = configureStore({
+  reducer: createReducer(),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Ignore these action types
+        ignoredActions: ["navBar/changeIsNavOpen", "home/changeCounter"],
+        // Ignore these field paths in all actions
+        // ignoredActionPaths: ["meta.arg", "payload.timestamp"],
+        // Ignore these paths in the state
+        // ignoredPaths: ["items.dates"],
+      },
+    }),
+});
 
 // Add a dictionary to keep track of the registered async reducers
 store.asyncReducers = {};

@@ -13,6 +13,7 @@ export const slice = createSlice({
   initialState,
   reducers: {
     changeIsNavOpen: (state, action) => {
+      console.log(action.payload);
       state.isNavOpen = action.payload;
     },
   },
@@ -21,14 +22,3 @@ export const slice = createSlice({
 injectReducer(name, slice.reducer);
 
 export const { actions } = slice;
-
-// const [anchorElNav, setAnchorElNav] = React.useState(null);
-
-//   const handleOpenNavMenu = (event) => {
-//     setAnchorElNav(event.currentTarget);
-//   };
-//
-
-//   const handleCloseNavMenu = () => {
-//     setAnchorElNav(null);
-//   };
