@@ -1,6 +1,6 @@
 import Input from "./Input";
 import MuiInput from "./Mui-input";
-import SelectItem from "./Select";
+import SelectItem from "./select";
 import CheckBox from "./CheckBox";
 import RadioButtons from "./RadioButtons";
 import DatePickerMui from "./DatePickerMui";

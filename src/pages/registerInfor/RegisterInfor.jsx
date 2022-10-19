@@ -10,7 +10,7 @@ import { Typography } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { ValidationSchema } from "./schema/Validation";
 import { Button } from "@mui/material";
-
+import { Container } from "@mui/system";
 const initialValues = {
   name: "",
   dateOfBirth: "",
@@ -26,14 +26,17 @@ const RegisterInfor = () => {
     console.log("Form data", values);
   };
   return (
+    // <Container maxWidth={false} sx={{ background: "#F2BB83", height: "100vh" }}>
     <Box
       sx={{
         widh: "100vw",
-        height: "100vh",
+        // height: "100%",
+        minHeight: "100vh",
+        padding: "74px 30px",
         background: "#F2BB83",
         display: "flex",
+        alginItems: "center",
         justifyContent: "center",
-        alignItems: "center",
       }}
     >
       <Formik
@@ -57,13 +60,20 @@ const RegisterInfor = () => {
               >
                 Register Information
               </Typography>
-              <Box sx={{ display: "flex" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column-reverse", sm: "row" },
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <Box>
                   <Grid
                     container
                     component="main"
                     sx={{
-                      width: "500px",
+                      width: { lg: "500px", sm: "340px", xs: "215px" },
                       "& .MuiOutlinedInput-root": {
                         borderRadius: "50px",
                       },
@@ -74,7 +84,12 @@ const RegisterInfor = () => {
                       <FormikControl
                         type="text"
                         sx={{
-                          width: "475px",
+                          width: {
+                            lg: "475px",
+                            md: "335px",
+                            xs: "200px",
+                            sm: "335px",
+                          },
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "50px",
                           },
@@ -84,11 +99,12 @@ const RegisterInfor = () => {
                         name="name"
                       />
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={12} sm={8}>
                       <FormikControl
                         control="date"
                         sx={{
-                          width: "320px",
+                          width: { lg: "320px", xs: "200px", sm: "210px" },
+
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "50px",
                           },
@@ -97,11 +113,12 @@ const RegisterInfor = () => {
                         name="dateOfBirth"
                       />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={12} sm={4}>
                       <FormikControl
                         type="text"
                         sx={{
-                          width: "140px",
+                          width: { lg: "135px", sm: "97px", xs: "200px" },
+                          marginLeft: { sm: "10px" },
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "50px",
                           },
@@ -115,7 +132,8 @@ const RegisterInfor = () => {
                       <FormikControl
                         control="MuiInput"
                         sx={{
-                          width: "475px",
+                          width: { lg: "475px", xs: "200px", sm: "335px" },
+
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "50px",
                           },
@@ -128,7 +146,7 @@ const RegisterInfor = () => {
                       <FormikControl
                         control="MuiInput"
                         sx={{
-                          width: "475px",
+                          width: { lg: "475px", xs: "200px", sm: "335px" },
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "50px",
                           },
@@ -153,6 +171,7 @@ const RegisterInfor = () => {
                     display: "flex",
                     alignItems: "center",
                     flexDirection: "column",
+                    marginBottom: { xs: "20px", md: "0px" },
                   }}
                 >
                   {values.file ? (
@@ -192,6 +211,7 @@ const RegisterInfor = () => {
         }}
       </Formik>
     </Box>
+    // </Container>
   );
   // <OutlinedButton variant="outlined" type="button">
   //   // Continue without Sign in //{" "}

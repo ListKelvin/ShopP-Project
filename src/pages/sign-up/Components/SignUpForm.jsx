@@ -1,6 +1,7 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { LinkStyle } from "./SignUpForm.styles";
+import { post } from "../../../utils/ApiCaller";
 import FormikControl from "../../../Component/FormikControl";
 import {
   RegisterButton,
@@ -44,6 +45,9 @@ const SignUpForm = () => {
   });
 
   const onSubmit = (values) => {
+    const responsess = post("/account/sign-up", values, {}, {})
+      .then((data) => alert(data.data.message))
+      .catch((err) => console.log(err.response.data));
     console.log("Form data", values);
   };
   return (
