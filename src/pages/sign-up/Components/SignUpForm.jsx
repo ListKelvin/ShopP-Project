@@ -47,7 +47,7 @@ const SignUpForm = () => {
   const onSubmit = (values) => {
     const responsess = post("/account/sign-up", values, {}, {})
       .then((data) => alert(data.data.message))
-      .catch((err) => console.error(err));
+      .catch((err) => console.log(err.response.data));
     console.log("Form data", values);
   };
   return (

@@ -53,13 +53,13 @@ const SignInComponent = () => {
   const theme = createTheme();
   const onSubmit = (values) => {
     let data2 = {};
-    data2.emailOrPhone = values.email;
     data2.password = values.password;
+    data2.emailOrPhone = values.email;
     console.log(data2);
 
     const response = post("/auth/login", data2, {}, {})
-      .then((data) => console.log(data.headers))
-      .catch((err) => console.error(err));
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error.response.data));
 
     console.log("Form data", values);
   };
