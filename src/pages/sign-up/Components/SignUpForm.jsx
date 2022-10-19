@@ -1,8 +1,10 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { post } from "../../../utils/ApiCaller";
 import { LinkStyle } from "./SignUpForm.styles";
 import { post } from "../../../utils/ApiCaller";
 import FormikControl from "../../../Component/FormikControl";
+import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 import {
   RegisterButton,
   OutlinedRegister,
@@ -13,9 +15,9 @@ import {
 const SignUpForm = () => {
   const initialValues = {
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
-    phone: "",
   };
 
   const validationSchema = Yup.object({
@@ -47,7 +49,9 @@ const SignUpForm = () => {
   const onSubmit = (values) => {
     const responsess = post("/account/sign-up", values, {}, {})
       .then((data) => alert(data.data.message))
-      .catch((err) => console.log(err.response.data));
+      .catch((err) => alert(err.response.data.message));
+    const test = LocalStorageUtils.getUser();
+    console.log("token:", test);
     console.log("Form data", values);
   };
   return (
@@ -102,6 +106,7 @@ const SignUpForm = () => {
               <OutlinedRegister
                 sx={{
                   width: { xs: "220px", sm: "255px", md: "320px" },
+                  fontSize: { xs: "0.775rem", sm: "0.875rem" },
                 }}
                 variant="outlined"
                 type="button"

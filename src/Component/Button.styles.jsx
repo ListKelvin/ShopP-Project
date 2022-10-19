@@ -19,6 +19,7 @@ export const OutlinedButton = styled(Button)({
   width: "320px",
   height: "52px",
   padding: "6px 12px",
+  marginTop: "15px",
   backgroundColor: "transparent",
   // borderColor: "#BA4E3A",
   border: "2px solid #BA4E3A ",

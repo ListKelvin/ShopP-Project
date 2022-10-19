@@ -10,6 +10,7 @@ export const RegisterButton = styled(BaseButton)`
 
 export const OutlinedRegister = styled(OutlinedButton)`
   width: 255px;
+
   height: 45px;
 `;
 export const FormSignUpContainer = styled(FormContainer)`

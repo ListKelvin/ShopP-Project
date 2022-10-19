@@ -4,9 +4,10 @@ import { FormContainer } from "./sign-in.styles";
 import { BaseButton, OutlinedButton } from "../../Component/Button.styles";
 import { Box } from "@mui/system";
 import { post } from "../../utils/ApiCaller";
-
+import { LinkStyle } from "../sign-up/Components/SignUpForm.styles";
+import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import CssBaseline from "@mui/material/CssBaseline";
-
+import { useNavigate } from "react-router-dom";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -14,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import * as Yup from "yup";
 const SignInComponent = () => {
+  const navigate = useNavigate();
   const initialValues = {
     phoneOrEmail: "isEmail",
     email: "",
@@ -52,14 +54,17 @@ const SignInComponent = () => {
   const theme = createTheme();
   const onSubmit = (values) => {
     let data2 = {};
-    data2.emailOrPhone = values.email;
     data2.password = values.password;
+    data2.emailOrPhone = values.email;
     console.log(data2);
 
     const response = post("/auth/login", data2, {}, {})
-      .then((data) => console.log(data))
-      .catch((err) => console.error(err.response.data));
-
+      .then((data) => {
+        console.log(data);
+        LocalStorageUtils.setItem("token", data.data.token);
+        navigate("/home");
+      })
+      .catch((error) => console.log(error.response.data));
     console.log("Form data", values);
   };
   return (
@@ -112,26 +117,45 @@ const SignInComponent = () => {
                       // control="input"
                       control="MuiInput"
                       type="password"
+                      // <FormikControl
+                      //   control="select"
+                      //   label="Sign In With "
+                      //   name="phoneOrEmail"
+                      //   options={options}
+                      // />
                       label="Password"
                       name="password"
-                    />
-                    <FormikControl
-                      control="select"
-                      label="Sign In With "
-                      name="phoneOrEmail"
-                      options={options}
                     />
 
                     <BaseButton
                       variant="contained"
                       type="submit"
                       disabled={!formik.isValid}
+                      sx={{
+                        width: {
+                          xs: "220px",
+                          sm: "255px",
+                          md: "320px",
+                        },
+                      }}
                     >
                       Submit
                     </BaseButton>
-                    <OutlinedButton variant="outlined" type="button">
-                      Continue without Sign in
-                    </OutlinedButton>
+                    <LinkStyle to="/home">
+                      <OutlinedButton
+                        variant="outlined"
+                        type="button"
+                        sx={{
+                          width: {
+                            xs: "220px",
+                            sm: "255px",
+                            md: "320px",
+                          },
+                        }}
+                      >
+                        Continue without Sign in
+                      </OutlinedButton>
+                    </LinkStyle>
                     <Grid container>
                       <Grid item xs>
                         <Link href="#" variant="body2">
