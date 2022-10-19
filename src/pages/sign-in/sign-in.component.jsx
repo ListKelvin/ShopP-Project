@@ -5,9 +5,9 @@ import { BaseButton, OutlinedButton } from "../../Component/Button.styles";
 import { Box } from "@mui/system";
 import { post } from "../../utils/ApiCaller";
 import { LinkStyle } from "../sign-up/Components/SignUpForm.styles";
-
+import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import CssBaseline from "@mui/material/CssBaseline";
-
+import { useNavigate } from "react-router-dom";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import * as Yup from "yup";
 const SignInComponent = () => {
+  const navigate = useNavigate();
   const initialValues = {
     phoneOrEmail: "isEmail",
     email: "",
@@ -58,7 +59,11 @@ const SignInComponent = () => {
     console.log(data2);
 
     const response = post("/auth/login", data2, {}, {})
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data);
+        LocalStorageUtils.setItem("token", data.data.token);
+        navigate("/home");
+      })
       .catch((error) => console.log(error.response.data));
 
     console.log("Form data", values);

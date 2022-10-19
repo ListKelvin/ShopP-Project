@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { post } from "../../../utils/ApiCaller";
 import { LinkStyle } from "./SignUpForm.styles";
 import FormikControl from "../../../Component/FormikControl";
+import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 import {
   RegisterButton,
   OutlinedRegister,
@@ -47,7 +48,9 @@ const SignUpForm = () => {
   const onSubmit = (values) => {
     const responsess = post("/account/sign-up", values, {}, {})
       .then((data) => alert(data.data.message))
-      .catch((err) => console.log(err.response.data));
+      .catch((err) => alert(err.response.data.message));
+    const test = LocalStorageUtils.getUser();
+    console.log("token:", test);
     console.log("Form data", values);
   };
   return (
