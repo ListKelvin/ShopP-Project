@@ -1,7 +1,7 @@
 import Axios from "axios";
 import objectAssign from "object-assign";
 
-import { API_URL } from "../config";
+import { API_URL } from "../config/config";
 
 export const request = (
   endpoint,

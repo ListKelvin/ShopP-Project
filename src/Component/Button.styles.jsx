@@ -5,7 +5,7 @@ export const BaseButton = styled(Button)({
   borderRadius: "50px",
   width: "320px",
   height: "52px",
-
+  color: "#FFFFFF",
   padding: "6px 12px",
   lineHeight: 1.5,
   "&:hover": {
