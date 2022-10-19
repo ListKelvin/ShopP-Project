@@ -3,18 +3,18 @@ import { injectReducer } from "../../../store/store";
 import { createSlice } from "@reduxjs/toolkit";
 
 export const initialState = {
-  counter: performance.now().toFixed(0),
-  hello: "Hello World",
+  isNavOpen: null,
 };
 
-export const name = "home";
+export const name = "navBar";
 
 export const slice = createSlice({
   name,
   initialState,
   reducers: {
-    changeCounter: (state, action) => {
-      // state.counter = action.payload;
+    changeIsNavOpen: (state, action) => {
+      console.log(action.payload);
+      state.isNavOpen = action.payload;
     },
   },
 });

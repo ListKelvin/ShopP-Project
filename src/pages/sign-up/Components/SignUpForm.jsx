@@ -2,6 +2,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { post } from "../../../utils/ApiCaller";
 import { LinkStyle } from "./SignUpForm.styles";
+import { post } from "../../../utils/ApiCaller";
 import FormikControl from "../../../Component/FormikControl";
 import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 import {
