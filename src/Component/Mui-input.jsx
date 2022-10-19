@@ -4,7 +4,7 @@ import { Field } from "formik";
 const MuiInput = ({ label, name, ...rest }) => {
   return (
     <Field name={name}>
-      {({ field, form }) => {
+      {({ field, form, meta }) => {
         // console.log(field);
         return (
           <>
@@ -25,8 +25,8 @@ const MuiInput = ({ label, name, ...rest }) => {
               }}
               {...rest}
               {...field}
-              error={form.errors[name] ? true : false}
-              helperText={form.errors[name]}
+              error={meta.touched && form.errors[name] ? true : false}
+              helperText={meta.touched && form.errors[name]}
               variant="outlined"
             />
           </>
