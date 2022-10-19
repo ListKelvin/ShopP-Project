@@ -70,7 +70,7 @@ const SignInComponent = () => {
           item
           xs={false}
           sm={4}
-          md={7}
+          md={6}
           sx={{
             backgroundImage: "url(https://source.unsplash.com/random)",
             backgroundRepeat: "no-repeat",
@@ -82,7 +82,7 @@ const SignInComponent = () => {
             backgroundPosition: "center",
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={6} component={Paper} square>
           <Box
             sx={{
               my: 8,
