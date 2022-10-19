@@ -56,6 +56,7 @@ const RegisterInfor = () => {
                   fontSize: "48px",
                   lineHeight: "44px",
                   color: "#BA4E3A",
+                  marginBottom: "20px",
                 }}
               >
                 Register Information
