@@ -4,8 +4,8 @@ pipeline{
     stages {
         stage('Prepare...') {
             steps {
-                sh 'npm i'
-                sh 'npm run build'
+                sh 'yarn'
+                sh 'yarn build'
             }
         }
         stage('Build...') {
