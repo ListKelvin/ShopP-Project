@@ -2,12 +2,6 @@ pipeline{
     agent any
 
     stages {
-        stage('Prepare...') {
-            steps {
-                sh 'yarn'
-                sh 'yarn run build'
-            }
-        }
         stage('Build...') {
             steps {
                 sh 'docker compose down'
