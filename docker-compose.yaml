@@ -13,3 +13,7 @@ services:
     networks:
       - shopp
     restart: always
+
+networks:
+  shopp:
+    driver: bridge
