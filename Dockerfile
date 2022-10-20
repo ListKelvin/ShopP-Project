@@ -1,3 +1,6 @@
-FROM httpd:latest
-WORKDIR /app
-COPY build /usr/local/apache2/htdocs/
+FROM node:16.14.2
+WORKDIR /app-fe
+COPY package.json .
+RUN npm install
+COPY . .
+COPY .env.deploy .env
