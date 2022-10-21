@@ -10,7 +10,7 @@ import { Typography } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { ValidationSchema } from "./schema/Validation";
 import { Button } from "@mui/material";
-import { Container } from "@mui/system";
+
 const initialValues = {
   name: "",
   dateOfBirth: "",

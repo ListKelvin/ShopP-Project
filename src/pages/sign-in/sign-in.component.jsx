@@ -1,21 +1,30 @@
 import { Formik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
 import FormikControl from "../../Component/FormikControl";
 import { FormContainer } from "./sign-in.styles";
 import { BaseButton, OutlinedButton } from "../../Component/Button.styles";
 import { Box } from "@mui/system";
-import { post } from "../../utils/ApiCaller";
 import { LinkStyle } from "../sign-up/Components/SignUpForm.styles";
-import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import CssBaseline from "@mui/material/CssBaseline";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { login } from "../../slices/auth";
+import { clearMessage } from "../../slices/message";
 import * as Yup from "yup";
 const SignInComponent = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { message } = useSelector((state) => state.message);
+  console.log(message);
+  useEffect(() => {
+    dispatch(clearMessage());
+  }, [dispatch]);
   const initialValues = {
     phoneOrEmail: "isEmail",
     email: "",
@@ -57,16 +66,23 @@ const SignInComponent = () => {
     data2.password = values.password;
     data2.emailOrPhone = values.email;
     console.log(data2);
+    setLoading(true);
 
-    const response = post("/auth/login", data2, {}, {})
-      .then((data) => {
-        console.log(data);
-        LocalStorageUtils.setItem("token", data.data.token);
+    dispatch(login(data2))
+      .unwrap()
+      .then(() => {
         navigate("/home");
+        window.location.reload();
       })
-      .catch((error) => console.log(error.response.data));
+      .catch(() => {
+        setLoading(false);
+      });
+
     console.log("Form data", values);
   };
+  if (isLoggedIn) {
+    return <Navigate to="/home" />;
+  }
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -168,6 +184,13 @@ const SignInComponent = () => {
                         </Link>
                       </Grid>
                     </Grid>
+                    {message && (
+                      <div className="form-group">
+                        <div className="alert alert-danger" role="alert">
+                          {message}
+                        </div>
+                      </div>
+                    )}
                   </FormContainer>
                 );
               }}

@@ -1,4 +1,4 @@
-import { injectReducer } from "../../../store/store";
+// import { injectReducer } from "../../../store/store";
 
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -19,6 +19,6 @@ export const slice = createSlice({
   },
 });
 
-injectReducer(name, slice.reducer);
+// injectReducer(name, slice.reducer);
 
 export const { actions } = slice;

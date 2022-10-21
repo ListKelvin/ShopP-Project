@@ -14,11 +14,8 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
-
-    "dotenv": "^16.0.3",
-
     "dayjs": "^1.11.5",
-
+    "dotenv": "^16.0.3",
     "formik": "^2.2.9",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
@@ -27,6 +24,7 @@
     "react-redux": "^8.0.4",
     "react-router-dom": "6",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.0.8",
     "redux": "^4.2.0",
     "sass": "^1.54.8",
     "styled-breakpoints": "^11.1.1",

@@ -13,12 +13,12 @@ const Home = () => {
   const counter = useSelector(selectCounter);
   const hello = useSelector(selectHello);
 
-  useEffect(() => {
-    setInterval(
-      () => dispatch(actions.changeCounter(performance.now().toFixed(0))),
-      100
-    );
-  }, []);
+  // useEffect(() => {
+  //   setInterval(
+  //     () => dispatch(actions.changeCounter(performance.now().toFixed(0))),
+  //     100
+  //   );
+  // }, []);
 
   return (
     <Wrapper>

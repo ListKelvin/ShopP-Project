@@ -14,7 +14,7 @@ const publicRoute = [
     restrict: true,
   },
   {
-    path: "signIn",
+    path: "signin",
     component: <SignInComponent />,
     exact: true,
     restrict: true,
