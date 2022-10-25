@@ -1,9 +1,13 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { post } from "../../../utils/ApiCaller";
+import React, { useEffect } from "react";
 import { LinkStyle } from "./SignUpForm.styles";
 import FormikControl from "../../../Component/FormikControl";
-import LocalStorageUtils from "../../../utils/LocalStorageUtils";
+import { useNavigate, Navigate } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { clearMessage } from "../../../slices/message";
+import { register } from "../../../services/auth.service";
 import {
   RegisterButton,
   OutlinedRegister,
@@ -12,6 +16,14 @@ import {
 // import Box from "@mui/material/Box";
 
 const SignUpForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(clearMessage());
+  }, [dispatch]);
+
   const initialValues = {
     email: "",
     phone: "",
@@ -46,13 +58,19 @@ const SignUpForm = () => {
   });
 
   const onSubmit = (values) => {
-    const responsess = post("/account/sign-up", values, {}, {})
-      .then((data) => alert(data.data.message))
-      .catch((err) => alert(err.response.data.message));
-    const test = LocalStorageUtils.getUser();
-    console.log("token:", test);
+    dispatch(register(values))
+      .unwrap()
+      .then(() => {
+        navigate("/home");
+        window.location.reload();
+      })
+      .catch(() => {});
+
     console.log("Form data", values);
   };
+  if (isLoggedIn) {
+    return <Navigate to="/home" />;
+  }
   return (
     <Formik
       initialValues={initialValues}

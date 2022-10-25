@@ -1,6 +1,21 @@
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-
+import { Button } from "@mui/material";
+export const ShopButton = styled(Button)(({ theme }) => ({
+  backgroundColor: "#ffffff",
+  color: "dark",
+  background: "white",
+  fontSize: "10px",
+  lineHegiht: "16px",
+  maxWidth: 200,
+  width: 200,
+  // filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
+  padding: "8px 12px",
+  "&:hover": {
+    background: "white",
+    filter: "drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))",
+  },
+}));
 export const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "white",
   "& .MuiInputBase-input": {
@@ -43,8 +58,7 @@ export const SearchIconWrapper = styled("div")(({ theme }) => ({
 }));
 
 export const RightToolbar = styled("div")(() => ({
-  maxWidth: 300,
-  width: 250,
+  maxWidth: 250,
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",

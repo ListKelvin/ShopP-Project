@@ -22,9 +22,11 @@ export const Logo = styled.img`
   }
 `;
 
-export const Header = styled.header`
+export const Container = styled.div`
   min-height: 100vh;
   display: flex;
+  margin-top: 120px;
+  padding: 30px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -34,4 +36,18 @@ export const Header = styled.header`
 
 export const Link = styled.a`
   color: #61dafb;
+`;
+
+export const ProductWrapper = styled.div`
+  /* display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 20px;
+  row-gap: 50px; */
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  /* justify-content: space-between; */
 `;
