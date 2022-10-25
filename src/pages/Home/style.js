@@ -46,6 +46,8 @@ export const ProductWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
   /* justify-content: space-between; */
 `;

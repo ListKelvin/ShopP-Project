@@ -13,26 +13,27 @@ const products = [
   { id: 3, name: "T-shirt blue", price: "$60", rate: 2, sold: 30 },
   { id: 1, name: "bug", price: "$1000", rate: 2, sold: 30 },
   { id: 2, name: "bug", price: "$0", rate: 5, sold: 1000 },
+  { id: 9, name: "bugFree", price: "$90", rate: 3, sold: 900 },
+  { id: 10, name: "cake", price: "$120", rate: 1, sold: 30 },
+  { id: 11, name: "cakeBug", price: "$10", rate: 4.5, sold: 10 },
+  { id: 12, name: "deadline", price: "$1020", rate: 5, sold: 100 },
 ];
 const Home = () => {
   return (
     <>
-      <AppAppBar />
-      <Container>
-        <ProductWrapper>
-          {products.map(({ name, price, rate, sold, id }) => {
-            return (
-              <ProductCard
-                key={id}
-                name={name}
-                price={price}
-                rate={rate}
-                sold={sold}
-              />
-            );
-          })}
-        </ProductWrapper>
-      </Container>
+      <ProductWrapper>
+        {products.map(({ name, price, rate, sold, id }) => {
+          return (
+            <ProductCard
+              key={id}
+              name={name}
+              price={price}
+              rate={rate}
+              sold={sold}
+            />
+          );
+        })}
+      </ProductWrapper>
     </>
   );
 };

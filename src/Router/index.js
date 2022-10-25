@@ -6,10 +6,11 @@ import SignInComponent from "../pages/sign-in/sign-in.component";
 import SignUp from "../pages/sign-up/sign-up.component";
 import Home from "../pages/Home";
 import RegisterInfor from "../pages/registerInfor/RegisterInfor";
+import LayoutComponent from "../Component/layout/Layout.component";
 const publicRoute = [
   {
     path: "home",
-    component: <Home />,
+    component: <LayoutComponent />,
     exact: true,
     restrict: true,
   },

@@ -7,6 +7,7 @@ import { BaseButton, OutlinedButton } from "../../Component/Button.styles";
 import { Box } from "@mui/system";
 import { LinkStyle } from "../sign-up/Components/SignUpForm.styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import LockIcon from "@mui/icons-material/Lock";
 import { useNavigate, Navigate } from "react-router-dom";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
@@ -14,6 +15,8 @@ import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { login } from "../../slices/auth";
 import { clearMessage } from "../../slices/message";
+import PersonIcon from "@mui/icons-material/Person";
+import InputAdornment from "@mui/material/InputAdornment";
 import * as Yup from "yup";
 const SignInComponent = () => {
   const navigate = useNavigate();
@@ -126,6 +129,14 @@ const SignInComponent = () => {
                     <FormikControl
                       // control="input"
                       control="MuiInput"
+                      placeholder="example@gmail.com"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <PersonIcon />
+                          </InputAdornment>
+                        ),
+                      }}
                       label="Email"
                       name="email"
                     />
@@ -133,16 +144,43 @@ const SignInComponent = () => {
                       // control="input"
                       control="MuiInput"
                       type="password"
+                      placeholder="asdQE123!@#"
                       // <FormikControl
                       //   control="select"
                       //   label="Sign In With "
                       //   name="phoneOrEmail"
                       //   options={options}
                       // />
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <LockIcon />
+                          </InputAdornment>
+                        ),
+                      }}
                       label="Password"
                       name="password"
                     />
-
+                    <Grid container sx={{ justifyContent: "space-between" }}>
+                      <Grid item>
+                        <FormikControl
+                          control="checkbox"
+                          label="Remember me"
+                          labelPlacement="start"
+                          sx={{
+                            fontFamily: "Open Sans",
+                            fontStyle: "normal",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            marginLeft: "0px",
+                            lineHeight: "21px",
+                          }}
+                        />
+                      </Grid>
+                      <Grid item sx={{ display: "flex", alignItems: "center" }}>
+                        <Link href="#">Forgot password?</Link>
+                      </Grid>
+                    </Grid>
                     <BaseButton
                       variant="contained"
                       type="submit"
@@ -172,12 +210,10 @@ const SignInComponent = () => {
                         Continue without Sign in
                       </OutlinedButton>
                     </LinkStyle>
-                    <Grid container>
-                      <Grid item xs>
-                        <Link href="#" variant="body2">
-                          Forgot password?
-                        </Link>
-                      </Grid>
+                    <Grid
+                      container
+                      sx={{ justifyContent: "center", marginTop: "10px" }}
+                    >
                       <Grid item>
                         <Link href="#" variant="body2">
                           {"Don't have an account? Sign Up"}

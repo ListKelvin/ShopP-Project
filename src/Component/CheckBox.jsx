@@ -7,9 +7,6 @@ import FormHelperText from "@mui/material/FormHelperText";
 
 const CheckBox = ({ name, label, ...rest }) => {
   return (
-    // <input type="checkbox" {...field} {...rest} />
-    // <Checkbox checked={gilad} onChange={handleChange} name="gilad" />
-    // <label>{label}</label>
     <div className="form-control">
       <Field name={name}>
         {({ field, form, meta }) => {
@@ -18,6 +15,7 @@ const CheckBox = ({ name, label, ...rest }) => {
               <FormControlLabel
                 control={<Checkbox color="success" {...field} {...rest} />}
                 label={label}
+                {...rest}
               />
               <FormHelperText
                 error={meta.touched && form.errors[name] ? true : false}
