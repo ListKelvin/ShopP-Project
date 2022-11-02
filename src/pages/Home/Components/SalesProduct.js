@@ -1,31 +1,48 @@
 import React from "react";
+import { Typography, Box } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Rating from "@mui/material/Rating";
-import { Box } from "@mui/system";
 import Chip from "@mui/material/Chip";
-import Typography from "@mui/material/Typography";
-import Img from "../../assets/Product/download.jpg";
-const ProductCard = ({ rate, price, sold, name }) => {
-  const [value, setValue] = React.useState(rate);
+import Img from "../../../assets/Product/image 161.png";
+import { styled } from "@mui/material/styles";
+
+import LinearProgress, {
+  linearProgressClasses,
+} from "@mui/material/LinearProgress";
+
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 20,
+  borderRadius: "20px",
+  [`&.${linearProgressClasses.colorPrimary}`]: {
+    backgroundColor:
+      theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
+  },
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: "20px",
+    backgroundColor: theme.palette.mode === "light" ? "#FC5555" : "FC5555",
+  },
+}));
+
+const SalesProduct = ({ name, price, rate, amountSell, progress }) => {
   return (
-    <Card sx={{ maxWidth: 180 }}>
+    <Card sx={{ maxWidth: 160 }}>
       <Box
         component="div"
-        sx={{ background: "#ffffff", padding: "10px", height: "140px" }}
+        sx={{ background: "#ffffff", padding: "10px", height: "130px" }}
       >
         <CardMedia
           sx={{ borderRadius: "10px" }}
           component="img"
           // src={Img}
-          height="140"
+          height="130"
           image={Img}
           alt="green iguana"
         />
       </Box>
 
-      <CardContent>
+      <CardContent sx={{ paddingBottom: "0px" }}>
         <Typography variant="body2" color="text.primary">
           {name}
         </Typography>
@@ -39,14 +56,12 @@ const ProductCard = ({ rate, price, sold, name }) => {
         >
           <Rating
             name="simple-controlled"
-            value={value}
+            value={rate}
             sx={{ fontSize: "14px" }}
             precision={0.5}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
+            readOnly
           />
-          <div style={{ fontSize: "12px" }}>{sold} sold</div>
+          <div style={{ fontSize: "12px" }}>{amountSell} sold</div>
         </Box>
         <Box
           sx={{
@@ -54,6 +69,7 @@ const ProductCard = ({ rate, price, sold, name }) => {
             justifyContent: "space-between",
             alignItems: "center",
             width: "130px",
+            marginBottom: "10px",
           }}
         >
           <span
@@ -75,15 +91,10 @@ const ProductCard = ({ rate, price, sold, name }) => {
             }}
           />
         </Box>
+        <BorderLinearProgress variant="determinate" value={progress} />
       </CardContent>
     </Card>
   );
 };
-//{" "}
-// <CardActions>
-// <Button size="small">Share</Button>
-// <Button size="small">Learn More</Button>
-//{" "}
-// </CardActions>;
 
-export default ProductCard;
+export default SalesProduct;

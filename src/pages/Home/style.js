@@ -39,15 +39,21 @@ export const Link = styled.a`
 `;
 
 export const ProductWrapper = styled.div`
-  /* display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 20px;
-  row-gap: 50px; */
+  // display: grid;
+  // grid-template-columns: repeat(8, 1fr);
+  // // column-gap: 20px;
+  // // row-gap: 10px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  // flex-flow: row wrap;
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
   margin-bottom: 10px;
   /* justify-content: space-between; */
+`;
+export const AlignCenter = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
