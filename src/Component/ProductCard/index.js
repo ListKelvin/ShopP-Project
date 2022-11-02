@@ -10,16 +10,16 @@ import Img from "../../assets/Product/download.jpg";
 const ProductCard = ({ rate, price, sold, name }) => {
   const [value, setValue] = React.useState(rate);
   return (
-    <Card sx={{ maxWidth: 160 }}>
+    <Card sx={{ maxWidth: 180 }}>
       <Box
         component="div"
-        sx={{ background: "#ffffff", padding: "10px", height: "130px" }}
+        sx={{ background: "#ffffff", padding: "10px", height: "140px" }}
       >
         <CardMedia
           sx={{ borderRadius: "10px" }}
           component="img"
           // src={Img}
-          height="130"
+          height="140"
           image={Img}
           alt="green iguana"
         />

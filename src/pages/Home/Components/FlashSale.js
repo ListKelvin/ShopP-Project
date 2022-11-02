@@ -90,6 +90,8 @@ const FlashSale = () => {
         width: "100%",
         borderRadius: "5px",
         height: "100%",
+        overflowX: "scroll",
+
         marginBottom: "10px",
         padding: "10px 20px",
       }}
@@ -139,7 +141,7 @@ const FlashSale = () => {
         style={{
           width: "100%",
           display: "flex",
-          flexWrap: "wrap",
+          // flexWrap: "wrap",
           justifyContent: "center",
           gap: "10px",
         }}

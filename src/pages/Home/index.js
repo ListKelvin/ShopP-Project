@@ -3,7 +3,7 @@ import { Container } from "./style";
 import AppAppBar from "../../Component/NavBar";
 import ProductCard from "../../Component/ProductCard";
 import Stack from "@mui/material/Stack";
-import { ProductWrapper } from "./style";
+import { ProductWrapper, AlignCenter } from "./style";
 import SuggestContainer from "./Components/CategoryFilter";
 import Branding from "./Components/Branding";
 import FlashSale from "./Components/FlashSale";
@@ -34,6 +34,7 @@ const Home = () => {
       </Box>
       <CategoryContainer />
       <SuggestContainer />
+
       <ProductWrapper>
         {products.map(({ name, price, rate, sold, id }) => {
           return (

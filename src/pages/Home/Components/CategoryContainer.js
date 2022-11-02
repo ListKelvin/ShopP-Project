@@ -151,9 +151,10 @@ const CategoryContainer = () => {
           background: "#B6E3E3",
           width: "100%",
           display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "20px",
+
+          justifyContent: "left",
+          // gap: "10px",
+          overflowX: "scroll",
         }}
       >
         {SuggestList.map(({ id, label }) => {

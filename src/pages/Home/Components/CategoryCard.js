@@ -6,6 +6,8 @@ const CategoryCard = ({ label }) => {
     <div
       className=""
       style={{
+        minWidth: 120,
+        padding: "10px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -14,8 +16,8 @@ const CategoryCard = ({ label }) => {
     >
       <Box
         sx={{
-          width: "60px",
-          height: "60px",
+          width: "70px",
+          height: "70px",
           background: "#55ABAB",
           display: "flex",
           justifyContent: "center",
@@ -33,6 +35,7 @@ const CategoryCard = ({ label }) => {
           fontWeight: 400,
           fontSize: "12px",
           lineHeight: "14px",
+          width: "fit-content",
         }}
       >
         {label}

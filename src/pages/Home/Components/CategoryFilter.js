@@ -61,7 +61,9 @@ const SuggestContainer = ({ label }) => {
           flexDirection: "row",
           // padding: "20px 30px",
           background: "#B6E3E3",
+          overflowX: "scroll",
 
+          gap: "10px",
           justifyContent: "space-around",
           alignItems: "center",
         }}
