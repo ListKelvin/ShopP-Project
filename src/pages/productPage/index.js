@@ -5,10 +5,10 @@ const ProductPage = () => {
   return (
     <>
       <Grid container>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           <Carousel2 />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           <ProductInfo />
         </Grid>
       </Grid>
