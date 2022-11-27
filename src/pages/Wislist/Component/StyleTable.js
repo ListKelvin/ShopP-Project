@@ -42,10 +42,12 @@ export const ActionWidth = styled.th`
 
 export const Image = styled.th`
     width: 20%;
+    height: 90px;
 `;
 export const ProductName = styled.th`
     width: 30%;
     word-break: keep-all;
+    font-weight: 400;
 `;
 
 export const Select = styled.th`
@@ -57,8 +59,9 @@ export const Delete = styled.th`
 `;
 
 export const spaceBreak = styled.tr`
+    width: 100%;
     height: 20px;
-    color: white;
+    color: ccc;
 `;
 
 export const ProductStyle = styled.tr`
@@ -68,4 +71,8 @@ export const ProductStyle = styled.tr`
 export const FooterStyle = styled.tr`
     background-color: #B6E3E3;
     border-bottom: 3px solid #55ABAB;
+`;
+
+export const Typo = styled.span`
+    font-weight: 400;
 `;

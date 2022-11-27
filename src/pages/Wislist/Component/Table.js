@@ -1,4 +1,4 @@
-import {TableStyle, BodyStyle, Header, ShopStyle, CheckBoxStyle, ProductWidth, PriceWidth, LikeWidth, ActionWidth,Select, Delete, spaceBreak, FooterStyle, ProductStyle} from "./StyleTable"
+import {TableStyle, BodyStyle, Header, ShopStyle, CheckBoxStyle, ProductWidth, PriceWidth, LikeWidth, ActionWidth,Select, Delete, spaceBreak, FooterStyle, ProductStyle, Typo} from "./StyleTable"
 import {Checkboxes, Checkbox2 } from "./CheckBox";
 import React from 'react';
 import AddToCartButton from './AddToCart';
@@ -9,22 +9,22 @@ const Shops = [
 const TableWishlist = () => {
     return (
         <>
-            <TableStyle>
+            <TableStyle >
                 <thead>
                     <Header>
-                        <CheckBoxStyle><Checkboxes/></CheckBoxStyle>
+                        <CheckBoxStyle style = {{borderRadius: "5px 0 0 5px"}}><Checkboxes/></CheckBoxStyle>
                         <ProductWidth>Products</ProductWidth>
                         <PriceWidth>Price</PriceWidth>
                         <LikeWidth>Liked by</LikeWidth>
-                        <ActionWidth>Action</ActionWidth>
+                        <ActionWidth style = {{borderRadius: "0 5px 5px 0"}}>Action</ActionWidth>
                     </Header>
                 </thead>
                 <BodyStyle>
-                    <spaceBreak><span style = {{color: "white"}}>a</span></spaceBreak>
+                    <spaceBreak><div style = {{background: "fafafa", height: "30px"}}></div></spaceBreak>
                     
                 {Shops.map(({shopName, id}) => {
                     return (
-                    <ShopStyle>
+                    <ShopStyle key = {id}>
                         <CheckBoxStyle><Checkbox2/></CheckBoxStyle>
                         <ProductWidth>{shopName}</ProductWidth>
                         <th></th>
@@ -33,24 +33,18 @@ const TableWishlist = () => {
                     </ShopStyle>
                     
                 );})}
-                    <ProductStyle>
-                        <Product/>
-                    </ProductStyle>
-                    <ProductStyle>
-                        <Product/>
-                    </ProductStyle>
-                    <ProductStyle>
-                        <Product/>
-                    </ProductStyle>
+                
+                    <Product/>
                     <FooterStyle>
                         <CheckBoxStyle><Checkbox2/></CheckBoxStyle>
                         <ProductWidth>
-                            <Select>Select all (quantity)</Select>
-                            <Delete><a href="url" style = {{
+                            <Select><Typo>Select all (0)</Typo></Select>
+                            <Delete><Typo><a href="url" style = {{
                                 color: "red",
                                 textDecoration: "none"}} >
                                 Delete
-                            </a></Delete>
+                            </a></Typo></Delete>
+                            <Select></Select>
                             <Select></Select>
                             <Select></Select>
                         </ProductWidth>
