@@ -11,6 +11,7 @@ export const register = createAsyncThunk(
     try {
       const response = await AuthService.register(formdata);
       thunkAPI.dispatch(setMessage(response.data.message));
+      console.log(response.data.message);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -32,6 +33,7 @@ export const login = createAsyncThunk(
   async (formdata, thunkAPI) => {
     try {
       const data = await AuthService.login(formdata);
+      console.log(data);
       return { user: data };
     } catch (error) {
       const message =

@@ -18,13 +18,14 @@ import { clearMessage } from "../../slices/message";
 import PersonIcon from "@mui/icons-material/Person";
 import InputAdornment from "@mui/material/InputAdornment";
 import * as Yup from "yup";
+
 const SignInComponent = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.message);
-  console.log(message);
+
   useEffect(() => {
     dispatch(clearMessage());
   }, [dispatch]);
@@ -74,8 +75,8 @@ const SignInComponent = () => {
     dispatch(login(data2))
       .unwrap()
       .then(() => {
-        navigate("/home");
-        window.location.reload();
+        // navigate("/home");
+        // window.location.reload();
       })
       .catch(() => {
         setLoading(false);
@@ -83,9 +84,9 @@ const SignInComponent = () => {
 
     console.log("Form data", values);
   };
-  if (isLoggedIn) {
-    return <Navigate to="/home" />;
-  }
+  // if (isLoggedIn) {
+  //   return <Navigate to="/home" />;
+  // }
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
