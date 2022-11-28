@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import useMediaQuery from "./Component/Responsive";
+import { up, down, between, only, createTheme } from 'styled-breakpoints';
 export const TableStyle = styled.table `
     border-collapse: collapse;
     font-size: 1em;
@@ -54,20 +54,6 @@ export const WishlistIcon = styled.div`
   height: 250px;
   color: yellow;
 `;
-export default function useBreakpoints() {
-  const breakpoints = {
-    isXs: useMediaQuery("(max-width: 640px)"),
-    isSm: useMediaQuery("(min-width: 641px) and (max-width: 768px)"),
-    isMd: useMediaQuery("(min-width: 769px) and (max-width: 1024px)"),
-    isLg: useMediaQuery("(min-width: 1025px)"),
-    active: "xs"
-  };
-  if (breakpoints.isXs) breakpoints.active = "xs";
-  if (breakpoints.isSm) breakpoints.active = "sm";
-  if (breakpoints.isMd) breakpoints.active = "md";
-  if (breakpoints.isLg) breakpoints.active = "lg";
-  return breakpoints;
-};
 
 export const Container = styled.div`
   display: flex;
@@ -75,3 +61,10 @@ export const Container = styled.div`
   align-items: center;
   margin-top: 100px;
   `;
+
+export const theme = createTheme({
+  sm: '302px',
+  md: '768px',
+  lg: '900',
+  xl: '980',
+});

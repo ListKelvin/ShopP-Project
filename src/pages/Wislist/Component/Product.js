@@ -1,6 +1,7 @@
 import {CheckBoxStyle, ProductWidth, PriceWidth, LikeWidth, ActionWidth, Image, ProductName, Typo, ProductStyle} from "./StyleTable";
 import ImgBrand from "../../../assets/Branding/image 163.png";
 import {Checkbox2 } from "./CheckBox";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const Products = [
     {id: 0, name: "[Mã ELHA9 giảm 15% đơn 50K] Chuột Không Dây Màu Hồng / Đen/ Xám/ Xanh ngọc Forter V182 - Hàng Chính Hãng", price: "$2900", liked: "3000"},
@@ -21,9 +22,7 @@ export const Product = () => {
             </ProductWidth>
             <PriceWidth><Typo>{price}</Typo></PriceWidth>
             <LikeWidth><Typo>{liked}</Typo></LikeWidth>
-            <ActionWidth><Typo><a href="url" style = {{
-                color: "red",
-                textDecoration: "none"}} >Delete</a></Typo></ActionWidth>
+            <ActionWidth><DeleteIcon style = {{color: "#FF5C5C"}}/></ActionWidth>
         </ProductStyle>
         );})}
         </>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { up, down, between, only, createTheme } from 'styled-breakpoints';
 export const TableStyle = styled.table `
     border-collapse: collapse;
     font-size: 16px;
@@ -41,11 +42,11 @@ export const ActionWidth = styled.th`
 `;
 
 export const Image = styled.th`
-    width: 20%;
+    width: 10%;
     height: 90px;
 `;
 export const ProductName = styled.th`
-    width: 30%;
+    width: 50%;
     word-break: keep-all;
     font-weight: 400;
 `;
@@ -82,3 +83,12 @@ export const Disable = styled.tr`
   background-color: #dddddd;
   cursor: not-allowed;
 `;
+
+
+export const theme = createTheme({
+    sm: '302px',
+    md: '768px',
+    lg: '900',
+    xl: '980',
+  });
+  

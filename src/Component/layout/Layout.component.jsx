@@ -7,7 +7,7 @@ const LayoutComponent = ({ children }) => {
   return (
     <>
       <AppAppBar />
-      <ContainerStyled maxWidth="xl" sx={{ brackground: "#ECECEC" }}>
+      <ContainerStyled maxWidth={false}>
         <CssBaseline />
         <Outlet />
       </ContainerStyled>

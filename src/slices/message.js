@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { injectReducer } from "../store/store";
+import { injectReducer } from "../store/store";
 const initialState = {};
 export const name = "message";
 const messageSlice = createSlice({
@@ -15,8 +15,8 @@ const messageSlice = createSlice({
   },
 });
 
-const { reducer, actions } = messageSlice;
-// injectReducer(name, messageSlice.reducer);
+const { actions } = messageSlice;
+injectReducer(name, messageSlice.reducer);
 
 export const { setMessage, clearMessage } = actions;
-export default reducer;
+export default messageSlice;

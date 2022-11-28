@@ -1,6 +1,6 @@
 import ProductCard from "../../Component/ProductCard";
 import { ProductWrapper, AlignCenter } from "./style";
-
+import { Link } from "react-router-dom";
 import SuggestContainer from "./Components/CategoryFilter";
 import Branding from "./Components/Branding";
 import Branding02 from "./Components/Branding02";
@@ -37,13 +37,15 @@ const Home = () => {
       <ProductWrapper>
         {products.map(({ name, price, rate, sold, id }) => {
           return (
-            <ProductCard
-              key={id}
-              name={name}
-              price={price}
-              rate={rate}
-              sold={sold}
-            />
+            <Link to="/productPage">
+              <ProductCard
+                key={id}
+                name={name}
+                price={price}
+                rate={rate}
+                sold={sold}
+              />
+            </Link>
           );
         })}
       </ProductWrapper>

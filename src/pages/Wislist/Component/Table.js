@@ -1,4 +1,4 @@
-import {TableStyle, BodyStyle, Header, ShopStyle, CheckBoxStyle, ProductWidth, PriceWidth, LikeWidth, ActionWidth,Select, Delete, spaceBreak, FooterStyle, ProductStyle, Typo, Disable} from "./StyleTable"
+import {TableStyle, BodyStyle, Header, ShopStyle, CheckBoxStyle, ProductWidth, PriceWidth, LikeWidth, ActionWidth,Select, Delete, spaceBreak, FooterStyle, ProductStyle, Typo, Disable, createTheme} from "./StyleTable"
 import {Checkboxes, Checkbox2 } from "./CheckBox";
 import React from 'react';
 import AddToCartButton from './AddToCart';
@@ -59,4 +59,6 @@ const TableWishlist = () => {
         </>
     )
 }
+
+
 export default TableWishlist;
