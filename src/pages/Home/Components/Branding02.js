@@ -1,7 +1,6 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import { CardMedia } from "@mui/material";
 import ImgBrand from "../../../assets/Branding/image 163.png";
 import ImgBrand2 from "../../../assets/Branding/image 67.png";
 const Branding = () => {
@@ -14,11 +13,9 @@ const Branding = () => {
         <Box
           sx={{ display: "flex", alignItems: "center", marginBottom: "10px" }}
         >
-          <img src={ImgBrand} width="100%" alt="" />
+          // content
         </Box>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <img src={ImgBrand} width="100%" height="100%" alt="" />
-        </Box>
+        <Box sx={{ display: "flex", alignItems: "center" }}>//content</Box>
       </Grid>
     </Grid>
   );
