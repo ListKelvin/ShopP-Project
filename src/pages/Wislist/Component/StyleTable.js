@@ -76,3 +76,9 @@ export const FooterStyle = styled.tr`
 export const Typo = styled.span`
     font-weight: 400;
 `;
+
+
+export const Disable = styled.tr`
+  background-color: #dddddd;
+  cursor: not-allowed;
+`;

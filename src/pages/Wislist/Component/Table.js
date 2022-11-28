@@ -1,8 +1,9 @@
-import {TableStyle, BodyStyle, Header, ShopStyle, CheckBoxStyle, ProductWidth, PriceWidth, LikeWidth, ActionWidth,Select, Delete, spaceBreak, FooterStyle, ProductStyle, Typo} from "./StyleTable"
+import {TableStyle, BodyStyle, Header, ShopStyle, CheckBoxStyle, ProductWidth, PriceWidth, LikeWidth, ActionWidth,Select, Delete, spaceBreak, FooterStyle, ProductStyle, Typo, Disable} from "./StyleTable"
 import {Checkboxes, Checkbox2 } from "./CheckBox";
 import React from 'react';
 import AddToCartButton from './AddToCart';
 import Product from "./Product";
+import ProDis from "./ProductDisable";
 const Shops = [
     {id: 0, shopName: "Computer and Accessories"},
   ];
@@ -35,6 +36,7 @@ const TableWishlist = () => {
                 );})}
                 
                     <Product/>
+                    <ProDis />
                     <FooterStyle>
                         <CheckBoxStyle><Checkbox2/></CheckBoxStyle>
                         <ProductWidth>
