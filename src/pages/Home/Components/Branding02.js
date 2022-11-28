@@ -7,7 +7,7 @@ const Branding = () => {
   return (
     <Grid container spacing={2} sx={{ marginBottom: "20px" }}>
       <Grid item xs={8}>
-        <img src={ImgBrand2} width="100%" height="100%" alt="" srcset="" />
+        <img src={ImgBrand2} width="100%" height="100%" alt="" />
       </Grid>
       <Grid item xs={4}>
         <Box

@@ -59,10 +59,10 @@ const SignUpForm = () => {
   });
 
   const onSubmit = (values) => {
-    dispatch(register(values))
+    dispatch(register(values, navigate))
       .unwrap()
       .then(() => {
-        navigate("/home");
+        navigate("/signIn");
         window.location.reload();
       })
       .catch(() => {});

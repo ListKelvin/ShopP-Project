@@ -1,7 +1,7 @@
 import { ProductName, ProductEvaluated } from "../styled";
 import CountDown from "../../../Component/Countdown/CountDown";
 import { ReactComponent as FlashIcon } from "../../../assets/image 68.svg";
-
+import { getAllProduct } from "../../../utils/productApi";
 const ProductInfo = () => {
   return (
     <>
@@ -51,7 +51,21 @@ const ProductInfo = () => {
         </div>
       </div>
       <div> Shop Voucher</div>
-      <div> Ship</div>
+      <button
+        onClick={() => {
+          const data = getAllProduct()
+            .then((category) => {
+              console.log(category);
+              return category;
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }}
+      >
+        {" "}
+        click me{" "}
+      </button>
       <div>
         <div> additional infor</div>
       </div>
