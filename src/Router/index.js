@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-
+import MenuSetting from "../Component/MenuSetting";
+import ProductFilter from "../Component/productFillter";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import SignInComponent from "../pages/sign-in/sign-in.component";
@@ -36,6 +37,20 @@ const publicRoute = [
     index: false,
     path: "productPage",
     component: <ProductPage />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "menusetting",
+    component: <MenuSetting />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "productfilter",
+    component: <ProductFilter />,
     exact: true,
     restrict: true,
   },
