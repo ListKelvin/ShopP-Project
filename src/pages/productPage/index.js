@@ -11,7 +11,6 @@ const ProductPage = () => {
   const dispatch = useDispatch();
   //getProducts
   const getProducts = async (url) => {
-    console.log(url);
     dispatch(productsReducer({ type: "SET_LOADING" }));
     try {
       const res = await axios.get(url);

@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
 import ImgCatergory from "../../../assets/Category/image 75.png";
-const CategoryCard = ({ label }) => {
+const CategoryCard = ({ label, img }) => {
   return (
     <div
       className=""
@@ -26,7 +26,7 @@ const CategoryCard = ({ label }) => {
           marginBottom: "5px",
         }}
       >
-        <img src={ImgCatergory} width={40} height={40} alt="" />
+        <img src={img.path} width={40} height={40} alt="" />
       </Box>
       <Typography
         sx={{

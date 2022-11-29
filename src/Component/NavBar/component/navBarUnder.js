@@ -9,6 +9,9 @@ import MenuItem from "@mui/material/MenuItem";
 import { OutlinedButton, BaseButton } from "../../Button.styles";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
+import AvaUnknown from "../../../assets/Avaunknow/istockphoto-1223671392-612x612.jpg";
+import Stack from "@mui/material/Stack";
 import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 const NavBarUnder = ({ pages }) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -18,7 +21,9 @@ const NavBarUnder = ({ pages }) => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-  const token = LocalStorageUtils.getToken();
+  const token = LocalStorageUtils.getUser();
+  const { email } = token;
+
   return (
     <Toolbar>
       <Box
@@ -95,7 +100,18 @@ const NavBarUnder = ({ pages }) => {
           }}
         >
           {token ? (
-            <p> this is ava</p>
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <Avatar
+                alt="Unknown user"
+                src={AvaUnknown}
+                sx={{ width: 32, height: 32 }}
+              />
+              <Typography sx={{ color: "dark" }}>{email}</Typography>
+            </Stack>
           ) : (
             <>
               {" "}
