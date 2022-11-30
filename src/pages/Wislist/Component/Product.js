@@ -1,4 +1,4 @@
-import {CheckBoxStyle, ProductWidth, PriceWidth, LikeWidth, ActionWidth, Image, ProductName, Typo, ProductStyle} from "./StyleTable";
+import {CheckBoxStyle, ProductWidth, OtherWidth, Image, ProductName, Typo, ProductStyle, ImageItem, ResponProduct} from "./StyleTable";
 import ImgBrand from "../../../assets/Branding/image 163.png";
 import {Checkbox2 } from "./CheckBox";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,13 +16,13 @@ export const Product = () => {
         return (
         <ProductStyle key = {id}>
         <CheckBoxStyle><Checkbox2/></CheckBoxStyle>
-            <ProductWidth>
-                <Image><img src={ImgBrand} width="136px" height= "70px" alt="" style = {{verticalAlign: "middle", borderRadius: "3px"}}/></Image>
+            <ResponProduct>
+                <Image><ImageItem src={ImgBrand} alt=""/></Image>
                 <ProductName>{name}</ProductName>
-            </ProductWidth>
-            <PriceWidth><Typo>{price}</Typo></PriceWidth>
-            <LikeWidth><Typo>{liked}</Typo></LikeWidth>
-            <ActionWidth><DeleteIcon style = {{color: "#FF5C5C"}}/></ActionWidth>
+            </ResponProduct>
+            <OtherWidth><Typo>{price}</Typo></OtherWidth>
+            <OtherWidth><Typo>{liked}</Typo></OtherWidth>
+            <OtherWidth><DeleteIcon style = {{color: "#FF5C5C"}}/></OtherWidth>
         </ProductStyle>
         );})}
         </>

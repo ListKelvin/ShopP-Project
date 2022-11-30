@@ -1,4 +1,4 @@
-import {CheckBoxStyle, ProductWidth, PriceWidth, LikeWidth, ActionWidth, Image, ProductName, Typo, ProductStyle, Disable} from "./StyleTable";
+import {CheckBoxStyle, ProductWidth, OtherWidth, Image, ProductName, Typo, ProductStyle, Disable, TypoSoldOut, ImageItem} from "./StyleTable";
 import ImgBrand from "../../../assets/Branding/image 163.png";
 import {CheckboxDis } from "./CheckBox";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,16 +16,16 @@ const ProDis = ({disabled}) => {
         <ProductStyle key = {id}>
         <CheckBoxStyle style = {{cursor: "not-allowed"}}><CheckboxDis/></CheckBoxStyle>
             <ProductWidth>
-                <Image style = {{ opacity: "0.6" }}><img src={ImgBrand} width="136px" height= "70px" alt="" style = {{verticalAlign: "middle", borderRadius: "3px"}}/>
+                <Image style = {{ opacity: "0.6" }}><ImageItem src={ImgBrand}/>
                 
                 </Image>
                 <ProductName style = {{ opacity: "0.6" }}>{name}
-                <div style = {{color: "red", fontSize: "14px"}}>This item is sold out. Please choose another item!</div>
+                <TypoSoldOut>This item is sold out. Please choose another item!</TypoSoldOut>
                 </ProductName>
             </ProductWidth>
-            <PriceWidth><Typo style = {{ opacity: "0.6"}}>{price}</Typo></PriceWidth>
-            <LikeWidth><Typo>{liked}</Typo></LikeWidth>
-            <ActionWidth><DeleteIcon style = {{color: "#FF5C5C"}}/></ActionWidth>
+            <OtherWidth><Typo style = {{ opacity: "0.6"}}>{price}</Typo></OtherWidth>
+            <OtherWidth><Typo>{liked}</Typo></OtherWidth>
+            <OtherWidth><DeleteIcon style = {{color: "#FF5C5C"}}/></OtherWidth>
         </ProductStyle>
         );})}
         </>

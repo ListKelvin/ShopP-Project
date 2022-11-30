@@ -1,5 +1,13 @@
 import styled from "styled-components";
 import { up, down, between, only, createTheme } from 'styled-breakpoints';
+
+export const theme = createTheme({
+  sm: '302px',
+  md: '768px',
+  lg: '900',
+  xl: '980',
+});
+
 export const TableStyle = styled.table `
     border-collapse: collapse;
     font-size: 1em;
@@ -45,26 +53,28 @@ export const EmptyBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   background: #B6E3E3;
   border-radius: 20px;
+  ${down('sm')} {
+    width: 250px;
+    height: 250px;
+  }
 `;
 
-export const WishlistIcon = styled.div`
-  width: 250px;
-  height: 250px;
-  color: yellow;
-`;
 
 export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
   `;
 
-export const theme = createTheme({
-  sm: '302px',
-  md: '768px',
-  lg: '900',
-  xl: '980',
-});
+export const Image = styled.img`
+  width: 200px;
+  height: 200px;
+  ${down('sm')} {
+    width: 140px;
+    height: 140px;
+  }
+`;
+

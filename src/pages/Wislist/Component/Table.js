@@ -1,4 +1,4 @@
-import {TableStyle, BodyStyle, Header, ShopStyle, CheckBoxStyle, ProductWidth, PriceWidth, LikeWidth, ActionWidth,Select, Delete, spaceBreak, FooterStyle, ProductStyle, Typo, Disable, createTheme} from "./StyleTable"
+import {TableStyle, BodyStyle, Header, ShopStyle, CheckBoxStyle, ProductWidth, OtherWidth, Select, Delete, spaceBreak, FooterStyle, ProductStyle, Typo, Disable, createTheme} from "./StyleTable"
 import {Checkboxes, Checkbox2 } from "./CheckBox";
 import React from 'react';
 import AddToCartButton from './AddToCart';
@@ -15,9 +15,9 @@ const TableWishlist = () => {
                     <Header>
                         <CheckBoxStyle style = {{borderRadius: "5px 0 0 5px"}}><Checkboxes/></CheckBoxStyle>
                         <ProductWidth>Products</ProductWidth>
-                        <PriceWidth>Price</PriceWidth>
-                        <LikeWidth>Liked by</LikeWidth>
-                        <ActionWidth style = {{borderRadius: "0 5px 5px 0"}}>Action</ActionWidth>
+                        <OtherWidth>Price</OtherWidth>
+                        <OtherWidth>Liked by</OtherWidth>
+                        <OtherWidth style = {{borderRadius: "0 5px 5px 0"}}>Action</OtherWidth>
                     </Header>
                 </thead>
                 <BodyStyle>
@@ -27,10 +27,7 @@ const TableWishlist = () => {
                     return (
                     <ShopStyle key = {id}>
                         <CheckBoxStyle><Checkbox2/></CheckBoxStyle>
-                        <ProductWidth>{shopName}</ProductWidth>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th colspan= "4" style = {{textAlign: "left"}}>{shopName}</th>
                     </ShopStyle>
                     
                 );})}
@@ -40,7 +37,7 @@ const TableWishlist = () => {
                     <FooterStyle>
                         <CheckBoxStyle><Checkbox2/></CheckBoxStyle>
                         <ProductWidth>
-                            <Select><Typo>Select all (0)</Typo></Select>
+                            <Select><Typo style = {{width: "100px"}}> Select all (0)</Typo></Select>
                             <Delete><Typo><a href="url" style = {{
                                 color: "red",
                                 textDecoration: "none"}} >
@@ -50,9 +47,7 @@ const TableWishlist = () => {
                             <Select></Select>
                             <Select></Select>
                         </ProductWidth>
-                        <th></th>
-                        <th></th>
-                        <th><AddToCartButton/></th>
+                        <th colspan= "3" style = {{textAlign: "right"}}><AddToCartButton/></th>
                     </FooterStyle>
                 </BodyStyle>
             </TableStyle>
