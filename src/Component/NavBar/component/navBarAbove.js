@@ -11,7 +11,7 @@ import StorefrontIcon from "@mui/icons-material/Storefront";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import CartIcon from "./CartIcon";
-
+import { useSelector } from "react-redux";
 import {
   ShopButton,
   StyledInputBase,
@@ -19,8 +19,10 @@ import {
   SearchIconWrapper,
   RightToolbar,
 } from "../style";
-
+import CartDropdown from "../../CartDropDown/CartDropDown";
 const NavBarAbove = () => {
+  const isCartOpen = useSelector(selectIsCartOpen);
+
   return (
     <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
       <Typography
@@ -90,6 +92,7 @@ const NavBarAbove = () => {
             }}
           />
           <CartIcon />
+          {isCartOpen && <CartDropdown />}
         </Box>
         <ShopButton
           variant="contained"

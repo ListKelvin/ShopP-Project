@@ -13,7 +13,7 @@ export const slice = createSlice({
   initialState,
   reducers: {
     setCartOpen: (state, action) => {
-      state.isCartOpen = true;
+      state.isCartOpen = action.payload;
     },
     setCartItems: (state, action) => {
       state.cartItems = action.payload;

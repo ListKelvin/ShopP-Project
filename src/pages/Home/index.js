@@ -13,8 +13,8 @@ import Brand from "../../assets/Branding/image 69.png";
 
 const Home = () => {
   const AllProducts = useSelector(selectProducts);
-  console.log(AllProducts[0].data);
-  const ProductAll = AllProducts[0].data;
+  // console.log(AllProducts[0].data);
+  const ProductAll = AllProducts[0];
   return (
     <>
       <Branding />
@@ -26,15 +26,22 @@ const Home = () => {
       <CategoryContainer />
       <Branding02 />
       <ProductWrapper>
-        {ProductAll.map((el, index) => {
-          const { amount, name, star, sold } = el;
+        {ProductAll != null
+          ? ProductAll.data.map((el, index) => {
+              const { amount, name, star, sold } = el;
 
-          return (
-            <Link to="/productPage" key={index}>
-              <ProductCard name={name} price={amount} rate={star} sold={sold} />
-            </Link>
-          );
-        })}
+              return (
+                <Link to="/productPage" key={index}>
+                  <ProductCard
+                    name={name}
+                    price={amount}
+                    rate={star}
+                    sold={sold}
+                  />
+                </Link>
+              );
+            })
+          : ""}
       </ProductWrapper>
     </>
   );
