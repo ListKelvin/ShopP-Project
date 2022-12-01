@@ -5,19 +5,21 @@ import {
   ShopStyle,
   CheckBoxStyle,
   ProductWidth,
-  PriceWidth,
-  LikeWidth,
-  ActionWidth,
+  OtherWidth,
   Select,
   Delete,
   spaceBreak,
   FooterStyle,
   ProductStyle,
+  Typo,
+  Disable,
+  createTheme,
 } from "./StyleTable";
 import { Checkboxes, Checkbox2 } from "./CheckBox";
 import React from "react";
 import AddToCartButton from "./AddToCart";
 import Product from "./Product";
+import ProDis from "./ProductDisable";
 const Shops = [{ id: 0, shopName: "Computer and Accessories" }];
 const TableWishlist = () => {
   return (
@@ -25,65 +27,63 @@ const TableWishlist = () => {
       <TableStyle>
         <thead>
           <Header>
-            <CheckBoxStyle>
+            <CheckBoxStyle style={{ borderRadius: "5px 0 0 5px" }}>
               <Checkboxes />
             </CheckBoxStyle>
             <ProductWidth>Products</ProductWidth>
-            <PriceWidth>Price</PriceWidth>
-            <LikeWidth>Liked by</LikeWidth>
-            <ActionWidth>Action</ActionWidth>
+            <OtherWidth>Price</OtherWidth>
+            <OtherWidth>Liked by</OtherWidth>
+            <OtherWidth style={{ borderRadius: "0 5px 5px 0" }}>
+              Action
+            </OtherWidth>
           </Header>
         </thead>
         <BodyStyle>
           <spaceBreak>
-            <span style={{ color: "white" }}>a</span>
+            <div style={{ background: "fafafa", height: "30px" }}></div>
           </spaceBreak>
 
           {Shops.map(({ shopName, id }) => {
             return (
-              <ShopStyle>
+              <ShopStyle key={id}>
                 <CheckBoxStyle>
                   <Checkbox2 />
                 </CheckBoxStyle>
-                <ProductWidth>{shopName}</ProductWidth>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th colspan="4" style={{ textAlign: "left" }}>
+                  {shopName}
+                </th>
               </ShopStyle>
             );
           })}
-          <ProductStyle>
-            <Product />
-          </ProductStyle>
-          <ProductStyle>
-            <Product />
-          </ProductStyle>
-          <ProductStyle>
-            <Product />
-          </ProductStyle>
+
+          <Product />
+          <ProDis />
           <FooterStyle>
             <CheckBoxStyle>
               <Checkbox2 />
             </CheckBoxStyle>
             <ProductWidth>
-              <Select>Select all (quantity)</Select>
+              <Select>
+                <Typo style={{ width: "100px" }}> Select all (0)</Typo>
+              </Select>
               <Delete>
-                <a
-                  href="url"
-                  style={{
-                    color: "red",
-                    textDecoration: "none",
-                  }}
-                >
-                  Delete
-                </a>
+                <Typo>
+                  <a
+                    href="url"
+                    style={{
+                      color: "red",
+                      textDecoration: "none",
+                    }}
+                  >
+                    Delete
+                  </a>
+                </Typo>
               </Delete>
               <Select></Select>
               <Select></Select>
+              <Select></Select>
             </ProductWidth>
-            <th></th>
-            <th></th>
-            <th>
+            <th colspan="3" style={{ textAlign: "right" }}>
               <AddToCartButton />
             </th>
           </FooterStyle>
@@ -92,4 +92,5 @@ const TableWishlist = () => {
     </>
   );
 };
+
 export default TableWishlist;

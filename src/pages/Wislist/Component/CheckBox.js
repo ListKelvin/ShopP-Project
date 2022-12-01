@@ -32,3 +32,18 @@ export function Checkbox2() {
       </div>
     );
   }
+
+  export function CheckboxDis() {
+    return(
+      <div>
+        <Checkbox {...label} disabled
+          sx ={{
+              color: "gray",
+              '&.Mui-checked': {
+                  color: "gray",
+              },
+          }}
+        />
+      </div>
+    )
+  }

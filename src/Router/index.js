@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-
+import MenuSetting from "../Component/MenuSetting";
+import ProductFilter from "../Component/productFillter";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import SignInComponent from "../pages/sign-in/sign-in.component";
@@ -9,6 +10,7 @@ import RegisterInfor from "../pages/registerInfor/RegisterInfor";
 import LayoutComponent from "../Component/layout/Layout.component";
 import Wishlist from "../pages/Wislist";
 import CartPage from "../pages/CartPage";
+import ProductPage from "../pages/productPage";
 const publicRoute = [
   {
     index: true,
@@ -28,6 +30,27 @@ const publicRoute = [
     index: false,
     path: "cartPage",
     component: <CartPage />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "productPage",
+    component: <ProductPage />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "menusetting",
+    component: <MenuSetting />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "productfilter",
+    component: <ProductFilter />,
     exact: true,
     restrict: true,
   },

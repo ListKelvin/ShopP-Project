@@ -1,13 +1,17 @@
-import { post } from "../utils/ApiCaller";
+// import { post } from "../utils/ApiCaller";
+import axios from "axios";
 import LocalStorageUtils from "../utils/LocalStorageUtils";
+// import { Navigate } from "react-router-dom";
 import {
   toastSuccess,
   toastWarning,
 } from "../Component/ToastNotification/index";
+import { API_URL } from "../config/config";
 export const login = (formData) => {
-  const response = post("/auth/login", formData, {}, {})
+  const url = `${API_URL}/auth/login`;
+  return axios
+    .post(url, formData)
     .then((response) => {
-      console.log(response.data.message);
       if (response.data.token) {
         LocalStorageUtils.setItem("user", JSON.stringify(response.data.token));
       }
@@ -15,24 +19,21 @@ export const login = (formData) => {
       return response.data;
     })
     .catch((error) => {
-      console.log(error.response.data.message);
       toastWarning(error.response.data.message);
     });
-
-  return response;
 };
 const logout = () => {
   LocalStorageUtils.removeItem("user");
 };
-export const register = (formData) => {
-  const response = post("/account/sign-up", formData)
+export const register = (formData, navigate) => {
+  const url = `${API_URL}/account/sign-up`;
+  return axios
+    .post(url, formData)
     .then((response) => {
       toastSuccess(response.data.message);
-
-      return response.data;
+      navigate("/signIn");
     })
     .catch((error) => {
-      console.log(error.response.data.message);
       toastWarning(error.response.data.message);
     });
 };

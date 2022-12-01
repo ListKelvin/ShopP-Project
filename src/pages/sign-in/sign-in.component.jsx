@@ -18,6 +18,7 @@ import { clearMessage } from "../../slices/message";
 import PersonIcon from "@mui/icons-material/Person";
 import InputAdornment from "@mui/material/InputAdornment";
 import * as Yup from "yup";
+
 const SignInComponent = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -68,7 +69,7 @@ const SignInComponent = () => {
     let data2 = {};
     data2.password = values.password;
     data2.emailOrPhone = values.email;
-    console.log(data2);
+
     setLoading(true);
 
     dispatch(login(data2))
