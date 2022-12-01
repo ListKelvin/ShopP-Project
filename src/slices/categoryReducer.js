@@ -1,5 +1,7 @@
 import { injectReducer } from "../store/store";
-import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { API_URL } from "../config/config";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const initialState = {
   isLoading: false,
   isError: false,
@@ -7,6 +9,22 @@ export const initialState = {
 
   //   isSingleLoading: false,
 };
+
+const urlGetCategories = API_URL + "/category/list-all";
+
+export const fetchCategories = createAsyncThunk(
+  "categories/fetchCategories",
+  async () => {
+    try {
+      const res = await axios.get(urlGetCategories);
+      const data = await res.data;
+      return data;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
+
 export const name = "category";
 
 export const slice = createSlice({
@@ -24,6 +42,20 @@ export const slice = createSlice({
       state.isLoading = false;
       state.isError = true;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCategories.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.categories = action.payload;
+      })
+      .addCase(fetchCategories.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+      });
   },
 });
 injectReducer(name, slice.reducer);

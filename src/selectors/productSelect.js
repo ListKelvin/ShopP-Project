@@ -1,13 +1,13 @@
-import slice from "../slices/categoryReducer";
+import slice from "../slices/productReducer";
 
 import { createSelector } from "@reduxjs/toolkit";
 const { initialState, name } = slice;
 
 const selectDomain = (state) => state[name] || initialState;
 
-export const selectCategories = createSelector(
+export const selectProducts = createSelector(
   [selectDomain],
-  (state) => state.categories
+  (state) => state.products
 );
 export const selectIsLoading = createSelector(
   [selectDomain],

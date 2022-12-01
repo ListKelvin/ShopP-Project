@@ -1,41 +1,29 @@
-import React, { useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+
 import CategoryCard from "./CategoryCard";
-import { useDispatch, useSelector } from "react-redux";
-import { API_URL } from "../../../config/config";
-import {
-  fetchApiData,
-  fetchApiError,
-  setLoading,
-} from "../../../slices/categoryReducer";
+import { useSelector } from "react-redux";
+
 import { getFIleImage } from "../../../utils/productApi";
 import {
   selectCategories,
   selectIsLoading,
+  selectIsError,
 } from "../../../selectors/categorySelect";
 
 const CategoryContainer = () => {
-  const dispatch = useDispatch();
-  const urlGetCategories = API_URL + "/category/list-all";
-  const categories = useSelector(selectCategories);
   const isLoading = useSelector(selectIsLoading);
+  const isError = useSelector(selectIsError);
+  const categories = useSelector(selectCategories);
 
-  const getCategories = async (url) => {
-    dispatch(setLoading());
-    try {
-      const res = await axios.get(url);
-      const data = await res.data;
-      dispatch(fetchApiData(data));
-    } catch (error) {
-      dispatch(fetchApiError());
-    }
-  };
-  useEffect(() => {
-    getCategories(urlGetCategories);
-  }, []);
-  console.log(isLoading);
-  if (isLoading) {
-    return <div> ......Loading </div>;
+  let content;
+  if (isLoading === true) {
+    content = <p>"Loading..."</p>;
+  } else if (isLoading === false) {
+    content = categories.data.map((el) => {
+      return <CategoryCard key={el.id} label={el.name} img={el.image} />;
+    });
+  } else if (isError === true) {
+    content = <p>some error</p>;
   }
   return (
     <div
@@ -71,11 +59,7 @@ const CategoryContainer = () => {
           overflowX: "scroll",
         }}
       >
-        {isLoading
-          ? ""
-          : categories.data.map(({ id, name, image }) => {
-              return <CategoryCard label={name} id={id} img={image} />;
-            })}
+        {content}
       </div>
     </div>
   );

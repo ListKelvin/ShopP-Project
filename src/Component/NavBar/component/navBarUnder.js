@@ -22,7 +22,7 @@ const NavBarUnder = ({ pages }) => {
     setAnchorElNav(null);
   };
   const token = LocalStorageUtils.getUser();
-  const { email } = token;
+  // const { email } = token;
 
   return (
     <Toolbar>
@@ -110,7 +110,9 @@ const NavBarUnder = ({ pages }) => {
                 src={AvaUnknown}
                 sx={{ width: 32, height: 32 }}
               />
-              <Typography sx={{ color: "dark" }}>{email}</Typography>
+              <Typography sx={{ color: "dark" }}>
+                {token.email ? token.email : "user "}
+              </Typography>
             </Stack>
           ) : (
             <>

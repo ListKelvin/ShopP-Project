@@ -42,9 +42,7 @@ const ProductCard = ({ rate, price, sold, name }) => {
             value={value}
             sx={{ fontSize: "14px" }}
             precision={0.5}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
+            readOnly
           />
           <div style={{ fontSize: "12px" }}>{sold} sold</div>
         </Box>

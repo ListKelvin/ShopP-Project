@@ -5,8 +5,14 @@ import Toast from "./Component/ToastNotification/index";
 import { Provider } from "react-redux";
 import RouterComponent from "./Router/index";
 import reportWebVitals from "./reportWebVitals";
+import { fetchCategories } from "./slices/categoryReducer";
+import { fetchProduct } from "./slices/productReducer";
 import store from "./store/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
+store.dispatch(fetchCategories());
+
+store.dispatch(fetchProduct());
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
