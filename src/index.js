@@ -8,10 +8,15 @@ import reportWebVitals from "./reportWebVitals";
 import { fetchCategories } from "./slices/categoryReducer";
 import { fetchProduct } from "./slices/productReducer";
 import store from "./store/store";
+// import { PersistGate } from "redux-persist/integration/react";
+// import { persistStore } from "redux-persist";
 const root = ReactDOM.createRoot(document.getElementById("root"));
+// let persistor = persistStore(store);
 store.dispatch(fetchCategories());
 
 store.dispatch(fetchProduct());
+// <PersistGate loading={null} persistor={persistor}>
+// </PersistGate>
 
 root.render(
   <React.StrictMode>

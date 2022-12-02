@@ -16,6 +16,7 @@ export const fetchProduct = createAsyncThunk(
   "product/fetchProduct",
   async () => {
     const response = await axios.get(PRODUCT_URL);
+    console.log(response.data.data);
     return response.data;
   }
 );
@@ -25,6 +26,7 @@ export const fetchSingleProduct = createAsyncThunk(
     const SINGLEPRODUCT_URL = API_URL + `/product/get-one-by-id/${idProduct}`;
 
     const response = await axios.get(SINGLEPRODUCT_URL);
+
     return response.data;
   }
 );

@@ -1,15 +1,38 @@
-import { ProductName, ProductEvaluated } from "../styled";
+import { ProductName, ProductEvaluated, SmallDescription } from "../styled";
 import CountDown from "../../../Component/Countdown/CountDown";
 import { ReactComponent as FlashIcon } from "../../../assets/image 68.svg";
-import { getAllProduct } from "../../../utils/productApi";
-const ProductInfo = () => {
+import Rating from "@mui/material/Rating";
+import Chip from "@mui/material/Chip";
+import { selectCartItems } from "../../../selectors/cartSelector";
+import { addCartItem } from "../../../slices/cartReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { setCartItems } from "../../../slices/cartReducer";
+const ProductInfo = ({ product }) => {
+  const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch();
+  console.log(cartItems);
+  console.log(product);
+
   return (
     <>
-      <ProductName> Name of productInfo</ProductName>
+      <ProductName> {product.name}</ProductName>
       <ProductEvaluated>
-        <div> star</div>
-        <div> evaluation</div>
-        <div> sold</div>
+        <div>
+          {product.star}
+          <Rating
+            name="simple-controlled"
+            value={product.star}
+            sx={{ fontSize: "14px" }}
+            precision={0.5}
+            readOnly
+          />
+        </div>
+        <div style={{ color: "#000000", fontWeight: "600" }}>
+          3.7K <SmallDescription>Evaluation</SmallDescription>
+        </div>
+        <div style={{ color: "#000000", fontWeight: "600" }}>
+          {product.sold} <SmallDescription>Sold</SmallDescription>
+        </div>
       </ProductEvaluated>
       <div
         className="CountDownn"
@@ -50,26 +73,30 @@ const ProductInfo = () => {
           </button>
         </div>
       </div>
-      <div> Shop Voucher</div>
-      <button
-        onClick={() => {
-          const data = getAllProduct()
-            .then((category) => {
-              console.log(category);
-              return category;
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }}
-      >
+      <div>
         {" "}
-        click me{" "}
-      </button>
+        Shop Voucher{" "}
+        <Chip
+          label="-30%"
+          size="small"
+          sx={{
+            color: "#55ABAB",
+            backgroundColor: " #B6E3E3",
+          }}
+        />
+      </div>
       <div>
         <div> additional infor</div>
       </div>
-      <div> quantity</div>
+      <div>{product.quantity} quantity</div>
+      <button
+        onClick={() => {
+          dispatch(setCartItems(addCartItem(cartItems, product)));
+        }}
+      >
+        {" "}
+        add to cart
+      </button>
     </>
   );
 };

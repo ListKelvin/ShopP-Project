@@ -1,30 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 import { combineReducers } from "redux";
-
-// // import * as theme from "@/theme/theme";
-// import { configureStore } from "@reduxjs/toolkit";
-
-// // Define the Reducers that will always be present in the application
-// // const staticReducers = {
-// //   theme: theme.slice.reducer,
-// //   home:
-// // };
-
-// const store = configureStore({
-//   reducer: createReducer(),
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware({
-//       serializableCheck: {
-//         // Ignore these action types
-//         ignoredActions: ["navBar/changeIsNavOpen", "home/changeCounter"],
-//         // Ignore these field paths in all actions
-//         // ignoredActionPaths: ["meta.arg", "payload.timestamp"],
-//         // Ignore these paths in the state
-//         // ignoredPaths: ["items.dates"],
-//       },
-//     }),
-// });
+// import {
+//   persistReducer,
+//   FLUSH,
+//   REHYDRATE,
+//   PAUSE,
+//   PERSIST,
+//   PURGE,
+//   REGISTER,
+// } from "redux-persist";
+// import thunk from "redux-thunk";
+// import storage from "redux-persist/lib/storage";
+// const persistConfig = {
+//   key: "root",
+//   storage,
+// };
+// const persistedReducer = persistReducer(persistConfig, createReducer);
 const store = configureStore({
   reducer: createReducer(),
   devTools: true,
@@ -53,3 +45,26 @@ function createReducer(asyncReducers = {}) {
 }
 
 export default store;
+
+// import { configureStore } from "@reduxjs/toolkit";
+
+// // Define the Reducers that will always be present in the application
+// // const staticReducers = {
+// //   theme: theme.slice.reducer,
+// //   home:
+// // };
+// // import * as theme from "@/theme/theme";
+// const store = configureStore({
+//   reducer: createReducer(),
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       serializableCheck: {
+//         // Ignore these action types
+//         ignoredActions: ["navBar/changeIsNavOpen", "home/changeCounter"],
+//         // Ignore these field paths in all actions
+//         // ignoredActionPaths: ["meta.arg", "payload.timestamp"],
+//         // Ignore these paths in the state
+//         // ignoredPaths: ["items.dates"],
+//       },
+//     }),
+// });

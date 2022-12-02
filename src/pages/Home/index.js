@@ -28,10 +28,11 @@ const Home = () => {
       <ProductWrapper>
         {ProductAll != null
           ? ProductAll.data.map((el, index) => {
+              console.log(el);
               const { amount, name, star, sold } = el;
 
               return (
-                <Link to="/productPage" key={index}>
+                <Link to={`productpage/${el.id}`} key={index}>
                   <ProductCard
                     name={name}
                     price={amount}

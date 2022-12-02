@@ -23,3 +23,8 @@ export const ProductEvaluated = styled.div`
   flex-direction: row;
   gap: 20px;
 `;
+
+export const SmallDescription = styled.span`
+  font-weight: 400;
+  color: #464646;
+`;
