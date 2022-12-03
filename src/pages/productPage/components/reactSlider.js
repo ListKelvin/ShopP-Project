@@ -2,9 +2,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import BrandImg from "../../../assets/Branding/image 67.png";
 import { CarouselStyled } from "../styled";
-// const ProductPreview = [
-//   {id}
-// ]
 const Carousel2 = () => {
   return (
     <CarouselStyled
