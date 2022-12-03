@@ -47,7 +47,7 @@ class LocalStorageUtils {
   }
 
   getToken() {
-    return this.getItem(LOCALSTORAGE_TOKEN_NAME);
+    return this.getItem("user");
   }
 
   clear() {
