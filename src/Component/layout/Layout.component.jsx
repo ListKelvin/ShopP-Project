@@ -3,6 +3,7 @@ import AppAppBar from "../NavBar";
 import { ContainerStyled } from "./styles";
 import { CssBaseline } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import FooterHomePage from "../FooterComponents.js/FooterHomePage";
 const LayoutComponent = ({ children }) => {
   return (
     <>
@@ -11,6 +12,7 @@ const LayoutComponent = ({ children }) => {
         <CssBaseline />
         <Outlet />
       </ContainerStyled>
+      <FooterHomePage />
     </>
   );
 };
