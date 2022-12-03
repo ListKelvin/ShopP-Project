@@ -4,13 +4,10 @@ import Title from "./Component/Title";
 import WishlistEmpty from "./Component/WishlistEmpty";
 
 const Wishlist = () => {
-  return (
-    <div>
-      {/* <Title/>
-    <TableWishlist/> */}
-      <WishlistEmpty />
-    </div>
-  );
+  return <WishlistEmpty />;
 };
-
+// {
+//   // /* <Title/>
+//   //   <TableWishlist/> */
+// }
 export default Wishlist;

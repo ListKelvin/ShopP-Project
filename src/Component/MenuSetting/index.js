@@ -1,15 +1,12 @@
 import React from "react";
 import ChangePassword from "./Components/ChangePassword";
-import DashBoard from './Components/DashBoard';
-import FooterHomePage from "./FooterComponents.js/FooterHomePage";
-
+import DashBoard from "./Components/DashBoard";
 
 const MenuSetting = () => {
   return (
-    <div style = {{display: "flex", justifyContent: "space-around"}}>
-    {/* <DashBoard/>
-    <ChangePassword/> */}
-    <FooterHomePage/>
+    <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <DashBoard />
+      <ChangePassword />
     </div>
   );
 };
