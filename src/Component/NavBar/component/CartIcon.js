@@ -4,10 +4,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useSelector, useDispatch } from "react-redux";
 import { selectIsCartOpen } from "../../../selectors/cartSelector";
 import { setCartOpen } from "../../../slices/cartReducer";
+
+import { selectCartItems } from "../../../selectors/cartSelector";
 const CartIcon = () => {
   const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
 
-  //   const cartCount = useSelector(selectCartCount);
   const isCartOpen = useSelector(selectIsCartOpen);
 
   const toggleIsCartOpen = () => dispatch(setCartOpen(!isCartOpen));
@@ -18,7 +20,11 @@ const CartIcon = () => {
       sx={{ color: "white" }}
       onClick={toggleIsCartOpen}
     >
-      <Badge badgeContent={2} color="error">
+      <Badge
+        invisible={cartItems.length === 0 ? true : false}
+        badgeContent={cartItems.length !== 0 && cartItems.length}
+        color="error"
+      >
         <ShoppingCartIcon />
       </Badge>
     </IconButton>

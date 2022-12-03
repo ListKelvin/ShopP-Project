@@ -9,8 +9,3 @@ export const getAllProduct = () => {
   const url = "/product/list-all";
   return get(url);
 };
-
-export const getFIleImage = (name) => {
-  const url = `/file/${name}`;
-  return get(url);
-};

@@ -28,7 +28,6 @@ const Home = () => {
       <ProductWrapper>
         {ProductAll != null
           ? ProductAll.data.map((el, index) => {
-              console.log(el);
               const { amount, name, star, sold } = el;
 
               return (

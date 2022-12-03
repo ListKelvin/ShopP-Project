@@ -32,7 +32,8 @@ const cartItems = [
   },
 ];
 const CartDropdown = () => {
-  // const cartItems = useSelector(selectCartItems);
+  const cartItems = useSelector(selectCartItems);
+  console.log(cartItems);
   const navigate = useNavigate();
 
   // const goToCheckoutHandler = () => {

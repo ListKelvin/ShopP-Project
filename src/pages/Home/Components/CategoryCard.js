@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Box } from "@mui/material";
-import ImgCatergory from "../../../assets/Category/image 75.png";
-import { getFIleImage } from "../../../utils/productApi";
+
 const CategoryCard = ({ label, img }) => {
-  const [state, setState] = useState();
-
-  useEffect(() => {
-    getFIleImage(img.filename).then((res) => {
-      const image = res.config.url;
-      setState(image);
-    });
-  }, []);
-
   return (
     <div
       className=""
@@ -36,7 +26,12 @@ const CategoryCard = ({ label, img }) => {
           marginBottom: "5px",
         }}
       >
-        <img src={state} width={40} height={40} alt="" />
+        <img
+          src={`https://shopp-be.lethanhlong.me/file/${img.filename}`}
+          width={40}
+          height={40}
+          alt=""
+        />
       </Box>
       <Typography
         sx={{

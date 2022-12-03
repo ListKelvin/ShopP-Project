@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Carousel2 from "./components/reactSlider";
 import ProductInfo from "./components/productInfo";
 import { Grid } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { selectProducts } from "../../selectors/productSelect";
 
@@ -28,8 +28,6 @@ const ProductDetails = () => {
       navigate("/home");
     }
   }, [id]);
-
-  const dispatch = useDispatch();
 
   return (
     <>
