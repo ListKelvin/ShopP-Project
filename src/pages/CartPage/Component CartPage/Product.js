@@ -30,7 +30,7 @@ const Product = () => {
             <CheckBoxStyle>
               <Checkbox2 />
             </CheckBoxStyle>
-            <ProductTag>
+            <ProductTag key={id}>
               <Image>
                 <img src={ImgBrand} width="136px" height="60px" alt="" />
               </Image>

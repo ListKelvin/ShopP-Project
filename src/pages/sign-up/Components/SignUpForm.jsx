@@ -19,6 +19,7 @@ const SignUpForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
+  console.log(isLoggedIn);
 
   useEffect(() => {
     dispatch(clearMessage());
@@ -58,10 +59,10 @@ const SignUpForm = () => {
   });
 
   const onSubmit = (values) => {
-    dispatch(register(values))
+    dispatch(register(values, navigate))
       .unwrap()
       .then(() => {
-        navigate("/home");
+        navigate("/signIn");
         window.location.reload();
       })
       .catch(() => {});

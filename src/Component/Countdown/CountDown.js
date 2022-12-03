@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const CountDown = () => {
   const calculateTimeLeft = () => {
     let year = new Date().getFullYear();
-    const difference = +new Date(`${year}-11-28`) - +new Date();
+    const difference = +new Date(`${year}-12-23`) - +new Date();
     let timeLeft = {};
 
     if (difference > 0) {
@@ -36,7 +36,7 @@ const CountDown = () => {
     }
 
     timerComponents.push(
-      <span style={{ display: "flex", alignItems: "center" }}>
+      <span style={{ display: "flex", alignItems: "center", padding: 10 }}>
         {timeLeft[interval]} {interval}{" "}
       </span>
     );

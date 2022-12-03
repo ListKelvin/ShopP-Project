@@ -41,12 +41,12 @@ const NavBarUnder = ({ pages }) => {
           id="menu-appbar"
           anchorEl={anchorElNav}
           anchorOrigin={{
-            vertical: "right",
+            vertical: "top",
             horizontal: "left",
           }}
           keepMounted
           transformOrigin={{
-            vertical: "right",
+            vertical: "top",
             horizontal: "left",
           }}
           open={Boolean(anchorElNav)}

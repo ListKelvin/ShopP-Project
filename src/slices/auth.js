@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage } from "./message";
-// import { injectReducer } from "../store/store";
+import { injectReducer } from "../store/store";
 import AuthService from "../services/auth.service";
 
 const user = JSON.parse(localStorage.getItem("user"));
@@ -32,6 +32,7 @@ export const login = createAsyncThunk(
   async (formdata, thunkAPI) => {
     try {
       const data = await AuthService.login(formdata);
+      console.log(data);
       return { user: data };
     } catch (error) {
       const message =
@@ -59,7 +60,7 @@ export const name = "auth";
 const authSlice = createSlice({
   name,
   initialState,
-  extraReducers: {
+  reducers: {
     [register.fulfilled]: (state, action) => {
       state.isLoggedIn = false;
     },
@@ -81,6 +82,6 @@ const authSlice = createSlice({
   },
 });
 
-// injectReducer(name, authSlice.extraReducers);
+injectReducer(name, authSlice.reducer);
 const { reducer } = authSlice;
 export default reducer;

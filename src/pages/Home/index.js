@@ -1,11 +1,10 @@
-/* eslint-disable no-unused-vars */
-import { Container } from "./style";
-import AppAppBar from "../../Component/NavBar";
 import ProductCard from "../../Component/ProductCard";
-import Stack from "@mui/material/Stack";
 import { ProductWrapper, AlignCenter } from "./style";
+import { Link } from "react-router-dom";
 import SuggestContainer from "./Components/CategoryFilter";
 import Branding from "./Components/Branding";
+import Branding02 from "./Components/Branding02";
+
 import FlashSale from "./Components/FlashSale";
 import { Box } from "@mui/material";
 import CategoryContainer from "../../pages/Home/Components/CategoryContainer";
@@ -32,19 +31,21 @@ const Home = () => {
       <Box sx={{ width: "100%" }}>
         <img src={Brand} width="100%" alt="" />
       </Box>
-      <CategoryContainer />
       <SuggestContainer />
-
+      <CategoryContainer />
+      <Branding02 />
       <ProductWrapper>
         {products.map(({ name, price, rate, sold, id }) => {
           return (
-            <ProductCard
-              key={id}
-              name={name}
-              price={price}
-              rate={rate}
-              sold={sold}
-            />
+            <Link to="/productPage">
+              <ProductCard
+                key={id}
+                name={name}
+                price={price}
+                rate={rate}
+                sold={sold}
+              />
+            </Link>
           );
         })}
       </ProductWrapper>
