@@ -5,11 +5,13 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { selectIsCartOpen } from "../../../selectors/cartSelector";
+
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
-
+import CartIcon from "./CartIcon";
+import { useSelector } from "react-redux";
 import {
   ShopButton,
   StyledInputBase,
@@ -17,7 +19,10 @@ import {
   SearchIconWrapper,
   RightToolbar,
 } from "../style";
+import CartDropdown from "../../CartDropDown/CartDropDown";
 const NavBarAbove = () => {
+  const isCartOpen = useSelector(selectIsCartOpen);
+
   return (
     <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
       <Typography
@@ -86,15 +91,8 @@ const NavBarAbove = () => {
               alignSelf: "center",
             }}
           />
-          <IconButton
-            size="large"
-            aria-label="show 17 new notifications"
-            sx={{ color: "white" }}
-          >
-            <Badge badgeContent={2} color="error">
-              <ShoppingCartIcon />
-            </Badge>
-          </IconButton>
+          <CartIcon />
+          {isCartOpen && <CartDropdown />}
         </Box>
         <ShopButton
           variant="contained"
