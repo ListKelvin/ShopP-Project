@@ -6,13 +6,11 @@ import WishlistEmpty from "./Component/WishlistEmpty";
 const Wishlist = () => {
   return (
     <div>
-    {/* <Title/>
+      {/* <Title/>
     <TableWishlist/> */}
-    <WishlistEmpty/>
+      <WishlistEmpty />
     </div>
-    
   );
-  
 };
 
 export default Wishlist;
