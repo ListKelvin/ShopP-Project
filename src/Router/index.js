@@ -11,6 +11,9 @@ import LayoutComponent from "../Component/layout/Layout.component";
 import Wishlist from "../pages/Wislist";
 import CartPage from "../pages/CartPage";
 import ProductDetails from "../pages/productPage";
+import UserAddressPage from "../pages/UserAddress/UserAddress";
+import UserProfilePage from "../pages/UserProfile";
+import ShopRegister from "../pages/ShopRegister/ShopRegister";
 const publicRoute = [
   {
     index: true,
@@ -51,6 +54,27 @@ const publicRoute = [
     index: false,
     path: "productfilter",
     component: <ProductFilter />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "userProfile",
+    component: <UserProfilePage />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "userAddress",
+    component: <UserAddressPage />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "shopRegister",
+    component: <ShopRegister />,
     exact: true,
     restrict: true,
   },
