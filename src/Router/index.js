@@ -48,6 +48,13 @@ const publicRoute = [
     restrict: true,
   },
   {
+    index: false,
+    path: "productfilter",
+    component: <ProductFilter />,
+    exact: true,
+    restrict: true,
+  },
+  {
     path: "info",
     component: <RegisterInfor />,
     exact: true,

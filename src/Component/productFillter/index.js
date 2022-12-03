@@ -1,5 +1,15 @@
-import { FilterComponent, FilterFrame, FilterTitle, Layout, NameofFilter, SortButton, SortFrame, SortTitle, TypeofFilter } from "./style";
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import {
+  FilterComponent,
+  FilterFrame,
+  FilterTitle,
+  Layout,
+  NameofFilter,
+  SortButton,
+  SortFrame,
+  SortTitle,
+  TypeofFilter,
+} from "./style";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { Button } from "@mui/material";
 
 const ProductFilter = () => {
@@ -55,10 +65,18 @@ const ProductFilter = () => {
 
         <SortFrame>
           <SortTitle>Sort by</SortTitle>
-          <SortButton><b>Relevence</b> </SortButton>
-          <SortButton><b>Latest</b></SortButton>
-          <SortButton><b>Top Sales</b></SortButton>
-          <SortButton><b>Price</b></SortButton>
+          <SortButton>
+            <b>Relevence</b>{" "}
+          </SortButton>
+          <SortButton>
+            <b>Latest</b>
+          </SortButton>
+          <SortButton>
+            <b>Top Sales</b>
+          </SortButton>
+          <SortButton>
+            <b>Price</b>
+          </SortButton>
         </SortFrame>
       </Layout>
     </>
