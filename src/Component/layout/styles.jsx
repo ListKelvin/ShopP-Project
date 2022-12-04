@@ -4,4 +4,5 @@ export const ContainerStyled = styled(Container)(() => ({
   marginTop: "150px",
   display: "flex",
   flexDirection: "column",
+  minHeight: "90vh",
 }));

@@ -1,4 +1,10 @@
-import { ProductName, ProductEvaluated, SmallDescription } from "../styled";
+import {
+  ProductName,
+  ProductEvaluated,
+  SmallDescription,
+  ContainerAdditional,
+  ShopVoucherContainer,
+} from "../styled";
 import CountDown from "../../../Component/Countdown/CountDown";
 import { ReactComponent as FlashIcon } from "../../../assets/image 68.svg";
 import Rating from "@mui/material/Rating";
@@ -7,11 +13,20 @@ import { selectCartItems } from "../../../selectors/cartSelector";
 import { addCartItem } from "../../../slices/cartReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { setCartItems } from "../../../slices/cartReducer";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+import Button from "../../../Component/Button";
+const Voucher = [
+  { id: 1, label: "Discount -30%" },
+  { id: 2, label: "Discount -50%" },
+  { id: 3, label: "Discount -10%" },
+  // { id: 4, label: "Discount -55%" },
+  // { id: 5, label: "Discount -20%" },
+  // { id: 6, label: "Discount -90%" },
+  // { id: 7, label: "Discount -90%" },
+];
 const ProductInfo = ({ product }) => {
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
-  console.log(cartItems);
-  console.log(product);
 
   return (
     <>
@@ -73,30 +88,73 @@ const ProductInfo = ({ product }) => {
           </button>
         </div>
       </div>
-      <div>
-        {" "}
-        Shop Voucher{" "}
-        <Chip
-          label="-30%"
-          size="small"
-          sx={{
-            color: "#55ABAB",
-            backgroundColor: " #B6E3E3",
-          }}
-        />
-      </div>
-      <div>
-        <div> additional infor</div>
-      </div>
-      <div>{product.quantity} quantity</div>
-      <button
-        onClick={() => {
-          dispatch(setCartItems(addCartItem(cartItems, product)));
+      <ContainerAdditional>
+        <ShopVoucherContainer>
+          <div className="title">Shop Voucher </div>
+          {Voucher.map((el) => {
+            return (
+              <Chip
+                key={el.id}
+                label={el.label}
+                size="small"
+                sx={{
+                  marginRight: "10px",
+                  color: "#55ABAB",
+                  backgroundColor: " #B6E3E3",
+                }}
+              />
+            );
+          })}
+        </ShopVoucherContainer>
+
+        <ShopVoucherContainer>
+          <div className="title">Ship</div>
+          <div className="content">
+            <div className="wrapper">
+              <LocalShippingOutlinedIcon />
+              <div>
+                <div className="description"> Free Ship</div>
+                <div className="smallDescription">
+                  Free shipping for orders above $200
+                </div>
+              </div>
+            </div>
+            <div className="wrapper">
+              <LocalShippingOutlinedIcon />
+              <div>
+                <div className="description">
+                  Ship To
+                  <span>
+                    FPT University, Long Thanh My, Thu Duc, Ho Chi Minh City
+                  </span>
+                </div>
+                <div className="smallDescription">
+                  Ship Fee <span> $10</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ShopVoucherContainer>
+
+        <div>{product.quantity} quantity</div>
+      </ContainerAdditional>
+
+      <div
+        style={{
+          width: "220px",
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
-        {" "}
-        add to cart
-      </button>
+        <Button
+          onClick={() => {
+            dispatch(setCartItems(addCartItem(cartItems, product)));
+          }}
+        >
+          Add to Cart
+        </Button>
+        <Button buttonType={"light"}> Buy now</Button>{" "}
+      </div>
     </>
   );
 };

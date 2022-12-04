@@ -109,7 +109,6 @@ const SignUpForm = () => {
               label="Confirm Password"
               name="confirmPassword"
             />
-
             <RegisterButton
               sx={{
                 width: { xs: "220px", sm: "255px", md: "320px" },
@@ -133,14 +132,6 @@ const SignUpForm = () => {
               </OutlinedRegister>
             </LinkStyle>
           </FormSignUpContainer>
-
-          // <Grid container justifyContent="center">
-          //   <Grid item>
-          //     <Link href="#" variant="body2">
-          //       Already have an account? Sign in
-          //     </Link>
-          //   <Grid/>
-          // <Grid/>
         );
       }}
     </Formik>

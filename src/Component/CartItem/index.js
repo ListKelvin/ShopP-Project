@@ -4,6 +4,7 @@ const CartItem = ({ cartItem }) => {
   const { name, productImage, amount, amountInCart } = cartItem;
 
   const { filename } = productImage[0].localFile;
+
   return (
     <CartItemContainer>
       <img
