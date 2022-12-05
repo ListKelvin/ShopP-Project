@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 // import Button from "../button/button.component";
 import CartItem from "../CartItem";
 import { selectCartItems } from "../../selectors/cartSelector";
-
+import { ProductLink } from "../../pages/Home/style";
 import {
   CartDropdownContainer,
   EmptyMessage,
@@ -33,7 +33,6 @@ const cartItems = [
 ];
 const CartDropdown = () => {
   const cartItems = useSelector(selectCartItems);
-  console.log(cartItems);
   const navigate = useNavigate();
 
   // const goToCheckoutHandler = () => {
@@ -44,14 +43,19 @@ const CartDropdown = () => {
     <CartDropdownContainer>
       <CartItems>
         {cartItems.length ? (
-          cartItems.map((item) => <CartItem key={item.id} cartItem={item} />)
+          cartItems.map((item) => (
+            <ProductLink to={`productpage/${item.id}`} key={item.id}>
+              {" "}
+              <CartItem cartItem={item} />{" "}
+            </ProductLink>
+          ))
         ) : (
           <EmptyMessage>Your cart is empty</EmptyMessage>
         )}
       </CartItems>
       <CartInfoWrapper>
         <TotalCartItems> Count</TotalCartItems>
-        <ButtonAddToCart>My Cart</ButtonAddToCart>
+        <ButtonAddToCart to="cartPage">My Cart</ButtonAddToCart>
       </CartInfoWrapper>
     </CartDropdownContainer>
   );

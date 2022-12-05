@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const CartItemContainer = styled.div`
   width: 100%;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   height: 60px;
   //   margin-bottom: 5px;
   transition: ease-in 0.2s;
@@ -11,7 +14,9 @@ export const CartItemContainer = styled.div`
   border-radius: 5px;
 
   img {
-    width: 30%;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
   }
   &:hover {
     background-color: #ededed;

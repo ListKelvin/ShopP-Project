@@ -10,49 +10,49 @@ import {
 } from "./StyleTable";
 import ImgBrand from "../../../assets/image 68.svg";
 import { Checkbox2 } from "./CheckBox";
+import { clearCartItem, setCartItems } from "../../../slices/cartReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCartItems } from "../../../selectors/cartSelector";
+const Product = ({ item }) => {
+  const { filename } = item.productImage[0].localFile;
+  const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch();
 
-const Products = [
-  {
-    id: 0,
-    name: "Tủ lạnh Panasonic Inverter 380 lít NR-BX421WGKV",
-    price: "$2900",
-    amount: "1",
-    total: "$2900",
-  },
-];
-
-const Product = () => {
+  // console.log(item.productImage[0].localFile.filename);
   return (
     <>
-      {Products.map(({ name, price, amount, total, id }) => {
-        return (
-          <>
-            <CheckBoxStyle>
-              <Checkbox2 />
-            </CheckBoxStyle>
-            <ProductTag key={id}>
-              <Image>
-                <img src={ImgBrand} width="136px" height="60px" alt="" />
-              </Image>
-              <ProductName>{name}</ProductName>
-            </ProductTag>
-            <PriceTag>{price}</PriceTag>
-            <AmountTag>{amount}</AmountTag>
-            <TotalTag>{total}</TotalTag>
-            <ActionTag>
-              <a
-                href="url"
-                style={{
-                  color: "red",
-                  textDecoration: "none",
-                }}
-              >
-                Delete
-              </a>
-            </ActionTag>
-          </>
-        );
-      })}
+      <CheckBoxStyle>
+        <Checkbox2 />
+      </CheckBoxStyle>
+      <Image>
+        <img
+          src={`https://shopp-be.lethanhlong.me/file/${filename}`}
+          width="80px"
+          height="80px"
+          alt=""
+        />
+        {item.name}
+      </Image>
+
+      <PriceTag>{item.amount} VND</PriceTag>
+      <AmountTag>{item.amountInCart}</AmountTag>
+      <TotalTag>{item.amount * item.amountInCart}</TotalTag>
+      <ActionTag>
+        <button
+          onClick={() => {
+            dispatch(setCartItems(clearCartItem(cartItems, item)));
+          }}
+          style={{
+            backgroundColor: "transparent",
+            border: "none",
+            cursor: "pointer",
+            color: "red",
+            textDecoration: "none",
+          }}
+        >
+          Delete
+        </button>
+      </ActionTag>
     </>
   );
 };

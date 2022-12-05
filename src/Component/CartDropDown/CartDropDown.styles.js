@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { ProductLink } from "../../pages/Home/style";
 // import {
 //   BaseButton,
 //   GoogleSignInButton,
@@ -60,7 +60,7 @@ export const TotalCartItems = styled.span`
   color: #464646;
 `;
 
-export const ButtonAddToCart = styled.button`
+export const ButtonAddToCart = styled(ProductLink)`
   // width: 60px;
   // height: 20px;
   padding: 5px 10px;
