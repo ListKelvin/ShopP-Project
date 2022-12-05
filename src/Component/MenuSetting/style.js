@@ -13,11 +13,12 @@ export const StyleTable = styled.table`
     position: sticky;
     top: 150px;
     ${down('lg')} {
-        width: 230px;
+        width: 200px;
     }
     ${down('md')} {
-        min-width: 170px;
-        height: 469px;
+        width: 160px;
+        min-width: 150px;
+        height: 420px;
     }
     ${down('sm')} {
         display: none;
