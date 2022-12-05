@@ -5,8 +5,6 @@ export default function LogOutButton() {
       <ButtonLog variant="contained" disableElevation 
       style = {{
         backgroundColor: "#F64A4A",
-        height: "30px",
-        borderRadius: "8px",
       }}
       >
       <LogIcon sx = {{width: "20px", height: "20px"}}></LogIcon>

@@ -3,19 +3,25 @@ import Button from '@mui/material/Button';
 import { up, down, between, only, createTheme } from 'styled-breakpoints';
 import LogoutIcon from '@mui/icons-material/Logout';
 export const ButtonLog =styled(Button) `
+    background-color: #F64A4A;
+    width: 210px;
+    height: 35px;
+    border-radius: 8px;
     ${up('xl')} {
         margin-left: 100px;
+    }
+    ${down('lg')} {
+        width: 90%;
+        height: 30px;
     }
 `;
 
 export const TypoButton = styled.div`
     text-transform: none;
     margin-left: 5px;
-    
-    ${down('sm')} {
-        font-size: 11px;
+    ${down('md')} {
+        font-size: 13px;
     }
-    
 `;
 
 export const LogIcon = styled(LogoutIcon) `
@@ -74,9 +80,15 @@ export const ChangePassDiv = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     ${down('lg')} {
         width: 600px;
         margin-left: 10px;
+    }
+    ${down('sm')} {
+        width: 98%;
+        margin-left: 0px;
+        padding-right: 0px;
     }
 `;
 
@@ -93,27 +105,49 @@ export const ChangePassTitle = styled.div`
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
-    line-height: 18px;
     color: #2F5E5E;
-    margin-bottom: 40px;
-    margin-left: 20px;
     min-width: fit-content;
+    ${down('sm')} {
+        font-size: 17px;
+    }
 `;
 
 export const StyleNoti = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 40px;
-    margin-left: 380px;
-    margin-right: 20px;
-    min-width: 110px;
-    ${down('xxl')} {
-        margin-left: 280px;
+    margin-left: auto;
+    margin-right: 0px;
+`;
+
+export const BoxTitle = styled.div`
+    display: flex;
+    width: 90%;
+    margin-top: 0px;
+    height: 20px;
+    align-items: center;
+    margin-bottom: 50px;
+    
+`;
+
+export const TypoNoti = styled.div`
+    font-family: "Open San";
+    font-size: 15px;
+    margin-left: 5px;
+    color: green;
+    min-width: 102px;
+    ${down('sm')} {
+        font-size: 12px;
     }
-    ${down('xl')} {
-        margin-left: 200px;
+`;
+
+export const TypoFail = styled(TypoNoti)`
+    color: red;
+    /* display: none; */
+`;
+
+export const NotiDiv = styled.div`
+    display: none;
+    &:active {
+        display: flex;
     }
-    ${down('md')} {
-        margin-left: 150px;
-    } 
 `;
