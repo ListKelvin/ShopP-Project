@@ -37,6 +37,9 @@ export const TypoTitle = styled.span`
     ${down('md')} {
         font-size: 15px;
     }
+    ${only('md')} {
+        font-size: 16px;
+    }
 `;
 
 export const IconStyle = styled.td`

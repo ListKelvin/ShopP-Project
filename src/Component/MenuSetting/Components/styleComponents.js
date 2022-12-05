@@ -73,7 +73,6 @@ export const TypoButtCancel = styled.span`
 
 export const ChangePassDiv = styled.div`
     width: 60%;
-    height: 475px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     background-color: white;
     border-radius: 8px;
@@ -89,6 +88,8 @@ export const ChangePassDiv = styled.div`
         width: 98%;
         margin-left: 0px;
         padding-right: 0px;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 `;
 
@@ -107,9 +108,6 @@ export const ChangePassTitle = styled.div`
     font-size: 20px;
     color: #2F5E5E;
     min-width: fit-content;
-    ${down('sm')} {
-        font-size: 17px;
-    }
 `;
 
 export const StyleNoti = styled.div`
@@ -122,11 +120,11 @@ export const StyleNoti = styled.div`
 export const BoxTitle = styled.div`
     display: flex;
     width: 90%;
-    margin-top: 0px;
     height: 20px;
-    align-items: center;
-    margin-bottom: 50px;
-    
+    align-items: center; 
+    ${down('sm')} {
+        margin-top: 10px;
+    }   
 `;
 
 export const TypoNoti = styled.div`

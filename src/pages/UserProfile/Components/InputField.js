@@ -35,7 +35,7 @@ export default function InputField() {
           '& > :not(style)': { m: 1, width: {xl: '420px',
           md: "360px",
           sm: "265px",
-          xs: "200px"}, height: "70px"
+          xs: "300px"}, height: "70px"
           },
         }}
         noValidate

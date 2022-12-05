@@ -15,6 +15,9 @@ export const GeneralTitle = styled.h1`
 export const BoxTitle = styled.div`
     width: 96%;
     justify-content: center;
+    ${down('sm')} {
+        width: 92%;
+    }
 `;
 
 export const ContentBox = styled.div`
@@ -39,13 +42,10 @@ export const GeneralInforBox = styled.div`
     }
     ${down('md')} {
         width: 48%;
-        /* margin-left: 0px;
-        padding-right: 0px; */
     }
     ${down('sm')} {
-        width: 60%;
-        /* margin-left: 0px;
-        padding-right: 0px; */
+        width: 100%;
+        margin-top: 20px;
     }
 `;
 
@@ -89,7 +89,7 @@ export const AvatarBoxStyle = styled.div`
         width: 23%;
     }
     ${down('sm')} {
-        width: 35%;
+        width: 100%;
     }
 `;
 
@@ -113,7 +113,7 @@ export const TypoName = styled.div`
         margin-top: 8px;
     }
     ${down('sm')} {
-        font-size: 12px;
+        font-size: 18px;
     }
 `;
 
@@ -133,7 +133,7 @@ export const TypoDate = styled.div`
         margin-top: 4px;
     }
     ${down('sm')} {
-        font-size: 10px;
+        font-size: 14px;
     }
 `;
 
@@ -148,7 +148,7 @@ export const ButtonAvatar = styled(Button)`
         width: 130px;
     }
     ${down('sm')} {
-        width: 120px;
+        width: 145px;
     }
 `;
 
@@ -163,7 +163,7 @@ export const TypoButton = styled.div`
         font-size: 12px;
     }
     ${down('sm')} {
-        font-size: 10px;
+        font-size: 14px;
     }
 `;
 
@@ -178,7 +178,7 @@ export const TypoSave = styled.div`
         font-size: 12px;
     }
     ${down('sm')} {
-        font-size: 10px;
+        font-size: 14px;
     }
 `;
 export const TypoCancel = styled.div`
@@ -192,7 +192,7 @@ export const TypoCancel = styled.div`
         font-size: 12px;
     }
     ${down('sm')} {
-        font-size: 10px;
+        font-size: 14px;
     }
 `;
 
@@ -201,4 +201,7 @@ export const ButtonDiv = styled.div`
     justify-content: space-around;
     width: 100%;
     margin-top: 20px;
+    ${down('sm')} {
+        margin-top: 15px;
+    }
 `;
