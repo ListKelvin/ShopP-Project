@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-
+import { LinkStyle } from "../sign-up/Components/SignUpForm.styles";
 const spin = keyframes`
     from {
         transform: rotate(0deg);
@@ -50,4 +50,11 @@ export const AlignCenter = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+`;
+export const ProductLink = styled(LinkStyle)`
+  transition: all 0.2s;
+  &:hover {
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 3px 1px rgba(0, 0, 0, 0.12),
+      0px 1px 5px rgba(0, 0, 0, 0.2);
+  }
 `;

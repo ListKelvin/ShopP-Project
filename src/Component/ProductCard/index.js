@@ -7,8 +7,10 @@ import { Box } from "@mui/system";
 import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
 import Img from "../../assets/Product/download.jpg";
-const ProductCard = ({ rate, price, sold, name }) => {
+const ProductCard = ({ rate, price, sold, name, img }) => {
   const [value, setValue] = React.useState(rate);
+  const { filename } = img[0].localFile;
+
   return (
     <Card sx={{ maxWidth: 180 }}>
       <Box
@@ -18,9 +20,8 @@ const ProductCard = ({ rate, price, sold, name }) => {
         <CardMedia
           sx={{ borderRadius: "10px" }}
           component="img"
-          // src={Img}
           height="140"
-          image={Img}
+          image={`https://shopp-be.lethanhlong.me/file/${filename}`}
           alt="green iguana"
         />
       </Box>

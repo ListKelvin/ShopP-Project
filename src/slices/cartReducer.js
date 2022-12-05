@@ -28,17 +28,19 @@ export const removeCartItem = (cartItems, cartItemToRemove) => {
   );
 
   // check if quantity is equal to 1, if it is remove that item from the cart
-  if (existingCartItem.quantity === 1) {
+  if (existingCartItem.amountInCart === 1) {
     return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
   }
-
   // return back cartitems with matching cart item with reduced quantity
   return cartItems.map((cartItem) =>
     cartItem.id === cartItemToRemove.id
-      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      ? { ...cartItem, amountInCart: cartItem.amountInCart - 1 }
       : cartItem
   );
 };
+
+export const clearCartItem = (cartItems, cartItemToClear) =>
+  cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
 export const name = "Cart";
 
 export const slice = createSlice({

@@ -36,8 +36,20 @@ const CountDown = () => {
     }
 
     timerComponents.push(
-      <span style={{ display: "flex", alignItems: "center", padding: 10 }}>
-        {timeLeft[interval]} {interval}{" "}
+      <span
+        style={{
+          display: "flex",
+          alignItems: "center",
+          padding: 10,
+          background: "#525252",
+          borderRadius: "5px",
+          margin: "0px 5px",
+          fontFamily: "Roboto",
+          fontStyle: "normal",
+          fontWeight: "700",
+        }}
+      >
+        {timeLeft[interval]}
       </span>
     );
   });

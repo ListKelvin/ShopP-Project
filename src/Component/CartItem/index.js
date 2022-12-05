@@ -10,6 +10,8 @@ const CartItem = ({ cartItem }) => {
       <img
         src={`https://shopp-be.lethanhlong.me/file/${filename}`}
         alt={`${name}`}
+        width="30px"
+        height="50px"
       />
       <ItemDetails>
         <span>{name}</span>

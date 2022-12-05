@@ -1,16 +1,22 @@
+import { useState } from "react";
 import {
   ProductName,
   ProductEvaluated,
   SmallDescription,
   ContainerAdditional,
   ShopVoucherContainer,
+  Amount,
+  IncreaseAndDecrease,
+  Value,
 } from "../styled";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import CountDown from "../../../Component/Countdown/CountDown";
 import { ReactComponent as FlashIcon } from "../../../assets/image 68.svg";
 import Rating from "@mui/material/Rating";
 import Chip from "@mui/material/Chip";
 import { selectCartItems } from "../../../selectors/cartSelector";
-import { addCartItem } from "../../../slices/cartReducer";
+import { addCartItem, removeCartItem } from "../../../slices/cartReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { setCartItems } from "../../../slices/cartReducer";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
@@ -24,10 +30,42 @@ const Voucher = [
   // { id: 6, label: "Discount -90%" },
   // { id: 7, label: "Discount -90%" },
 ];
+const AddtionalInfor = [
+  {
+    id: 1,
+    label: "Color",
+    itemChosen: [
+      { id: 1, name: "Red" },
+      { id: 2, name: "Green" },
+      { id: 3, name: "Yellow" },
+    ],
+  },
+  {
+    id: 2,
+    label: "Size",
+    itemChosen: [
+      { id: 1, name: "M" },
+      { id: 2, name: "X" },
+    ],
+  },
+];
 const ProductInfo = ({ product }) => {
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
+  const [amountInCart, setAmountInCart] = useState(1);
 
+  const setDecrease = () => {
+    amountInCart > 1 ? setAmountInCart(amountInCart - 1) : setAmountInCart(1);
+  };
+
+  const setIncrease = () => {
+    amountInCart < product.quantity
+      ? setAmountInCart(amountInCart + 1)
+      : setAmountInCart(product.quantity);
+
+    product.amountInCart = amountInCart;
+    Object.preventExtensions(product);
+  };
   return (
     <>
       <ProductName> {product.name}</ProductName>
@@ -70,22 +108,14 @@ const ProductInfo = ({ product }) => {
         <div
           className=""
           style={{
+            height: "35px",
             display: "flex",
             marginRight: "30px",
             justifyContent: "space-between",
           }}
         >
           <CountDown />
-          <button
-            style={{
-              background: "#B6E3E3",
-              padding: "10px 10px",
-              border: "none",
-              borderRadius: "10px",
-            }}
-          >
-            See All
-          </button>
+          <Button>See All</Button>
         </div>
       </div>
       <ContainerAdditional>
@@ -98,6 +128,8 @@ const ProductInfo = ({ product }) => {
                 label={el.label}
                 size="small"
                 sx={{
+                  minWidth: "50px",
+
                   marginRight: "10px",
                   color: "#55ABAB",
                   backgroundColor: " #B6E3E3",
@@ -106,7 +138,6 @@ const ProductInfo = ({ product }) => {
             );
           })}
         </ShopVoucherContainer>
-
         <ShopVoucherContainer>
           <div className="title">Ship</div>
           <div className="content">
@@ -135,14 +166,52 @@ const ProductInfo = ({ product }) => {
             </div>
           </div>
         </ShopVoucherContainer>
-
-        <div>{product.quantity} quantity</div>
+        {AddtionalInfor.map((el) => {
+          return (
+            <ShopVoucherContainer key={el.id}>
+              <div className="title">{el.label}</div>
+              {el.itemChosen.map((item) => {
+                return (
+                  <Chip
+                    key={item.id}
+                    label={item.name}
+                    size="small"
+                    sx={{
+                      minWidth: "50px",
+                      marginRight: "10px",
+                      color: "#55ABAB",
+                      backgroundColor: " #B6E3E3",
+                    }}
+                  />
+                );
+              })}
+            </ShopVoucherContainer>
+          );
+        })}
+        <ShopVoucherContainer>
+          <div className="title">Amount</div>
+          <div className="content">
+            <Amount>
+              {" "}
+              <IncreaseAndDecrease onClick={() => setDecrease()}>
+                <RemoveOutlinedIcon />
+              </IncreaseAndDecrease>
+              <Value>{amountInCart}</Value>
+              <IncreaseAndDecrease onClick={() => setIncrease()}>
+                <AddOutlinedIcon />
+              </IncreaseAndDecrease>
+            </Amount>
+          </div>
+          <div className="title">{product.quantity} Remain</div>
+        </ShopVoucherContainer>
       </ContainerAdditional>
 
       <div
         style={{
           width: "220px",
           display: "flex",
+          marginLeft: " 20px",
+
           justifyContent: "space-between",
         }}
       >

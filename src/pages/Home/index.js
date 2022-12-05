@@ -1,6 +1,6 @@
 import ProductCard from "../../Component/ProductCard";
-import { ProductWrapper, AlignCenter } from "./style";
-import { Link } from "react-router-dom";
+import { ProductWrapper } from "./style";
+
 import { useSelector } from "react-redux";
 import SuggestContainer from "./Components/CategoryFilter";
 import Branding from "./Components/Branding";
@@ -10,7 +10,7 @@ import FlashSale from "./Components/FlashSale";
 import { Box } from "@mui/material";
 import CategoryContainer from "../../pages/Home/Components/CategoryContainer";
 import Brand from "../../assets/Branding/image 69.png";
-
+import { ProductLink } from "./style";
 const Home = () => {
   const AllProducts = useSelector(selectProducts);
   // console.log(AllProducts[0].data);
@@ -24,21 +24,22 @@ const Home = () => {
       </Box>
       <SuggestContainer />
       <CategoryContainer />
-      <Branding02 />
+
       <ProductWrapper>
         {ProductAll != null
           ? ProductAll.data.map((el, index) => {
-              const { amount, name, star, sold } = el;
+              const { amount, name, star, sold, productImage } = el;
 
               return (
-                <Link to={`productpage/${el.id}`} key={index}>
+                <ProductLink to={`productpage/${el.id}`} key={index}>
                   <ProductCard
                     name={name}
                     price={amount}
                     rate={star}
                     sold={sold}
+                    img={productImage}
                   />
-                </Link>
+                </ProductLink>
               );
             })
           : ""}

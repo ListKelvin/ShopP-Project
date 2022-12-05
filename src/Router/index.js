@@ -14,6 +14,7 @@ import ProductDetails from "../pages/productPage";
 import UserAddressPage from "../pages/UserAddress/UserAddress";
 import UserProfilePage from "../pages/UserProfile";
 import ShopRegister from "../pages/ShopRegister/ShopRegister";
+import ScrollToTop from "../utils/ScrollToTop";
 const publicRoute = [
   {
     index: true,
@@ -98,6 +99,7 @@ const privateRoute = [
 const RouterComponent = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route exact path="/" element={<Navigate to="home" />} />
         <Route exact element={<PrivateRoute />}>
