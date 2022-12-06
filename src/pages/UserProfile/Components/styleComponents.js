@@ -10,6 +10,7 @@ export const GeneralTitle = styled.h1`
     line-height: 22px;
     letter-spacing: 0.02em;
     color: #2F5E5E;
+    margin-bottom: 15px;
 `;
 
 export const BoxTitle = styled.div`
@@ -29,7 +30,7 @@ export const ContentBox = styled.div`
 
 export const GeneralInforBox = styled.div`
     width: 45%;
-    height: 720px;
+    height: 730px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     background-color: white;
     border-radius: 8px;
@@ -55,7 +56,6 @@ export const InputTwoFiledStyle = styled.div`
 `;
 
 export const InputFieldStyle = styled.div`
-    /* width: 100%; */
 `;
 
 export const InputFieldStylePlace = styled.div`
@@ -203,5 +203,17 @@ export const ButtonDiv = styled.div`
     margin-top: 20px;
     ${down('sm')} {
         margin-top: 15px;
+    }
+`;
+
+export const ButtonSave = styled(Button)`
+    border-radius: 8px;
+    width: 40%;
+    height: 35px;
+    background-color: "#55ABAB";
+    &:hover {
+        transform: scale(1.0125);
+        box-shadow: 0 0 10px rgba(85, 171, 171, 0.25);
+        transition: 0.2s;
     }
 `;

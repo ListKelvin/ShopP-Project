@@ -1,4 +1,4 @@
-import {AvatarBoxStyle, TypoDate, TypoName, ButtonAvatar, ButtonDiv, TypoButton, TypoSave, TypoCancel} from "./styleComponents";
+import {AvatarBoxStyle, TypoDate, TypoName, ButtonAvatar, ButtonDiv, TypoButton, TypoSave, TypoCancel, ButtonSave} from "./styleComponents";
 import Avatar from '@mui/material/Avatar';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { Button } from "@mui/material";
@@ -20,8 +20,8 @@ const AvatarBox = () => {
                 <input type="file" hidden/>
             </ButtonAvatar>
             <ButtonDiv>
-                <Button style = {{backgroundColor: "white", borderRadius: "8px", width: "40%", height: "35px", border: "1px solid #55ABAB"}}><TypoCancel>Cancel</TypoCancel></Button>
-                <Button style = {{backgroundColor: "#55ABAB", borderRadius: "8px", width: "40%", height: "35px",}}><TypoSave>Save</TypoSave></Button>
+                <ButtonSave style = {{backgroundColor: "white", border: "1px solid #55ABAB"}}><TypoCancel>Cancel</TypoCancel></ButtonSave>
+                <ButtonSave style = {{backgroundColor: "#55ABAB"}}><TypoSave>Save</TypoSave></ButtonSave>
             </ButtonDiv>
         </AvatarBoxStyle>
     ) 

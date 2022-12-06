@@ -16,6 +16,14 @@ export const ButtonLog =styled(Button) `
     }
 `;
 
+export const ButtHover = {
+    "&:hover": {
+        transform: "scale(1.0125)",
+        boxShadow: "0 0 10px rgba(246, 74, 74, 0.5)",
+        transition: "0.3s"
+    },
+};
+
 export const TypoButton = styled.div`
     text-transform: none;
     margin-left: 5px;

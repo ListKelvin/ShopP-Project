@@ -1,4 +1,4 @@
-import { ButtonLog, TypoButton, LogIcon } from './styleComponents';
+import { ButtonLog, TypoButton, LogIcon, ButtHover } from './styleComponents';
 
 export default function LogOutButton() {
     return (
@@ -6,6 +6,7 @@ export default function LogOutButton() {
       style = {{
         backgroundColor: "#F64A4A",
       }}
+      sx = {ButtHover}
       >
       <LogIcon sx = {{width: "20px", height: "20px"}}></LogIcon>
         <TypoButton>Log Out</TypoButton>
