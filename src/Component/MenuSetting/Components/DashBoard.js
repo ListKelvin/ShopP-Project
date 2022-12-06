@@ -1,4 +1,4 @@
-import {IconStyle, TypoTitle, StyleTable, TitleStyle, StyleOfTr, ButtonDiv, CenterIcon} from '../style';
+import {IconStyle, TypoTitle, StyleTable, TitleStyle, StyleOfTr, ButtonDiv, CenterIcon, LogTr} from '../style';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogOutButton from "./LogOutButton";
 import LockIcon from '@mui/icons-material/Lock';
@@ -21,9 +21,9 @@ const DashBoard = () => {
         </tr>
       </thead>
       <tbody>
-        <StyleOfTr style = {{backgroundColor: "rgba(85, 171, 171, 0.5)"}}>
+        <StyleOfTr>
           <IconStyle><CenterIcon><AccountCircleIcon/></CenterIcon></IconStyle>
-          <td><TypoTitle style = {{fontWeight: "bold"}}>Profile</TypoTitle></td>
+          <td><TypoTitle>Profile</TypoTitle></td>
           </StyleOfTr>
         <StyleOfTr>
           <IconStyle><CenterIcon><HomeIcon/></CenterIcon></IconStyle>
@@ -57,9 +57,9 @@ const DashBoard = () => {
           <IconStyle><CenterIcon><NotificationsActiveIcon/></CenterIcon></IconStyle>
           <td><TypoTitle>Notification</TypoTitle></td>
         </StyleOfTr>
-        <StyleOfTr style = {{height: "40px"}}>
+        <LogTr>
           <td colspan = "2" ><ButtonDiv><LogOutButton/></ButtonDiv></td>
-        </StyleOfTr>
+        </LogTr>
       </tbody>
     </StyleTable>
     </>
