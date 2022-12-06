@@ -10,7 +10,8 @@ import RegisterInfor from "../pages/registerInfor/RegisterInfor";
 import LayoutComponent from "../Component/layout/Layout.component";
 import Wishlist from "../pages/Wislist";
 import CartPage from "../pages/CartPage";
-import ProductDetails from "../pages/productPage";
+import ProductDetails from "../pages/productDetail";
+import ProductPage from "../pages/productPage";
 import UserAddressPage from "../pages/UserAddress/UserAddress";
 import UserProfilePage from "../pages/UserProfile";
 import ShopRegister from "../pages/ShopRegister/ShopRegister";
@@ -34,6 +35,13 @@ const publicRoute = [
     index: false,
     path: "cartPage",
     component: <CartPage />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "productPage",
+    component: <ProductPage />,
     exact: true,
     restrict: true,
   },

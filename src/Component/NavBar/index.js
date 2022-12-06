@@ -8,7 +8,7 @@ const AppAppBar = () => {
   const pages = [
     { label: "Home", path: "/" },
     { label: "Wishlist", path: "/wishlist" },
-    { label: "Product", path: "/product" },
+    { label: "Product", path: "/productPage" },
     { label: "Support", path: "/support" },
     { label: "Contact", path: "/contact" },
     { label: "cartPage", path: "/cartPage" },

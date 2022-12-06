@@ -30,6 +30,7 @@ export const TypeofFilter = styled.div`
   justify-content: space-between;
   width: 100%;
   transition: all 0.2s;
+  cursor: pointer;
   &:hover {
     background: rgba(85, 171, 171, 0.5);
   }
@@ -44,10 +45,15 @@ export const FilterComponent = styled.div`
   padding: 10px;
   border-bottom: 2px solid #55abab;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   width: 100%;
   margin-top: 15px;
+  transition: all 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(85, 171, 171, 0.5);
+  }
 `;
 
 export const SortFrame = styled.div`

@@ -10,7 +10,7 @@ import {
   TypeofFilter,
 } from "./style";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { Button } from "@mui/material";
+import Accordion from "./components/Accordion";
 
 const ProductFilter = () => {
   return (
@@ -19,48 +19,50 @@ const ProductFilter = () => {
       <Layout>
         <FilterFrame>
           <FilterTitle>Search Filter</FilterTitle>
-          <TypeofFilter>
-            <FilterComponent>
+          <Accordion>
+            <TypeofFilter label="By Category">
               <NameofFilter>By Category</NameofFilter>
               <KeyboardArrowRightIcon />
-            </FilterComponent>
-          </TypeofFilter>
-          <TypeofFilter>
-            <FilterComponent>
-              <NameofFilter>Price Range</NameofFilter>
+              <NameofFilter>By Category</NameofFilter>
               <KeyboardArrowRightIcon />
-            </FilterComponent>
-          </TypeofFilter>
-          <TypeofFilter>
-            <FilterComponent>
-              <NameofFilter>Rating</NameofFilter>
-              <KeyboardArrowRightIcon />
-            </FilterComponent>
-          </TypeofFilter>
-          <TypeofFilter>
-            <FilterComponent>
-              <NameofFilter>Service and Promotion</NameofFilter>
-              <KeyboardArrowRightIcon />
-            </FilterComponent>
-          </TypeofFilter>
-          <TypeofFilter>
-            <FilterComponent>
-              <NameofFilter>Shipping options</NameofFilter>
-              <KeyboardArrowRightIcon />
-            </FilterComponent>
-          </TypeofFilter>
-          <TypeofFilter>
-            <FilterComponent>
-              <NameofFilter>Shipping froms</NameofFilter>
-              <KeyboardArrowRightIcon />
-            </FilterComponent>
-          </TypeofFilter>
-          <TypeofFilter>
-            <FilterComponent>
-              <NameofFilter>Brands</NameofFilter>
-              <KeyboardArrowRightIcon />
-            </FilterComponent>
-          </TypeofFilter>
+            </TypeofFilter>
+            <TypeofFilter label="test1">
+              <FilterComponent>
+                <NameofFilter>Price Range</NameofFilter>
+                <KeyboardArrowRightIcon />
+              </FilterComponent>
+            </TypeofFilter>
+            <TypeofFilter label="test2">
+              <FilterComponent>
+                <NameofFilter>Rating</NameofFilter>
+                <KeyboardArrowRightIcon />
+              </FilterComponent>
+            </TypeofFilter>
+            <TypeofFilter label="test3">
+              <FilterComponent>
+                <NameofFilter>Service and Promotion</NameofFilter>
+                <KeyboardArrowRightIcon />
+              </FilterComponent>
+            </TypeofFilter>
+            <TypeofFilter label="test4">
+              <FilterComponent>
+                <NameofFilter>Shipping options</NameofFilter>
+                <KeyboardArrowRightIcon />
+              </FilterComponent>
+            </TypeofFilter>
+            <TypeofFilter label="test5">
+              <FilterComponent>
+                <NameofFilter>Shipping froms</NameofFilter>
+                <KeyboardArrowRightIcon />
+              </FilterComponent>
+            </TypeofFilter>
+            <TypeofFilter label="test6">
+              <FilterComponent>
+                <NameofFilter>Brands</NameofFilter>
+                <KeyboardArrowRightIcon />
+              </FilterComponent>
+            </TypeofFilter>
+          </Accordion>
         </FilterFrame>
 
         <SortFrame>
