@@ -12,12 +12,12 @@ const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const productItems = useSelector(selectProducts);
-  const listProducts = productItems[0].data;
+  const listProducts = productItems[0];
 
   useEffect(() => {
     let item = null;
     for (let i = 0; i < listProducts.length; i++) {
-      if (listProducts[i].id == id) {
+      if (listProducts[i].id === id) {
         item = listProducts[i];
         break;
       }

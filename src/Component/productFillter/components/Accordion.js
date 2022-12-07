@@ -59,15 +59,17 @@ class Accordion extends Component {
 
     return (
       <div style={{ width: "100%" }}>
-        {children.map((child) => (
-          <AccordionSection
-            isOpen={!!openSections[child.props.label]}
-            label={child.props.label}
-            onClick={onClick}
-          >
-            {child.props.children}
-          </AccordionSection>
-        ))}
+        {children.map((child) => {
+          return (
+            <AccordionSection
+              isOpen={!!openSections[child.props.label]}
+              label={child.props.label}
+              onClick={onClick}
+            >
+              {child.props.children}
+            </AccordionSection>
+          );
+        })}
       </div>
     );
   }

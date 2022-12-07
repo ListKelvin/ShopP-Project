@@ -13,8 +13,7 @@ import Brand from "../../assets/Branding/image 69.png";
 import { ProductLink } from "./style";
 const Home = () => {
   const AllProducts = useSelector(selectProducts);
-  // console.log(AllProducts[0].data);
-  const ProductAll = AllProducts[0];
+
   return (
     <>
       <Branding />
@@ -26,8 +25,8 @@ const Home = () => {
       <CategoryContainer />
 
       <ProductWrapper>
-        {ProductAll != null
-          ? ProductAll.data.map((el, index) => {
+        {AllProducts[0] !== undefined
+          ? AllProducts[0].map((el, index) => {
               const { amount, name, star, sold, productImage } = el;
 
               return (

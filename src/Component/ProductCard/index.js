@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Img from "../../assets/Product/download.jpg";
 const ProductCard = ({ rate, price, sold, name, img }) => {
   const [value, setValue] = React.useState(rate);
+
   const { filename } = img[0].localFile;
 
   return (
@@ -63,7 +64,7 @@ const ProductCard = ({ rate, price, sold, name, img }) => {
               color: "#F64A4A",
             }}
           >
-            {price}
+            ${price}
           </span>
           <Chip
             label="-30%"
