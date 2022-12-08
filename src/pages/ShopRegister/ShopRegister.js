@@ -15,7 +15,7 @@ const ShopRegister = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        fontFamily: "OpenSans",
+        fontFamily: "Open Sans",
       }}>
         <Layout>
           <Frame>
