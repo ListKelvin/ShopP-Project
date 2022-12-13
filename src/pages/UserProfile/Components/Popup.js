@@ -1,6 +1,5 @@
 import { PopupContainer, PopupDiv, TitlePopup, TitleH2, PopupText, ButtonPopupSave, ButtonPopupDiv, TypoPopupSave, TypoPopupCancel, CloseButton, PopupTextDiv } from "./styleComponents";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import { Button } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 const AvatarBox = () => {
     return(
