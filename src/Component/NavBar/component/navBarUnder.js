@@ -23,7 +23,7 @@ const NavBarUnder = ({ pages }) => {
   };
   const token = LocalStorageUtils.getUser();
   // const { email } = token;
-
+  console.log(token);
   return (
     <Toolbar>
       <Box
