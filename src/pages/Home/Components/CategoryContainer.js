@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import CategoryCard from "./CategoryCard";
 import { useSelector } from "react-redux";
 
-import { getFIleImage } from "../../../utils/productApi";
 import {
   selectCategories,
   selectIsLoading,

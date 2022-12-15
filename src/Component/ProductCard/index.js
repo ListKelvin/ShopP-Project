@@ -41,7 +41,7 @@ const ProductCard = ({ rate, price, sold, name, img }) => {
         >
           <Rating
             name="simple-controlled"
-            value={value}
+            value={parseFloat(value)}
             sx={{ fontSize: "14px" }}
             precision={0.5}
             readOnly

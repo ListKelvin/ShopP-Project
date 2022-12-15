@@ -82,6 +82,7 @@ export const slice = createSlice({
     },
     updateFilterValues: (state, action) => {
       const { name, value } = action.payload;
+
       state.filters = { ...state.filters, [name]: value };
     },
   },
