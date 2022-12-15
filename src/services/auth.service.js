@@ -13,7 +13,7 @@ export const login = (formData) => {
     .post(url, formData)
     .then((response) => {
       if (response.data.token) {
-        LocalStorageUtils.setItem("user", JSON.stringify(response.data.token));
+        LocalStorageUtils.setItem("token", response.data.token);
       }
       toastSuccess(response.data.message);
       return response.data;
@@ -23,15 +23,15 @@ export const login = (formData) => {
     });
 };
 const logout = () => {
-  LocalStorageUtils.removeItem("user");
+  LocalStorageUtils.removeItem("token");
 };
 export const register = (formData, navigate) => {
   const url = `${API_URL}/account/sign-up`;
   return axios
     .post(url, formData)
     .then((response) => {
-      toastSuccess(response.data.message);
       navigate("/signIn");
+      toastSuccess(response.data.message);
     })
     .catch((error) => {
       toastWarning(error.response.data.message);

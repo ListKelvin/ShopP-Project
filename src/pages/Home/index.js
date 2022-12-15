@@ -4,16 +4,23 @@ import { ProductWrapper } from "./style";
 import { useSelector } from "react-redux";
 import SuggestContainer from "./Components/CategoryFilter";
 import Branding from "./Components/Branding";
-import Branding02 from "./Components/Branding02";
+
 import { selectProducts } from "../../selectors/productSelect";
 import FlashSale from "./Components/FlashSale";
 import { Box } from "@mui/material";
 import CategoryContainer from "../../pages/Home/Components/CategoryContainer";
 import Brand from "../../assets/Branding/image 69.png";
 import { ProductLink } from "./style";
+import LocalStorageUtils from "../../utils/LocalStorageUtils";
 const Home = () => {
   const AllProducts = useSelector(selectProducts);
 
+  const getUser = async () => {
+    const user = await LocalStorageUtils.getUser();
+    console.log(user);
+    return user;
+  };
+  getUser();
   return (
     <>
       <Branding />

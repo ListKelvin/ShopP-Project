@@ -18,9 +18,9 @@ const settings = [
 ];
 const AvatarUser = () => {
   const dispatch = useDispatch();
-  const token = LocalStorageUtils.getUser();
+  const token = LocalStorageUtils.getJWTUser();
   const [open, setOpen] = React.useState(false);
-
+  console.log(token);
   const handleUserMenuClose = () => {
     setOpen(false);
   };
