@@ -231,6 +231,7 @@ export const PopupContainer = styled.div`
   width: 100vw;
   height: 100vh;
   position: fixed;
+  display: ${(props) => (props.show ? "block" : "none")};
   top: 0;
   left: 0;
   animation: ${move} 0.15s linear forwards;
@@ -356,12 +357,14 @@ export const PopupText = styled.div`
   }
 `;
 
-export const CloseButton = styled.h2`
+export const CloseButton = styled.button`
   // margin-right: 12px;
   color: rgba(0, 0, 0, 0.5);
   text-align: right;
   font-size: 40px;
   transition: all 200ms;
+  background-color: transparent;
+  border: none;
   &:hover {
     color: #55abab;
     cursor: pointer;

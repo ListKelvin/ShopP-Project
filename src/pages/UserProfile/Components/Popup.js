@@ -15,9 +15,11 @@ import {
 } from "./styleComponents";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import CloseIcon from "@mui/icons-material/Close";
-const AvatarBox = () => {
+import { useState } from "react";
+const Popup = ({ show, action }) => {
+  console.log(show);
   return (
-    <PopupContainer>
+    <PopupContainer show={show}>
       <LayerPopup />
       <PopupDiv>
         <Wrapper>
@@ -27,7 +29,7 @@ const AvatarBox = () => {
             />
             <TitleH2>Do you want to change your information?</TitleH2>
           </TitlePopup>
-          <CloseButton>
+          <CloseButton onClick={() => action(false)}>
             <CloseIcon sx={{ fontSize: { xs: "22px", sm: "30px" } }} />
           </CloseButton>
         </Wrapper>
@@ -38,7 +40,10 @@ const AvatarBox = () => {
           </PopupText>
         </PopupTextDiv>
         <ButtonPopupDiv>
-          <ButtonPopupSave style={{ backgroundColor: "white", border: "none" }}>
+          <ButtonPopupSave
+            onClick={() => action(false)}
+            style={{ backgroundColor: "white", border: "none" }}
+          >
             <TypoPopupCancel>Cancel</TypoPopupCancel>
           </ButtonPopupSave>
           <ButtonPopupSave style={{ backgroundColor: "#55ABAB" }}>
@@ -50,4 +55,4 @@ const AvatarBox = () => {
   );
 };
 
-export default AvatarBox;
+export default Popup;

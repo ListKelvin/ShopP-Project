@@ -11,39 +11,43 @@ import {
   TypoPopupCancel,
   CloseButton,
   PopupTextDiv,
+  ButtonLink,
   Wrapper,
+  WrapperFlex,
 } from "./styleComponents";
+
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import CloseIcon from "@mui/icons-material/Close";
-const Modal = ({ title, content }) => {
+const Modal = ({ show, action }) => {
   return (
-    <PopupContainer>
+    <PopupContainer show={show}>
       <LayerPopup />
       <PopupDiv>
         <Wrapper>
-          <TitlePopup>
-            <ErrorOutlineIcon
-              sx={{ color: "#55ABAB", fontSize: { xs: "18px", sm: "30px" } }}
-            />
-            <TitleH2>Do you want to change your information?</TitleH2>
-          </TitlePopup>
-          <CloseButton>
+          <CloseButton onClick={() => action(false)}>
             <CloseIcon sx={{ fontSize: { xs: "22px", sm: "30px" } }} />
           </CloseButton>
         </Wrapper>
-        <PopupTextDiv>
-          <PopupText>
-            The account after redemption will no longer store previous
-            information.
-          </PopupText>
-        </PopupTextDiv>
+        <WrapperFlex>
+          <ErrorOutlineIcon
+            sx={{ color: "#55ABAB", fontSize: { xs: "40px", sm: "4rem" } }}
+          />
+        </WrapperFlex>
+        <WrapperFlex>
+          <TitlePopup>
+            <TitleH2>You need to tell us who are you?</TitleH2>
+          </TitlePopup>
+        </WrapperFlex>
         <ButtonPopupDiv>
-          <ButtonPopupSave style={{ backgroundColor: "white", border: "none" }}>
-            <TypoPopupCancel>Cancel</TypoPopupCancel>
+          <ButtonPopupSave
+            onClick={() => action(false)}
+            style={{ backgroundColor: "white", border: "none" }}
+          >
+            <TypoPopupCancel>SKIP</TypoPopupCancel>
           </ButtonPopupSave>
-          <ButtonPopupSave style={{ backgroundColor: "#55ABAB" }}>
-            <TypoPopupSave>Change</TypoPopupSave>
-          </ButtonPopupSave>
+          <ButtonLink style={{ backgroundColor: "#55ABAB" }}>
+            <TypoPopupSave>YES</TypoPopupSave>
+          </ButtonLink>
         </ButtonPopupDiv>
       </PopupDiv>
     </PopupContainer>

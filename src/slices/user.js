@@ -1,6 +1,5 @@
 import { injectReducer } from "../store/store";
-import axios from "axios";
-import { API_URL } from "../config/config";
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const initialState = {
   user: {
@@ -11,41 +10,20 @@ export const initialState = {
     role: null,
     shop: null,
   },
-
-  //   isSingleLoading: false,
 };
 
-// const urlGetCategories = API_URL + "/category/list-all";
-
-// export const fetchCategories = createAsyncThunk(
-//   "categories/fetchCategories",
-//   async () => {
-//     try {
-//       const res = await axios.get(urlGetCategories);
-//       const data = await res.data;
-//       return data;
-//     } catch (error) {
-//       return error.message;
-//     }
-//   }
-// );
-
-export const name = "category";
+export const name = "user";
 
 export const slice = createSlice({
   name,
   initialState,
   reducers: {
-    setLoading: (state, action) => {
-      state.isLoading = true;
+    setUser: (state, action) => {
+      state.user = action.payload;
     },
-    fetchApiData: (state, action) => {
-      state.isLoading = false;
-      state.categories = action.payload;
-    },
-    fetchApiError: (state, action) => {
-      state.isLoading = false;
-      state.isError = true;
+    deleteUser: (state, action) => {
+      console.log(initialState);
+      state.user = initialState;
     },
   },
   //   extraReducers: (builder) => {
@@ -64,6 +42,6 @@ export const slice = createSlice({
   //   },
 });
 injectReducer(name, slice.reducer);
-export const { fetchApiData, fetchApiError, setLoading } = slice.actions;
+export const { setUser, deleteUser } = slice.actions;
 
 export default slice;

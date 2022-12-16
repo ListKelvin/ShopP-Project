@@ -1,8 +1,8 @@
 import styled, { keyframes } from "styled-components";
 import { down, only } from "styled-breakpoints";
 import { Button } from "@mui/material";
-
-const move = keyframes`
+import { Link } from "react-router-dom";
+export const move = keyframes`
     0%{
         transform: scale(0.5);
         opacity: 0;
@@ -64,7 +64,17 @@ export const ButtonSave = styled(Button)`
     transition: 0.2s;
   }
 `;
-
+export const ButtonLink = styled(Link)`
+  border-radius: 8px;
+  width: 40%;
+  height: 35px;
+  background-color: "#55ABAB";
+  &:hover {
+    transform: scale(1.0125);
+    box-shadow: 0 0 10px rgba(85, 171, 171, 0.25);
+    transition: 0.2s;
+  }
+`;
 //pop up
 export const PopupContainer = styled.div`
   width: 100vw;
@@ -72,6 +82,7 @@ export const PopupContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  display: ${(props) => (props.show ? "block" : "none")};
   animation: ${move} 0.15s linear forwards;
   z-index: 99;
 `;
@@ -85,7 +96,7 @@ export const LayerPopup = styled.div`
 `;
 export const PopupDiv = styled.div`
   padding: 20px;
-  width: 35%;
+  width: 25%;
   background-color: #fff;
   border-radius: 5px;
   position: relative;
@@ -116,10 +127,6 @@ export const TitlePopup = styled.div`
     visibility: visible;
     opacity: 1;
   }
-  padding-right: 10px;
-  @media screen and (max-width: 280px) {
-    padding-bottom: 7px;
-  }
 `;
 
 export const TitleH2 = styled.div`
@@ -130,8 +137,7 @@ export const TitleH2 = styled.div`
   font-feature-settings: "calt" off;
   color: rgba(0, 0, 0, 0.75);
   font-weight: bold;
-  padding-left: 8px;
-  padding-right: 8px;
+
   ${down("xxl")} {
     font-size: 20px;
   }
@@ -195,21 +201,27 @@ export const PopupText = styled.div`
   }
 `;
 
-export const CloseButton = styled.h2`
+export const CloseButton = styled.button`
   // margin-right: 12px;
   color: rgba(0, 0, 0, 0.5);
   text-align: right;
-  font-size: 40px;
+  background: transparent;
+  border: none;
   transition: all 200ms;
   &:hover {
     color: #55abab;
     cursor: pointer;
   }
 `;
-
+export const WrapperFlex = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+`;
 export const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   // margin-bottom: 1rem;
 `;
@@ -219,7 +231,7 @@ export const PopupTextDiv = styled.div`
 `;
 
 export const ButtonPopupDiv = styled(ButtonDiv)`
-  justify-content: right;
+  justify-content: center;
 `;
 
 export const ButtonPopupSave = styled(ButtonSave)`

@@ -2,13 +2,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import { StyledInputBase, Search, SearchIconWrapper } from "../style";
 import { updateFilterValues } from "../../../slices/filterReducer";
 import { useDispatch } from "react-redux";
-const SearchBar = () => {
+const SearchBar = ({ action }) => {
   const dispatch = useDispatch();
 
   const updateFilterValue = (event) => {
     let name = event.target.name;
     let value = event.target.value;
     console.log(value);
+    action(true);
     if (value) {
       dispatch(updateFilterValues({ name, value }));
     }

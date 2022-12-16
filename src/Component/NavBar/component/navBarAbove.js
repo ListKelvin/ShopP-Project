@@ -23,6 +23,7 @@ const NavBarAbove = () => {
   const [searchProduct, setSearchProduct] = useState("empty");
   const filter = useSelector(selectFilters);
   const isCartOpen = useSelector(selectIsCartOpen);
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -53,9 +54,10 @@ const NavBarAbove = () => {
     }
   };
   const handleClickAway = () => {
-    const name = "text";
-    const value = "";
-    dispatch(updateFilterValues({ name, value }));
+    // const name = "text";
+    setShow(false);
+    // const value = "";
+    // dispatch(updateFilterValues({ name, value }));
   };
   useEffect(() => {
     fetchProductByName(debouncedValue);
@@ -90,9 +92,9 @@ const NavBarAbove = () => {
           ></Box>
           ShopP
         </Typography>
-        <SearchBar />
+        <SearchBar action={setShow} />
 
-        <ProductSearchResult search={debouncedValue}>
+        <ProductSearchResult search={show}>
           {searchProduct === "empty" || searchProduct === null
             ? "empty"
             : searchProduct.map((el, id) => (

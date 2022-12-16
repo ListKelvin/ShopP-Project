@@ -7,20 +7,24 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { OutlinedButton, BaseButton } from "../../Button.styles";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { logout } from "../../../slices/auth";
 import { UserMenu, UserItem } from "./Styled.components";
+import { deleteUser } from "../../../slices/user";
+import { selectUser } from "../../../selectors/userSelector";
 const settings = [
   { route: "Profile", link: "userProfile" },
   { route: "Account", link: "Account" },
   { route: "Dashboard", link: "Dashboard" },
 ];
 const AvatarUser = () => {
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const token = LocalStorageUtils.getJWTUser();
+
   const [open, setOpen] = React.useState(false);
-  console.log(token);
+  console.log("line 26: ", user);
   const handleUserMenuClose = () => {
     setOpen(false);
   };
@@ -41,7 +45,7 @@ const AvatarUser = () => {
           alignItems: "center",
         }}
       >
-        {token ? (
+        {user.customer !== null || token ? (
           <Stack
             direction="row"
             spacing={1}
@@ -54,11 +58,15 @@ const AvatarUser = () => {
           >
             <Avatar
               alt="Unknown user"
-              src={AvaUnknown}
+              src={
+                !user
+                  ? AvaUnknown
+                  : `https://shopp-be.lethanhlong.me/file/${user.customer?.avatar.filename}`
+              }
               sx={{ width: 32, height: 32 }}
             />
             <Typography sx={{ color: "dark" }}>
-              {token.email ? token.email : "user"}
+              {!user ? token.email : user.customer?.name}
             </Typography>
 
             <UserMenu open={open}>
@@ -69,6 +77,7 @@ const AvatarUser = () => {
               ))}
               <UserItem
                 onClick={() => {
+                  dispatch(deleteUser());
                   dispatch(logout());
                 }}
               >
@@ -80,7 +89,6 @@ const AvatarUser = () => {
           </Stack>
         ) : (
           <>
-            {" "}
             <OutlinedButton
               component={Link}
               to="/signIn"
@@ -121,28 +129,6 @@ const AvatarUser = () => {
       </Box>
     </ClickAwayListener>
   );
-  //   <Menu
-  //   sx={{ mt: "45px" }}
-  //   id="menu-appbar"
-  //   anchorEl={open}
-  //   anchorOrigin={{
-  //     vertical: "top",
-  //     horizontal: "right",
-  //   }}
-  //   keepMounted
-  //   transformOrigin={{
-  //     vertical: "top",
-  //     horizontal: "right",
-  //   }}
-  //   open={Boolean(open)}
-  //   onClose={handleUserMenuClose}
-  // >
-  //   {settings.map((setting) => (
-  //     <MenuItem key={setting} onClick={handleUserMenuClose}>
-  //       <Typography textAlign="center">{setting}</Typography>
-  //     </MenuItem>
-  //   ))}
-  // </Menu>
 };
 
 export default AvatarUser;

@@ -88,12 +88,6 @@ const publicRoute = [
     exact: true,
     restrict: true,
   },
-  {
-    path: "info",
-    component: <RegisterInfor />,
-    exact: true,
-    restrict: true,
-  },
 ];
 
 const privateRoute = [

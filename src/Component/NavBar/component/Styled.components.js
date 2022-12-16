@@ -32,7 +32,7 @@ export const ProductSearchResult = styled.div`
   position: absolute;
   width: 56ch;
   height: 200px;
-  display: ${(props) => (props.search !== "" ? "flex" : "none")};
+  display: ${(props) => (props.search ? "flex" : "none")};
   flex-direction: column;
   // padding: 10px 20px;
   background: #ffffff;

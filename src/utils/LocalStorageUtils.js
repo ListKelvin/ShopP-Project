@@ -47,12 +47,13 @@ class LocalStorageUtils {
       const token = this.getItem(LOCAL_STORAGE_TOKEN);
       if (isExpired(token)) {
         this.deleteUser();
+
         return undefined;
       }
       if (token) {
         try {
           const { userId } = decodeToken(token);
-          console.log(userId);
+
           const fetchedUser = get(
             `/account/${userId}`,
             {},
