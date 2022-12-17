@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { AddressFrame, AddressStatus, ButtonArea, InfAddress, Layout, Status } from "./styles";
+import { AddressFrame, AddressStatus, ButtonArea, InfAddress, Layout, Status, AddButton, AddressTitle, EditButton, DefaultButton, DeleteButton } from "./styles";
 import { Button } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import MenuSetting from "../../Component/MenuSetting"
 import { Login } from '@mui/icons-material';
+import { up, down } from 'styled-breakpoints';
 
 const Address = [
   {
@@ -30,7 +31,7 @@ const Address = [
 const UserAddressPage = () => {
   return (
     <>
-      <h1>Address</h1>
+      <AddressTitle>Address</AddressTitle>
       {/* <MenuSetting/> */}
       <div style={{
         minHeight: "50vh",
@@ -40,17 +41,9 @@ const UserAddressPage = () => {
         fontFamily: "Open Sans",
       }}>
         <Layout>
-          <Button style={{
-            background: "#FFFFFF",
-            border: "1px dashed #F64A4A",
-            borderRadius: "8px",
-            padding: "10px",
-            boxSizing: "border-box",
-            width: "75%"
-          }}
-            startIcon={<AddIcon style={{ color: "#F64A4A" }} />}>
+          <AddButton style={{border: "1px dashed #F64A4A"}}startIcon={<AddIcon style={{ color: "#F64A4A" }} />}>
             <p style={{ color: "#F64A4A" }}>Add new address</p>
-          </Button>
+          </AddButton>
           {Address.map(({ id, user, phone, addressinf }) => {
             return (
             <AddressFrame key={id}>
@@ -64,14 +57,18 @@ const UserAddressPage = () => {
               </InfAddress>
 
               <ButtonArea>
-                <Button style={{ background: "#55ABAB", color: "white" }}>Edit</Button>
-                <Button style={{ background: "#FFFFFF", border: "1px solid rgba(186, 78, 58, 0.5)", color: "rgba(186, 78, 58, 0.5)" }}>Set as default</Button>
-                <Button style={{ background: "#F64A4A", color: "white" }}>Delete</Button>
+                <EditButton style={{ background: "#55ABAB", color: "white"}}>Edit</EditButton>
+                <DefaultButton style={{ background: "#FFFFFF", border: "1px solid rgba(186, 78, 58, 0.5)", color: "rgba(186, 78, 58, 0.5)" }}>Set as default</DefaultButton>
+                <DeleteButton style={{ background: "#F64A4A", color: "white" }}>Delete</DeleteButton>
               </ButtonArea>
             </AddressFrame>
             );
           })}
         </Layout>
+
+        <script>
+
+        </script>
       </div>
     </>
   );
