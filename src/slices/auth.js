@@ -60,7 +60,8 @@ export const name = "auth";
 const authSlice = createSlice({
   name,
   initialState,
-  reducers: {
+  reducers: {},
+  extraReducers: {
     [register.fulfilled]: (state, action) => {
       state.isLoggedIn = false;
     },

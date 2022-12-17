@@ -12,7 +12,7 @@ export const CartItemContainer = styled.div`
   cursor: pointer;
   padding: 10px 20px;
   border-radius: 5px;
-
+  z-index: 5;
   img {
     width: 50px;
     height: 50px;

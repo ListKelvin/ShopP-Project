@@ -75,7 +75,7 @@ const SignInComponent = () => {
     dispatch(login(data2))
       .unwrap()
       .then(() => {
-        navigate("/home");
+        navigate("/info");
         window.location.reload();
       })
       .catch(() => {
@@ -216,9 +216,11 @@ const SignInComponent = () => {
                       sx={{ justifyContent: "center", marginTop: "10px" }}
                     >
                       <Grid item>
-                        <Link href="#" variant="body2">
-                          {"Don't have an account? Sign Up"}
-                        </Link>
+                        <LinkStyle to="/register">
+                          <Link variant="body2">
+                            {"Don't have an account? Sign Up"}
+                          </Link>
+                        </LinkStyle>
                       </Grid>
                     </Grid>
                     {message && (

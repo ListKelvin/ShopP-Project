@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Formik } from "formik";
 import FormikControl from "../../Component/FormikControl";
 import { Box } from "@mui/system";
@@ -10,7 +10,10 @@ import { Typography } from "@mui/material";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { ValidationSchema } from "./schema/Validation";
 import { Button } from "@mui/material";
-
+import Modal from "../../Component/Modal/Modal";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../selectors/userSelector";
+import customerApi from "../../utils/productApiComponent/customerApi";
 const initialValues = {
   name: "",
   dateOfBirth: "",
@@ -18,15 +21,48 @@ const initialValues = {
   phonenumber: "",
   placeOfDelivery: "",
   confirm: false,
-  file: null,
+  avatar: null,
+  Bio: "",
+};
+const options = [
+  {
+    value: "MALE",
+    key: "MALE",
+  },
+  {
+    value: "FEMALE",
+    key: "FEMALE",
+  },
+];
+const postCustomer = async (customer) => {
+  await customerApi.createCustomer(customer).then((res) => console.log(res));
 };
 const RegisterInfor = () => {
+  const [show, setShow] = useState(false);
+
+  const user = useSelector(selectUser);
   const fileRef = useRef(null);
   const onSubmit = (values) => {
-    console.log("Form data", values);
+    console.log(values.dateOfBirth.toString());
+    const formatData = {
+      name: values.name,
+      dob: values.dateOfBirth,
+      gender: values.gender,
+      placeOfDelivery: values.placeOfDelivery,
+      avatar: values.file,
+      bio: values.Bio,
+    };
+    postCustomer(formatData);
   };
+
+  useEffect(() => {
+    if (user.customer === null) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  }, []);
   return (
-    // <Container maxWidth={false} sx={{ background: "#F2BB83", height: "100vh" }}>
     <Box
       sx={{
         widh: "100vw",
@@ -39,13 +75,16 @@ const RegisterInfor = () => {
         justifyContent: "center",
       }}
     >
+      <Modal show={show} action={setShow} />
+
       <Formik
         initialValues={initialValues}
         validationSchema={ValidationSchema}
         onSubmit={onSubmit}
       >
-        {({ setFieldValue, isValid, values }) => {
-          console.log(values);
+        {(form) => {
+          const { setFieldValue, isValid, values } = form;
+
           return (
             <RegisterInfoContainer>
               <Typography
@@ -124,7 +163,8 @@ const RegisterInfor = () => {
                             borderRadius: "50px",
                           },
                         }}
-                        control="MuiInput"
+                        options={options}
+                        control="select"
                         label="gender"
                         name="gender"
                       />
@@ -153,8 +193,22 @@ const RegisterInfor = () => {
                           },
                         }}
                         type="text"
-                        label="placeOfDelivery"
+                        label="PlaceOfDelivery"
                         name="placeOfDelivery"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FormikControl
+                        control="MuiInput"
+                        sx={{
+                          width: { lg: "475px", xs: "200px", sm: "335px" },
+                          "& .MuiOutlinedInput-root": {
+                            borderRadius: "50px",
+                          },
+                        }}
+                        type="text"
+                        label="Bio"
+                        name="Bio"
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -182,6 +236,7 @@ const RegisterInfor = () => {
                   )}
                   <input
                     hidden
+                    name="avatar"
                     ref={fileRef}
                     type="file"
                     onChange={(e) => {
@@ -203,7 +258,7 @@ const RegisterInfor = () => {
               <RegisButton
                 variant="contained"
                 type="submit"
-                // disabled={!formik.isValid}
+                disabled={!isValid}
               >
                 Submit
               </RegisButton>

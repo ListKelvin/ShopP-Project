@@ -12,9 +12,8 @@ export const ValidationSchema = Yup.object({
     [true],
     " Please accept the challenges of F-Code"
   ),
-  file: Yup.mixed()
+  avatar: Yup.mixed()
     .nullable()
-    .required()
     .test(
       "FILE_SIZE",
       "Upload file is too big.",

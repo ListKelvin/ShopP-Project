@@ -1,5 +1,5 @@
 import { CartItemContainer, ItemDetails } from "./styles";
-
+import AvaUnknown from "../../assets/Avaunknow/istockphoto-1223671392-612x612.jpg";
 const CartItem = ({ cartItem }) => {
   const { name, productImage, amount, amountInCart } = cartItem;
 
@@ -8,7 +8,11 @@ const CartItem = ({ cartItem }) => {
   return (
     <CartItemContainer>
       <img
-        src={`https://shopp-be.lethanhlong.me/file/${filename}`}
+        src={
+          productImage
+            ? `https://shopp-be.lethanhlong.me/file/${filename}`
+            : `${AvaUnknown}`
+        }
         alt={`${name}`}
         width="30px"
         height="50px"
