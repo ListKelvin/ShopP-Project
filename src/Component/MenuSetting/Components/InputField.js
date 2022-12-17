@@ -1,134 +1,246 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import LockIcon from '@mui/icons-material/Lock';
-
-
+import * as React from "react";
+import * as Yup from "yup";
+import { toastSuccess } from "../../ToastNotification";
+import Box from "@mui/material/Box";
+import authApi from "../../../utils/productApiComponent/authApi";
+import UpdatePassButton from "./UpdatePassButton";
+import { CancelButton } from "./CancelButt";
+import { Formik, Form } from "formik";
+import FormikControl from "../../FormikControl";
 export default function FormPropsTextFields() {
-  const [values, setValues] = React.useState({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
+  const initialValues = {
+    oldPassword: "",
+    newPassword: "",
+    confirmNewPassword: "",
+  };
+
+  const validationSchema = Yup.object({
+    oldPassword: Yup.string()
+      .required("Required")
+      .min(8, "Your password is too short."),
+    newPassword: Yup.string()
+      .required("Required")
+      .min(8, "Your password is too short.")
+      .matches(
+        /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        "Password must One Uppercase, One Lowercase, One Number and one special case Character."
+      ),
+    confirmNewPassword: Yup.string()
+      .oneOf([Yup.ref("newPassword"), ""], "New passwords must match")
+      .required("Required"),
   });
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
+  const onSubmit = (values) => {
+    authApi.postChangePassword(values).then((res) => {
+      toastSuccess(res.data.message);
     });
+    console.log("Form data", values);
   };
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={onSubmit}
+    >
+      {(formik) => {
+        return (
+          <Box
+            component={Form}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              gap: "2rem",
+              "& > :not(style)": {
+                m: 1,
+                width: { xl: "1000px", md: "800px", sm: "500px", xs: "280px" },
+                height: { xl: "40px", xs: "60px" },
+              },
+            }}
+          >
+            <FormikControl
+              control="MuiInput"
+              type="password"
+              label="Old password"
+              name="oldPassword"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "6px",
+                },
+              }}
+            />
+            <FormikControl
+              control="MuiInput"
+              type="password"
+              label="New password"
+              name="newPassword"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "6px",
+                },
+              }}
+            />
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-    return (
-      <Box
-      style = {{textAlign: 'center'}}
-        component="form"
-        sx={{
-          '& > :not(style)': { m: 1, width: {xl: '500px',
-          md: "500px",
-          sm: "500px",
-          xs: "280px"}, height: {xl: "45px", xs: "30px"},
-          },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-          <FormControl sx={{ m: 1, width: '25ch', height: {xl: "56px", sm: "30px" },}} variant="outlined" required style = {{marginTop: "40px"}} >
-          <InputLabel htmlFor="outlined-adornment-password">Current Password</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            startAdornment={
-            <InputAdornment position="start">
-              <LockIcon/>
-            </InputAdornment>
-          }
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Current Password"
-          />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: '25ch', height: {xl: "56px", sm: "30px" },}} variant="outlined" required style = {{marginTop: "40px"}} >
-          <InputLabel htmlFor="outlined-adornment-password">New Password</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            startAdornment={
-            <InputAdornment position="start">
-              <LockIcon/>
-            </InputAdornment>
-          }
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="New Password"
-          />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: '25ch', height: {xl: "56px", sm: "30px" },}} variant="outlined" required style = {{marginTop: "40px"}} >
-        <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            startAdornment={
-            <InputAdornment position="start">
-              <LockIcon/>
-            </InputAdornment>
-          }
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Confirm Password"
-          />
-        </FormControl>
-      </Box>
+            <FormikControl
+              control="MuiInput"
+              type="password"
+              label="Confirm password"
+              name="confirmNewPassword"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "6px",
+                },
+              }}
+            />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "space-around",
+              }}
+            >
+              <UpdatePassButton
+                // sx={{
+                //   width: { xs: "220px", sm: "255px", md: "320px" },
+                // }}
+                // variant="contained"
+                type="submit"
+                disabled={!formik.isValid}
+              />
+              <CancelButton />
+            </Box>
+          </Box>
+        );
+      }}
+    </Formik>
   );
 }
+// <Box
+// onSubmit={handleSubmit}
+// style={{
+//   textAlign: "center",
+// }}
+// component="form"
+// sx={{
+//   display: "flex",
+//   justifyContent: "center",
+//   alignItems: "center",
+//   flexDirection: "column",
+
+//   "& > :not(style)": {
+//     m: 1,
+//     width: { xl: "1000px", md: "800px", sm: "500px", xs: "280px" },
+//     height: { xl: "40px", xs: "60px" },
+//   },
+// }}
+
+// noValidate
+// autoComplete="off"
+// >
+// <FormControl
+//   sx={{ m: 1, width: "25ch", height: { xl: "56px", sm: "30px" } }}
+//   variant="outlined"
+//   required
+//   style={{ marginTop: "40px" }}
+// >
+//   <InputLabel htmlFor="outlined-adornment-current-password">
+//     Current Password
+//   </InputLabel>
+//   <OutlinedInput
+//     id="outlined-adornment-current-password"
+//     type={values.showPassword ? "text" : "password"}
+//     value={values.oldPassword}
+//     onChange={handleChange("oldPassword")}
+//     startAdornment={
+//       <InputAdornment position="start">
+//         <LockIcon />
+//       </InputAdornment>
+//     }
+//     endAdornment={
+//       <InputAdornment position="end">
+//         <IconButton
+//           aria-label="toggle password visibility"
+//           onClick={handleClickShowPassword}
+//           onMouseDown={handleMouseDownPassword}
+//           edge="end"
+//         >
+//           {values.showPassword ? <VisibilityOff /> : <Visibility />}
+//         </IconButton>
+//       </InputAdornment>
+//     }
+//     label="Current Password"
+//   />
+// </FormControl>
+// <FormControl
+//   sx={{ m: 1, width: "25ch", height: { xl: "56px", sm: "30px" } }}
+//   variant="outlined"
+//   required
+//   style={{ marginTop: "40px" }}
+// >
+//   <InputLabel htmlFor="outlined-adornment-new-password">
+//     New Password
+//   </InputLabel>
+//   <OutlinedInput
+//     id="outlined-adornment-new-password"
+//     type={values.showPassword ? "text" : "password"}
+//     value={values.newPassword}
+//     onChange={handleChange("newPassword")}
+//     startAdornment={
+//       <InputAdornment position="start">
+//         <LockIcon />
+//       </InputAdornment>
+//     }
+//     endAdornment={
+//       <InputAdornment position="end">
+//         <IconButton
+//           aria-label="toggle password visibility"
+//           onClick={handleClickShowPassword}
+//           onMouseDown={handleMouseDownPassword}
+//           edge="end"
+//         >
+//           {values.showPassword ? <VisibilityOff /> : <Visibility />}
+//         </IconButton>
+//       </InputAdornment>
+//     }
+//     label="New Password"
+//   />
+// </FormControl>
+// <FormControl
+//   sx={{ m: 1, width: "25ch", height: { xl: "56px", sm: "30px" } }}
+//   variant="outlined"
+//   required
+//   style={{ marginTop: "40px" }}
+// >
+//   <InputLabel htmlFor="outlined-adornment-password">
+//     Confirm Password
+//   </InputLabel>
+//   <OutlinedInput
+//     id="outlined-adornment-password"
+//     type={values.showPassword ? "text" : "password"}
+//     value={values.confirmPassword}
+//     onChange={handleChange("confirmPassword")}
+//     startAdornment={
+//       <InputAdornment position="start">
+//         <LockIcon />
+//       </InputAdornment>
+//     }
+//     endAdornment={
+//       <InputAdornment position="end">
+//         <IconButton
+//           aria-label="toggle password visibility"
+//           onClick={handleClickShowPassword}
+//           onMouseDown={handleMouseDownPassword}
+//           edge="end"
+//         >
+//           {values.showPassword ? <VisibilityOff /> : <Visibility />}
+//         </IconButton>
+//       </InputAdornment>
+//     }
+//     label="Confirm Password"
+//   />
+// </FormControl>
+// <UpdatePassButton type="submit" />
+// <CancelButton />
+// </Box>

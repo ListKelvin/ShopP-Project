@@ -3,9 +3,8 @@ import LocalStorageUtils from "../LocalStorageUtils";
 const customerApi = {
   // subject api
   createCustomer: async (customer) => {
-    console.log(customer);
     const token = LocalStorageUtils.getToken();
-    console.log(token);
+
     const endpoint = "/customer/new";
     return await post(
       endpoint,

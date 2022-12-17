@@ -16,7 +16,7 @@ import { selectUser } from "../../../selectors/userSelector";
 const settings = [
   { route: "Profile", link: "userProfile" },
   { route: "Account", link: "Account" },
-  { route: "Dashboard", link: "Dashboard" },
+  { route: "Setting", link: "Setting" },
 ];
 const AvatarUser = () => {
   const user = useSelector(selectUser);
