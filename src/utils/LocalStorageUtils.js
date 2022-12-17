@@ -52,10 +52,8 @@ class LocalStorageUtils {
       }
       if (token) {
         try {
-          const { userId } = decodeToken(token);
-
           const fetchedUser = get(
-            `/account/${userId}`,
+            `/account/own`,
             {},
             { Authorization: token }
           ).then((res) => res.data);

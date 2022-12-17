@@ -15,10 +15,11 @@ import {
   Wrapper,
   WrapperFlex,
 } from "./styleComponents";
-
+import { useNavigate } from "react-router-dom";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import CloseIcon from "@mui/icons-material/Close";
 const Modal = ({ show, action }) => {
+  const navigate = useNavigate();
   return (
     <PopupContainer show={show}>
       <LayerPopup />
@@ -40,14 +41,20 @@ const Modal = ({ show, action }) => {
         </WrapperFlex>
         <ButtonPopupDiv>
           <ButtonPopupSave
-            onClick={() => action(false)}
+            onClick={() => {
+              navigate("/home");
+              window.location.reload();
+            }}
             style={{ backgroundColor: "white", border: "none" }}
           >
             <TypoPopupCancel>SKIP</TypoPopupCancel>
           </ButtonPopupSave>
-          <ButtonLink style={{ backgroundColor: "#55ABAB" }}>
+          <ButtonPopupSave
+            onClick={() => action(false)}
+            style={{ backgroundColor: "#55ABAB" }}
+          >
             <TypoPopupSave>YES</TypoPopupSave>
-          </ButtonLink>
+          </ButtonPopupSave>
         </ButtonPopupDiv>
       </PopupDiv>
     </PopupContainer>

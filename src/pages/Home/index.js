@@ -19,25 +19,23 @@ const Home = () => {
   const dispatch = useDispatch();
   const AllProducts = useSelector(selectProducts);
 
-  const token = LocalStorageUtils.getJWTUser();
+  // const token = LocalStorageUtils.getJWTUser();
 
   useEffect(() => {
-    if (token) {
-      const getUser = async () => {
-        const user = await LocalStorageUtils.getUser();
-        console.log(user.data);
-        const simplifyUser = {
-          customer: user.data.customer,
-          email: user.data.email,
-          id: user.data.id,
-          role: user.data.role,
-          shop: user.data.shop,
-        };
-        dispatch(setUser(simplifyUser));
+    const getUser = async () => {
+      const user = await LocalStorageUtils.getUser();
+      console.log(user.data);
+      const simplifyUser = {
+        customer: user.data.customer,
+        email: user.data.email,
+        id: user.data.id,
+        role: user.data.role,
+        shop: user.data.shop,
       };
-      getUser();
-    }
-  }, [token]);
+      dispatch(setUser(simplifyUser));
+    };
+    getUser();
+  }, []);
 
   return (
     <>
