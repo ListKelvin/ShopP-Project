@@ -7,10 +7,8 @@ import Popup from "./Components/Popup";
 const UserProfilePage = () => {
   return (
     <UserProfileDiv>
-      <DashBoard />
       <GeneralInfor />
       <AvatarBox />
-      <Title>User Profile</Title>
     </UserProfileDiv>
   );
 };

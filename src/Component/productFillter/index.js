@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import {
   FilterComponent,
   FilterFrame,
@@ -10,7 +12,11 @@ import {
   TypeofFilter,
   FilterCategory,
   WrapperFlexColumn,
+  InputRange,
+  WrapperFlex,
+  ApplyFlex,
 } from "./style";
+import Button from "../Button";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Accordion from "./components/Accordion";
 import GridView from "../ProductList/ProductList";
@@ -21,11 +27,13 @@ import {
   updateFilterValues,
   filterProducts,
 } from "../../slices/filterReducer";
-import { useEffect } from "react";
+import { clearFilterProducts } from "../../slices/filterReducer";
 import { selectFilterProducts } from "../../selectors/filterSelector";
 import { selectFilters } from "../../selectors/filterSelector";
 import { selectAllProducts } from "../../selectors/filterSelector";
 import { selectCategories } from "../../selectors/categorySelect";
+import productApi from "../../utils/productApiComponent/productApi";
+import { updateFilterProductByPrice } from "../../slices/filterReducer";
 const ProductFilter = () => {
   const dispatch = useDispatch();
   const allCategories = useSelector(selectCategories);
@@ -33,7 +41,21 @@ const ProductFilter = () => {
   const allProducts = useSelector(selectAllProducts);
   const filters = useSelector(selectFilters);
   const filterProduct = useSelector(selectFilterProducts);
-  console.log(filterProduct);
+
+  const [minRange, setMinRange] = useState();
+  const [maxRange, setMaxRange] = useState();
+
+  const handleChangeMax = (e) => {
+    if (e.target.value > 10000000000) {
+      setMaxRange(100000000);
+    } else setMaxRange(e.target.value);
+  };
+  const handleChangeMin = (e) => {
+    if (e.target.value < 0) {
+      setMinRange(1);
+    } else setMinRange(e.target.value);
+  };
+
   const getUniqueData = (data, attr) => {
     let newVal = data.map((curElem) => {
       return curElem[attr];
@@ -52,6 +74,17 @@ const ProductFilter = () => {
     let value = event.target.value;
 
     return dispatch(updateFilterValues({ name, value }));
+  };
+  const ApplyPriceRange = async (product) => {
+    console.log(product);
+    dispatch(clearFilterProducts());
+
+    const result = await productApi.filterProductByPrice(product);
+    if (result.status === 200) {
+      console.log(result.data.data);
+      dispatch(updateFilterProductByPrice(result.data.data));
+    }
+    console.log(result.status == 200);
   };
   useEffect(() => {
     dispatch(filterProducts());
@@ -82,11 +115,24 @@ const ProductFilter = () => {
                 );
               })}
             </TypeofFilter>
-            <TypeofFilter label="test1">
-              <FilterComponent>
-                <NameofFilter>Price Range</NameofFilter>
-                <KeyboardArrowRightIcon />
-              </FilterComponent>
+            <TypeofFilter label="Price Range">
+              <WrapperFlex>
+                <InputRange
+                  type="number"
+                  placeholder="Min"
+                  onChange={handleChangeMin}
+                />
+                <InputRange
+                  type="number"
+                  placeholder="Max"
+                  onChange={handleChangeMax}
+                />
+              </WrapperFlex>
+              <ApplyFlex>
+                <Button onClick={() => ApplyPriceRange({ minRange, maxRange })}>
+                  Apply
+                </Button>
+              </ApplyFlex>
             </TypeofFilter>
             <TypeofFilter label="test2">
               <FilterComponent>

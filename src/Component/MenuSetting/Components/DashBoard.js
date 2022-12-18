@@ -7,6 +7,9 @@ import {
   ButtonDiv,
   CenterIcon,
   LogTr,
+  LinkStyle,
+  WrapperLinked,
+  WrapperSettings,
 } from "../style";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogOutButton from "./LogOutButton";
@@ -23,116 +26,149 @@ import React from "react";
 const DashBoard = () => {
   return (
     <>
-      <StyleTable>
-        <thead>
-          <tr style={{ height: "50px" }}>
-            <th colspan="2">
-              <TitleStyle>SHOPP</TitleStyle>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <StyleOfTr>
-            <IconStyle>
-              <CenterIcon>
-                <AccountCircleIcon />
-              </CenterIcon>
-            </IconStyle>
-            <td>
-              <TypoTitle>Profile</TypoTitle>
-            </td>
-          </StyleOfTr>
-          <StyleOfTr>
-            <IconStyle>
-              <CenterIcon>
-                <HomeIcon />
-              </CenterIcon>
-            </IconStyle>
-            <td>
-              <TypoTitle>Address</TypoTitle>
-            </td>
-          </StyleOfTr>
-          <StyleOfTr>
-            <IconStyle>
-              <CenterIcon>
-                <ShoppingCartIcon />
-              </CenterIcon>
-            </IconStyle>
-            <td>
-              <TypoTitle>Purchase</TypoTitle>
-            </td>
-          </StyleOfTr>
-          <StyleOfTr>
-            <IconStyle>
-              <CenterIcon>
-                <CreditCardIcon />
-              </CenterIcon>
-            </IconStyle>
-            <td>
-              <TypoTitle>Bank & Cards</TypoTitle>
-            </td>
-          </StyleOfTr>
-          <StyleOfTr>
-            <IconStyle>
-              <CenterIcon>
-                <AttachMoneyIcon />
-              </CenterIcon>
-            </IconStyle>
-            <td>
-              <TypoTitle>My ShopP Coins</TypoTitle>
-            </td>
-          </StyleOfTr>
-          <StyleOfTr>
-            <IconStyle>
-              <CenterIcon>
-                <StarRateIcon />
-              </CenterIcon>
-            </IconStyle>
-            <td>
-              <TypoTitle>My Evaluation</TypoTitle>
-            </td>
-          </StyleOfTr>
-          <StyleOfTr>
-            <IconStyle>
-              <CenterIcon>
-                <LoyaltyIcon />
-              </CenterIcon>
-            </IconStyle>
-            <td>
-              <TypoTitle>My Vouchers</TypoTitle>
-            </td>
-          </StyleOfTr>
-          <StyleOfTr>
-            <IconStyle>
-              <CenterIcon>
-                <LockIcon />
-              </CenterIcon>
-            </IconStyle>
-            <td>
-              <TypoTitle>Change Password</TypoTitle>
-            </td>
-          </StyleOfTr>
-          <StyleOfTr>
-            <IconStyle>
-              <CenterIcon>
-                <NotificationsActiveIcon />
-              </CenterIcon>
-            </IconStyle>
-            <td>
-              <TypoTitle>Notification</TypoTitle>
-            </td>
-          </StyleOfTr>
-          <LogTr>
-            <td colSpan="2">
-              <ButtonDiv>
-                <LogOutButton />
-              </ButtonDiv>
-            </td>
-          </LogTr>
-        </tbody>
-      </StyleTable>
+      <WrapperSettings>
+        <TitleStyle>SHOPP</TitleStyle>
+        <WrapperLinked>
+          <LinkStyle>
+            <AccountCircleIcon />
+            Profile
+          </LinkStyle>
+          <LinkStyle>
+            <HomeIcon />
+            Address
+          </LinkStyle>
+          <LinkStyle>
+            <ShoppingCartIcon />
+            Purchase
+          </LinkStyle>
+          <LinkStyle>
+            <CreditCardIcon /> Bank & Cards
+          </LinkStyle>
+          <LinkStyle>
+            <AttachMoneyIcon />
+            My ShopP Coins
+          </LinkStyle>
+          <LinkStyle>
+            <StarRateIcon /> My Evaluation
+          </LinkStyle>
+          <LinkStyle>
+            <LoyaltyIcon /> My Vouchers
+          </LinkStyle>
+          <LinkStyle>
+            <LockIcon />
+            Change Password
+          </LinkStyle>
+          <LinkStyle>
+            <NotificationsActiveIcon /> Notifications
+          </LinkStyle>
+        </WrapperLinked>
+
+        <LogOutButton />
+      </WrapperSettings>
     </>
   );
 };
 
+// <StyleTable>
+// <thead>
+//   <tr style={{ height: "50px" }}>
+//     <th colspan="2">
+//       <TitleStyle>SHOPP</TitleStyle>
+//     </th>
+//   </tr>
+// </thead>
+// <tbody>
+//   <StyleOfTr>
+//     <LinkStyle to="ChangePassword">
+//       <CenterIcon>
+//         <AccountCircleIcon />
+//       </CenterIcon>
+//       <TypoTitle>Profile</TypoTitle>
+//     </LinkStyle>
+//   </StyleOfTr>
+//   <StyleOfTr>
+//     <IconStyle>
+//       <CenterIcon>
+//         <HomeIcon />
+//       </CenterIcon>
+//     </IconStyle>
+//     <td>
+//       <TypoTitle>Address</TypoTitle>
+//     </td>
+//   </StyleOfTr>
+//   <StyleOfTr>
+//     <IconStyle>
+//       <CenterIcon>
+//         <ShoppingCartIcon />
+//       </CenterIcon>
+//     </IconStyle>
+//     <td>
+//       <TypoTitle>Purchase</TypoTitle>
+//     </td>
+//   </StyleOfTr>
+//   <StyleOfTr>
+//     <IconStyle>
+//       <CenterIcon>
+//         <CreditCardIcon />
+//       </CenterIcon>
+//     </IconStyle>
+//     <td>
+//       <TypoTitle>Bank & Cards</TypoTitle>
+//     </td>
+//   </StyleOfTr>
+//   <StyleOfTr>
+//     <IconStyle>
+//       <CenterIcon>
+//         <AttachMoneyIcon />
+//       </CenterIcon>
+//     </IconStyle>
+//     <td>
+//       <TypoTitle>My ShopP Coins</TypoTitle>
+//     </td>
+//   </StyleOfTr>
+//   <StyleOfTr>
+//     <IconStyle>
+//       <CenterIcon>
+//         <StarRateIcon />
+//       </CenterIcon>
+//     </IconStyle>
+//     <td>
+//       <TypoTitle>My Evaluation</TypoTitle>
+//     </td>
+//   </StyleOfTr>
+//   <StyleOfTr>
+//     <IconStyle>
+//       <CenterIcon>
+//         <LoyaltyIcon />
+//       </CenterIcon>
+//     </IconStyle>
+//     <td>
+//       <TypoTitle>My Vouchers</TypoTitle>
+//     </td>
+//   </StyleOfTr>
+//   <StyleOfTr>
+//     <IconStyle>
+//       <CenterIcon>
+//         <LockIcon />
+//       </CenterIcon>
+//     </IconStyle>
+//     <td>
+//       <TypoTitle>Change Password</TypoTitle>
+//     </td>
+//   </StyleOfTr>
+//   <StyleOfTr>
+//     <IconStyle>
+//       <CenterIcon>
+//         <NotificationsActiveIcon />
+//       </CenterIcon>
+//     </IconStyle>
+//     <td>
+//       <TypoTitle>Notification</TypoTitle>
+//     </td>
+//   </StyleOfTr>
+//   <LogTr>
+//     <td colSpan="2"></td>
+//   </LogTr>
+// </tbody>
+// </StyleTable>
 export default DashBoard;

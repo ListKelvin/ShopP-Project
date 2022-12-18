@@ -25,15 +25,9 @@ export const slice = createSlice({
   reducers: {
     loadFilterProduct: (state, action) => {
       let priceArr = action.payload.map((curElem) => curElem.amount);
-      console.log(
-        "🚀 ~ file: filterReducer.js ~ line 29 ~ filterReducer ~ priceArr",
-        priceArr
-      );
+
       let maxPrice = Math.max(...priceArr);
-      console.log(
-        "🚀 ~ file: filterReducer.js ~ line 34 ~ filterReducer ~ maxPrice",
-        maxPrice
-      );
+
       state.filter_products = [...action.payload];
       state.all_products = [...action.payload];
       state.filters = { ...state.filters, maxPrice, price: maxPrice };
@@ -85,10 +79,23 @@ export const slice = createSlice({
 
       state.filters = { ...state.filters, [name]: value };
     },
+    clearFilterProducts: (state, action) => {
+      state.filter_products = [];
+    },
+    updateFilterProductByPrice: (state, action) => {
+      const arrayOfPrice = action.payload;
+      const tmpArrayOfPrice = [...arrayOfPrice];
+      state.filter_products = tmpArrayOfPrice;
+    },
   },
 });
 injectReducer(name, slice.reducer);
-export const { filterProducts, loadFilterProduct, updateFilterValues } =
-  slice.actions;
+export const {
+  filterProducts,
+  loadFilterProduct,
+  updateFilterValues,
+  clearFilterProducts,
+  updateFilterProductByPrice,
+} = slice.actions;
 
 export default slice;

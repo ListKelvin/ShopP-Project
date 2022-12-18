@@ -7,76 +7,87 @@ import { Box } from "@mui/system";
 import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
 import Img from "../../assets/Product/download.jpg";
-const ProductCard = ({ rate, price, sold, name, img }) => {
+import { ProductLink } from "../../pages/Home/style";
+const ProductCard = ({ rate, price, sold, name, img, id }) => {
   const [value, setValue] = React.useState(rate);
 
   const { filename } = img[0].localFile;
 
   return (
-    <Card sx={{ maxWidth: 180 }}>
-      <Box
-        component="div"
-        sx={{ background: "#ffffff", padding: "10px", height: "140px" }}
-      >
-        <CardMedia
-          sx={{ borderRadius: "10px" }}
-          component="img"
-          height="140"
-          image={`https://shopp-be.lethanhlong.me/file/${filename}`}
-          alt="green iguana"
-        />
-      </Box>
-
-      <CardContent>
-        <Typography variant="body2" color="text.primary">
-          {name}
-        </Typography>
+    <ProductLink to={`productpage/${id}`}>
+      <Card sx={{ maxWidth: 180 }}>
         <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "130px",
-            marginBottom: "5px",
-          }}
+          component="div"
+          sx={{ background: "#ffffff", padding: "10px", height: "140px" }}
         >
-          <Rating
-            name="simple-controlled"
-            value={parseFloat(value)}
-            sx={{ fontSize: "14px" }}
-            precision={0.5}
-            readOnly
+          <CardMedia
+            sx={{ borderRadius: "10px" }}
+            component="img"
+            height="140"
+            image={`https://shopp-be.lethanhlong.me/file/${filename}`}
+            alt="green iguana"
           />
-          <div style={{ fontSize: "12px" }}>{sold} sold</div>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: "130px",
-          }}
-        >
-          <span
-            style={{
-              fontWeight: 600,
-              fontSize: "12px",
-              lineHeight: "10px",
-              color: "#F64A4A",
+
+        <CardContent>
+          <Typography
+            variant="body2"
+            color="text.primary"
+            sx={{
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
             }}
           >
-            ${price}
-          </span>
-          <Chip
-            label="-30%"
-            size="small"
+            {name}
+          </Typography>
+          <Box
             sx={{
-              color: "#F64A4A",
-              backgroundColor: "rgba(252, 85, 85, 0.21)",
+              display: "flex",
+              justifyContent: "space-between",
+              width: "130px",
+              marginBottom: "5px",
             }}
-          />
-        </Box>
-      </CardContent>
-    </Card>
+          >
+            <Rating
+              name="simple-controlled"
+              value={parseFloat(value)}
+              sx={{ fontSize: "14px" }}
+              precision={0.5}
+              readOnly
+            />
+            <div style={{ fontSize: "12px" }}>{sold} sold</div>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "130px",
+            }}
+          >
+            <span
+              style={{
+                fontWeight: 600,
+                fontSize: "12px",
+                lineHeight: "10px",
+                color: "#F64A4A",
+              }}
+            >
+              ${price}
+            </span>
+            <Chip
+              label="-30%"
+              size="small"
+              sx={{
+                color: "#F64A4A",
+                backgroundColor: "rgba(252, 85, 85, 0.21)",
+              }}
+            />
+          </Box>
+        </CardContent>
+      </Card>
+    </ProductLink>
   );
 };
 //{" "}

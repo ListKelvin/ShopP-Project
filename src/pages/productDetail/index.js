@@ -35,7 +35,7 @@ const ProductDetails = () => {
       {state && (
         <Grid container>
           <Grid item xs={7}>
-            <Carousel2 />
+            <Carousel2 item={state} />
           </Grid>
           <Grid item xs={5}>
             <ProductInfo product={state} />

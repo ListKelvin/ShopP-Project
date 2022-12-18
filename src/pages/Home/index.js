@@ -12,7 +12,7 @@ import CategoryContainer from "../../pages/Home/Components/CategoryContainer";
 import Brand from "../../assets/Branding/image 69.png";
 import { ProductLink } from "./style";
 import { setUser } from "../../slices/user";
-
+import GridView from "../../Component/ProductList/ProductList";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import Modal from "../../Component/Modal/Modal";
 const Home = () => {
@@ -24,7 +24,7 @@ const Home = () => {
   useEffect(() => {
     const getUser = async () => {
       const user = await LocalStorageUtils.getUser();
-      console.log(user.data);
+
       const simplifyUser = {
         customer: user.data.customer,
         email: user.data.email,
@@ -49,18 +49,18 @@ const Home = () => {
       <ProductWrapper>
         {AllProducts[0] !== undefined
           ? AllProducts[0].map((el, index) => {
-              const { amount, name, star, sold, productImage } = el;
+              const { amount, name, star, sold, productImage, id } = el;
 
               return (
-                <ProductLink to={`productpage/${el.id}`} key={index}>
-                  <ProductCard
-                    name={name}
-                    price={amount}
-                    rate={star}
-                    sold={sold}
-                    img={productImage}
-                  />
-                </ProductLink>
+                <ProductCard
+                  id={id}
+                  name={name}
+                  price={amount}
+                  rate={star}
+                  sold={sold}
+                  img={productImage}
+                  key={index}
+                />
               );
             })
           : ""}

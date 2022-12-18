@@ -6,9 +6,26 @@ export const CarouselStyled = styled(Carousel)`
   padding: 20px;
   & .carousel {
     text-align: center;
+    & .slide {
+      padding: 1rem;
+      max-height: 30rem;
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
   }
 `;
-
+export const ImgPreviewStyled = styled.div`
+  width: 100%;
+  min-height: 100%;
+  background: ${({ url }) => (url ? `url(${url})` : null)};
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+`;
 export const ProductName = styled.h2`
   font-family: "Open Sans";
   font-style: normal;

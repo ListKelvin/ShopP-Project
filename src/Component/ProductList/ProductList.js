@@ -8,10 +8,11 @@ const GridView = ({ products }) => {
       <div className="container grid grid-three-column">
         {products &&
           products.map((curElem) => {
-            const { amount, name, star, sold, productImage } = curElem;
+            const { amount, name, star, sold, productImage, id } = curElem;
 
             return (
               <ProductCard
+                id={id}
                 key={curElem.id}
                 name={name}
                 price={amount}

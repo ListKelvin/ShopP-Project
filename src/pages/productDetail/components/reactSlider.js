@@ -1,8 +1,10 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
-import BrandImg from "../../../assets/Branding/image 67.png";
-import { CarouselStyled } from "../styled";
-const Carousel2 = () => {
+import { CarouselStyled, ImgPreviewStyled } from "../styled";
+
+import { API_URL } from "../../../config/config";
+const Carousel2 = ({ item }) => {
+  const linkFile = `${API_URL}/file/`;
+  console.log(item.productImage);
   return (
     <CarouselStyled
       autoPlay={true}
@@ -12,35 +14,17 @@ const Carousel2 = () => {
       showStatus={false}
       showIndicators={false}
     >
-      <div>
-        <img src={`${BrandImg}`} />
-      </div>
-      <div>
-        <img src={`${BrandImg}`} />
-      </div>
-      <div>
-        <img src={`${BrandImg}`} />
-      </div>
-      <div>
-        <img src={`${BrandImg}`} />
-      </div>
-      <div>
-        <img src={`${BrandImg}`} />
-      </div>
-      <div>
-        <img src={`${BrandImg}`} />
-      </div>
-      <div>
-        <img src={`${BrandImg}`} />
-      </div>
-      <div>
-        <img src={`${BrandImg}`} />
-      </div>
-      <div>
-        <img src={`${BrandImg}`} />
-      </div>
+      {item.productImage.map((el, id) => {
+        return (
+          <img
+            key={id}
+            src={`${linkFile}${el.localFile.filename}`}
+            alt="ImgPreview"
+          />
+        );
+      })}
     </CarouselStyled>
   );
 };
-
+//<ImgPreview  url={`${ResourceImage}`}/>
 export default Carousel2;

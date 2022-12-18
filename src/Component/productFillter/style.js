@@ -100,12 +100,16 @@ export const CollapsedAccordion = styled.div`
   transition: all 0.2s;
 `;
 export const WrapperFlex = styled.div`
+  margin-top: 1rem;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 `;
-
+export const ApplyFlex = styled(WrapperFlex)`
+  margin-bottom: 0.5rem;
+`;
 export const FilterCategory = styled.button`
   border: none;
   width: 100%;
@@ -133,4 +137,14 @@ export const WrapperFlexColumn = styled.div`
   align-items: center;
   flex-direction: column;
   margin-left: 40px;
+`;
+
+//Price range
+export const InputRange = styled.input`
+  border: 1px solid #55abab;
+  border-radius: 6px;
+  padding: 0rem 0.5rem;
+  width: 5rem;
+  height: 3rem;
+  font-size: 20px;
 `;

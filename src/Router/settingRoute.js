@@ -1,12 +1,14 @@
 import { useRoutes } from "react-router-dom";
 import UserSetting from "../pages/UserSetting";
 import ChangePassword from "../Component/MenuSetting/Components/ChangePassword";
+import UserProfilePage from "../pages/UserProfile";
 const SettingRoute = () => {
   let element = useRoutes([
     {
       element: <UserSetting />,
       children: [
-        { index: true, path: "changePassword", element: <ChangePassword /> },
+        { path: "changePassword", element: <ChangePassword /> },
+        { index: true, element: <UserProfilePage /> },
       ],
     },
   ]);
