@@ -18,7 +18,7 @@ import { clearMessage } from "../../slices/message";
 import PersonIcon from "@mui/icons-material/Person";
 import InputAdornment from "@mui/material/InputAdornment";
 import * as Yup from "yup";
-
+import LocalStorageUtils from "../../utils/LocalStorageUtils";
 const SignInComponent = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -65,6 +65,19 @@ const SignInComponent = () => {
       ),
   });
   const theme = createTheme();
+  const fetchUser = async () => {
+    const user = await LocalStorageUtils.getUser().then((res) => {
+      if (res.data?.customer === null) {
+        console.log("run");
+        navigate("/info");
+        window.location.reload();
+      } else {
+        navigate("/home");
+        window.location.reload();
+      }
+      console.log(res.data);
+    });
+  };
   const onSubmit = (values) => {
     let data2 = {};
     data2.password = values.password;
@@ -75,8 +88,7 @@ const SignInComponent = () => {
     dispatch(login(data2))
       .unwrap()
       .then(() => {
-        navigate("/info");
-        window.location.reload();
+        fetchUser();
       })
       .catch(() => {
         setLoading(false);

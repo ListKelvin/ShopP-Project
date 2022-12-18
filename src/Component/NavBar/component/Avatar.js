@@ -16,7 +16,7 @@ import { selectUser } from "../../../selectors/userSelector";
 const settings = [
   { route: "Profile", link: "userProfile" },
   { route: "Account", link: "Account" },
-  { route: "Dashboard", link: "Dashboard" },
+  { route: "Setting", link: "Setting" },
 ];
 const AvatarUser = () => {
   const user = useSelector(selectUser);
@@ -24,14 +24,11 @@ const AvatarUser = () => {
   const token = LocalStorageUtils.getJWTUser();
 
   const [open, setOpen] = React.useState(false);
-  console.log("line 26: ", user);
+
   const handleUserMenuClose = () => {
     setOpen(false);
   };
 
-  const handleUserMenuOpen = () => {
-    setOpen(true);
-  };
   const ToggleUserMenu = () => {
     setOpen(!open);
   };
@@ -59,7 +56,7 @@ const AvatarUser = () => {
             <Avatar
               alt="Unknown user"
               src={
-                !user
+                !user.customer
                   ? AvaUnknown
                   : `https://shopp-be.lethanhlong.me/file/${user.customer?.avatar.filename}`
               }
@@ -77,8 +74,8 @@ const AvatarUser = () => {
               ))}
               <UserItem
                 onClick={() => {
-                  dispatch(deleteUser());
                   dispatch(logout());
+                  dispatch(deleteUser());
                 }}
               >
                 <Typography color="red" textAlign="center">

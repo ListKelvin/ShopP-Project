@@ -16,7 +16,9 @@ import UserAddressPage from "../pages/UserAddress/UserAddress";
 import UserProfilePage from "../pages/UserProfile";
 import ShopRegister from "../pages/ShopRegister/ShopRegister";
 import ScrollToTop from "../utils/ScrollToTop";
-
+import UserSetting from "../pages/UserSetting";
+import ChangePassword from "../Component/MenuSetting/Components/ChangePassword";
+import SettingRoute from "./settingRoute";
 const publicRoute = [
   {
     index: true,
@@ -55,10 +57,16 @@ const publicRoute = [
   },
   {
     index: false,
-    path: "menusetting",
-    component: <MenuSetting />,
+    path: "Setting/*",
+    component: <SettingRoute />,
     exact: true,
     restrict: true,
+    // Children: [
+    //   {
+    //     path: "/ChangePassword",
+    //     component: <ChangePassword />,
+    //   },
+    // ],
   },
   {
     index: false,
@@ -113,7 +121,7 @@ const RouterComponent = () => {
               element={route.component}
               exact={route.exact}
               restrict={route.restrict}
-            />
+            ></Route>
           ))}
         </Route>
         <Route exact element={<PublicRoute />}>
@@ -142,3 +150,14 @@ const RouterComponent = () => {
 };
 
 export default RouterComponent;
+// {route.Children
+//   ? route.Children.map((child, id) => {
+//       return (
+//         <Route
+//           index={child.index}
+//           path={child.path}
+//           element={child.component}
+//         />
+//       );
+//     })
+//   : ""}

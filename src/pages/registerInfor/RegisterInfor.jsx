@@ -14,6 +14,8 @@ import Modal from "../../Component/Modal/Modal";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../selectors/userSelector";
 import customerApi from "../../utils/productApiComponent/customerApi";
+import LocalStorageUtils from "../../utils/LocalStorageUtils";
+import { useNavigate } from "react-router-dom";
 const initialValues = {
   name: "",
   dateOfBirth: "",
@@ -34,16 +36,19 @@ const options = [
     key: "FEMALE",
   },
 ];
-const postCustomer = async (customer) => {
-  await customerApi.createCustomer(customer).then((res) => console.log(res));
-};
+
 const RegisterInfor = () => {
   const [show, setShow] = useState(false);
-
-  const user = useSelector(selectUser);
+  const navigate = useNavigate();
   const fileRef = useRef(null);
+  const postCustomer = async (customer) => {
+    await customerApi.createCustomer(customer).then((res) => {
+      if (res.status === 201) {
+        navigate("/home");
+      }
+    });
+  };
   const onSubmit = (values) => {
-    console.log(values.dateOfBirth.toString());
     const formatData = {
       name: values.name,
       dob: values.dateOfBirth,
@@ -54,13 +59,19 @@ const RegisterInfor = () => {
     };
     postCustomer(formatData);
   };
-
+  const fetchUser = async () => {
+    const user = await LocalStorageUtils.getUser().then((res) => {
+      if (res.data?.customer === null) {
+        console.log("run");
+        setShow(true);
+      } else {
+        setShow(false);
+      }
+      console.log(res.data);
+    });
+  };
   useEffect(() => {
-    if (user.customer === null) {
-      setShow(true);
-    } else {
-      setShow(false);
-    }
+    fetchUser();
   }, []);
   return (
     <Box

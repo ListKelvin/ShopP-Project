@@ -22,8 +22,7 @@ export const slice = createSlice({
       state.user = action.payload;
     },
     deleteUser: (state, action) => {
-      console.log(initialState);
-      state.user = initialState;
+      state.user = initialState.user;
     },
   },
   //   extraReducers: (builder) => {
