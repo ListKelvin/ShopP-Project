@@ -51,13 +51,15 @@ export const IconStyle = styled.td`
     width: 36px;
   }
 `;
-export const TitleStyle = styled.h1`
+export const TitleStyle = styled.div`
   font-size: 24px;
   line-height: 22px;
   letter-spacing: 0.02em;
   color: #2f5e5e;
   font-weight: 700;
-  margin-left: 10px;
+  text-align: left;
+  width: 100%;
+  padding: 1rem 2.5rem;
   ${down("md")} {
     font-size: 20px;
   }

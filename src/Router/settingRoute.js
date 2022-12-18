@@ -7,8 +7,15 @@ const SettingRoute = () => {
     {
       element: <UserSetting />,
       children: [
-        { path: "changePassword", element: <ChangePassword /> },
         { index: true, element: <UserProfilePage /> },
+        { path: "changePassword", element: <ChangePassword /> },
+        { path: "address", element: <div> this Address</div> },
+        { path: "purchase", element: <div> this Purchase</div> },
+        { path: "bank", element: <div> this Bank & Cards</div> },
+        { path: "coins", element: <div> this ShopP & Coins</div> },
+        { path: "evaluation", element: <div> this My Evaluation</div> },
+        { path: "vouchers", element: <div> this My Vouchers</div> },
+        { path: "notifications", element: <div> this Notifications</div> },
       ],
     },
   ]);

@@ -29,40 +29,39 @@ const DashBoard = () => {
       <WrapperSettings>
         <TitleStyle>SHOPP</TitleStyle>
         <WrapperLinked>
-          <LinkStyle>
+          <LinkStyle to="">
             <AccountCircleIcon />
             Profile
           </LinkStyle>
-          <LinkStyle>
+          <LinkStyle to="address">
             <HomeIcon />
             Address
           </LinkStyle>
-          <LinkStyle>
+          <LinkStyle to="purchase">
             <ShoppingCartIcon />
             Purchase
           </LinkStyle>
-          <LinkStyle>
+          <LinkStyle to="bank">
             <CreditCardIcon /> Bank & Cards
           </LinkStyle>
-          <LinkStyle>
+          <LinkStyle to="coins">
             <AttachMoneyIcon />
             My ShopP Coins
           </LinkStyle>
-          <LinkStyle>
+          <LinkStyle to="evaluation">
             <StarRateIcon /> My Evaluation
           </LinkStyle>
-          <LinkStyle>
+          <LinkStyle to="vouchers">
             <LoyaltyIcon /> My Vouchers
           </LinkStyle>
-          <LinkStyle>
+          <LinkStyle to="changePassword">
             <LockIcon />
             Change Password
           </LinkStyle>
-          <LinkStyle>
+          <LinkStyle to="notifications">
             <NotificationsActiveIcon /> Notifications
           </LinkStyle>
         </WrapperLinked>
-
         <LogOutButton />
       </WrapperSettings>
     </>
