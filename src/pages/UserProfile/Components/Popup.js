@@ -17,7 +17,6 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 const Popup = ({ show, action }) => {
-  console.log(show);
   return (
     <PopupContainer show={show}>
       <LayerPopup />

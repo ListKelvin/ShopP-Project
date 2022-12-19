@@ -4,17 +4,17 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SuggestContainer from "./Components/CategoryFilter";
 import Branding from "./Components/Branding";
-
 import { selectProducts } from "../../selectors/productSelect";
 import FlashSale from "./Components/FlashSale";
 import { Box } from "@mui/material";
 import CategoryContainer from "../../pages/Home/Components/CategoryContainer";
 import Brand from "../../assets/Branding/image 69.png";
 import { ProductLink } from "./style";
-import { setUser } from "../../slices/user";
+import { setUser, deleteUser } from "../../slices/user";
 import GridView from "../../Component/ProductList/ProductList";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import Modal from "../../Component/Modal/Modal";
+import { toastError } from "../../Component/ToastNotification";
 const Home = () => {
   const dispatch = useDispatch();
   const AllProducts = useSelector(selectProducts);
@@ -25,12 +25,17 @@ const Home = () => {
     const getUser = async () => {
       const user = await LocalStorageUtils.getUser();
 
+      if (user === undefined) {
+        dispatch(deleteUser());
+        toastError("Please login again your account has expired");
+      }
       const simplifyUser = {
         customer: user.data.customer,
         email: user.data.email,
         id: user.data.id,
         role: user.data.role,
         shop: user.data.shop,
+        phone: user.data.phone,
       };
       dispatch(setUser(simplifyUser));
     };

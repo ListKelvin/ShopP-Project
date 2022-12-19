@@ -1,7 +1,8 @@
-import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
+
 import {
   InputTwoFiledStyle,
   InputFieldStyle,
@@ -9,30 +10,28 @@ import {
   InputFieldStyleSex,
   TextRight,
 } from "./styleComponents";
-const currencies = [
+const options = [
   {
-    value: "Male",
-    label: "Male",
+    value: "MALE",
+    label: "MALE",
   },
   {
-    value: "Female",
-    label: "Female",
+    value: "FEMALE",
+    label: "FEMALE",
   },
 ];
-export default function InputField() {
-  const [currency, setCurrency] = React.useState("EUR");
+export default function InputField({
+  customer,
+  shopName,
 
-  const handleChange = (event) => {
-    setCurrency(event.target.value);
+  action,
+}) {
+  const handleChangeCustomer = (props) => (e) => {
+    action({ ...customer, [props]: e.target.value });
   };
+
   const CHARACTER_LIMIT = 200;
-  const [values, setValues] = React.useState({
-    name: "",
-  });
 
-  const handleChange2 = (name) => (event) => {
-    setValues({ ...values, [name]: event.target.value });
-  };
   return (
     <Box
       style={{ textAlign: "center" }}
@@ -49,6 +48,8 @@ export default function InputField() {
     >
       <InputFieldStyle>
         <TextField
+          defaultValue={customer.name}
+          onChange={handleChangeCustomer("name")}
           required
           sx={{ width: "100%" }}
           label="Username"
@@ -58,9 +59,11 @@ export default function InputField() {
       <InputFieldStyle>
         <TextField
           required
+          defaultValue={customer.email}
+          onChange={handleChangeCustomer("email")}
           sx={{ width: "100%" }}
-          label="Name"
-          placeholder="Nguyễn Văn A"
+          label="Email"
+          placeholder="abc@gmail.com"
         />
       </InputFieldStyle>
       <InputTwoFiledStyle>
@@ -79,10 +82,10 @@ export default function InputField() {
             required
             sx={{ width: "100%" }}
             label="Sex"
-            value={currency}
-            onChange={handleChange}
+            value={customer.gender}
+            onChange={handleChangeCustomer("gender")}
           >
-            {currencies.map((option) => (
+            {options.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
@@ -93,6 +96,8 @@ export default function InputField() {
       <InputFieldStyle>
         <TextField
           required
+          defaultValue={customer.phone}
+          onChange={handleChangeCustomer("phone")}
           sx={{ width: "100%" }}
           label="Phone number"
           placeholder="0987654321"
@@ -101,27 +106,25 @@ export default function InputField() {
       <InputFieldStyle>
         <TextField
           required
+          defaultValue={customer.placeOfDelivery}
+          onChange={handleChangeCustomer("placeOfDelivery")}
           sx={{ width: "100%" }}
           label="Place of delivery"
           placeholder="House number, Stress, District, City/Province"
         />
       </InputFieldStyle>
+
       <InputFieldStyle>
         <TextField
           required
-          sx={{ width: "100%" }}
-          label="Email"
-          placeholder="abc@gmail.com"
-        />
-      </InputFieldStyle>
-      <InputFieldStyle>
-        <TextField
-          required
+          disabled={shopName === null ? true : false}
+          defaultValue={shopName}
           sx={{ width: "100%" }}
           label="Shop's Name"
           placeholder="Long Deep Trai"
         />
       </InputFieldStyle>
+
       <InputFieldStyle className="App">
         <TextField
           id="outlined-multiline-static"
@@ -129,13 +132,13 @@ export default function InputField() {
           inputProps={{
             maxlength: CHARACTER_LIMIT,
           }}
-          value={values.name}
+          value={customer.bio}
           sx={{ width: "100%", marginTop: "0px" }}
           multiline
           rows={2}
           placeholder="Description"
-          helperText=<TextRight>{`${values.name.length}/${CHARACTER_LIMIT}`}</TextRight>
-          onChange={handleChange2("name")}
+          helperText=<TextRight>{`${customer.bio.length}/${CHARACTER_LIMIT}`}</TextRight>
+          onChange={handleChangeCustomer("bio")}
           margin="normal"
           variant="outlined"
         />

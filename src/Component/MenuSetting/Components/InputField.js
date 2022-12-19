@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Yup from "yup";
-import { toastSuccess } from "../../ToastNotification";
+import { toastSuccess, toastError } from "../../ToastNotification";
 import Box from "@mui/material/Box";
 import authApi from "../../../utils/productApiComponent/authApi";
 import UpdatePassButton from "./UpdatePassButton";
@@ -17,7 +17,11 @@ export default function FormPropsTextFields() {
   const validationSchema = Yup.object({
     oldPassword: Yup.string()
       .required("Required")
-      .min(8, "Your password is too short."),
+      .min(8, "Your password is too short.")
+      .matches(
+        /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        "Old password must One Uppercase, One Lowercase, One Number and one special case Character."
+      ),
     newPassword: Yup.string()
       .required("Required")
       .min(8, "Your password is too short.")
@@ -30,9 +34,14 @@ export default function FormPropsTextFields() {
       .required("Required"),
   });
 
-  const onSubmit = (values) => {
+  const onSubmit = (values, { resetForm }) => {
     authApi.postChangePassword(values).then((res) => {
-      toastSuccess(res.data.message);
+      if (res.response.status === 400) {
+        resetForm();
+        toastError(res.response.data.message);
+      } else {
+        toastSuccess(res.data.message);
+      }
     });
     console.log("Form data", values);
   };

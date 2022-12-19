@@ -5,14 +5,14 @@ import {
   ContentBox,
   GeneralInforBox,
 } from "./styleComponents";
-const GeneralInfor = () => {
+const GeneralInfor = ({ customer, shopName, action }) => {
   return (
     <GeneralInforBox>
       <BoxTitle>
         <GeneralTitle>General Information</GeneralTitle>
       </BoxTitle>
       <ContentBox>
-        <InputField />
+        <InputField customer={customer} shopName={shopName} action={action} />
       </ContentBox>
     </GeneralInforBox>
   );
