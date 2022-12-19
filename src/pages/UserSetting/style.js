@@ -10,5 +10,5 @@ export const Container = styled.div`
   }
 `;
 export const ContainerAdditional = styled.div`
-  // width: 100%;
+  width: 100%;
 `;

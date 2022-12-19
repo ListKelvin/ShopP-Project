@@ -2,6 +2,7 @@ import { useRoutes } from "react-router-dom";
 import UserSetting from "../pages/UserSetting";
 import ChangePassword from "../Component/MenuSetting/Components/ChangePassword";
 import UserProfilePage from "../pages/UserProfile";
+import UserAddressPage from "../pages/UserAddress/UserAddress";
 const SettingRoute = () => {
   let element = useRoutes([
     {
@@ -9,7 +10,7 @@ const SettingRoute = () => {
       children: [
         { index: true, element: <UserProfilePage /> },
         { path: "changePassword", element: <ChangePassword /> },
-        { path: "address", element: <div> this Address</div> },
+        { path: "address", element: <UserAddressPage /> },
         { path: "purchase", element: <div> this Purchase</div> },
         { path: "bank", element: <div> this Bank & Cards</div> },
         { path: "coins", element: <div> this ShopP & Coins</div> },

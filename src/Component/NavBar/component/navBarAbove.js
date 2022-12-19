@@ -16,10 +16,12 @@ import productApi from "../../../utils/productApiComponent/productApi";
 import { useSelector, useDispatch } from "react-redux";
 import { updateFilterValues } from "../../../slices/filterReducer";
 import { selectFilters } from "../../../selectors/filterSelector";
+import { useNavigate } from "react-router-dom";
 import { ShopButton, RightToolbar } from "../style";
 import CartDropdown from "../../CartDropDown/CartDropDown";
 import { ClickAwayListener } from "@mui/material";
 const NavBarAbove = () => {
+  const naviage = useNavigate();
   const [searchProduct, setSearchProduct] = useState("empty");
   const filter = useSelector(selectFilters);
   const isCartOpen = useSelector(selectIsCartOpen);
