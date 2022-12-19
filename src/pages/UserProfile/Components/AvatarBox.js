@@ -14,18 +14,26 @@ import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { Button } from "@mui/material";
 import Popup from "./Popup";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 const name = "Nguyen Van A";
 const date = "10/11/2022";
-const AvatarBox = () => {
-  const [show, setShow] = useState(false);
+const AvatarBox = ({ onSubmit, action, customer }) => {
+  const fileRef = useRef(null);
 
+  const [show, setShow] = useState(false);
+  const [preview, setPreview] = useState(null);
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    setPreview(reader.result);
+  };
+  console.log(customer.avatar);
   return (
     <AvatarBoxStyle>
       <Popup show={show} action={setShow} />
       <Avatar
         alt="Remy Sharp"
-        src="/static/images/avatar/1.jpg"
+        src={preview}
         sx={{
           width: {
             xxl: "100px",
@@ -62,7 +70,16 @@ const AvatarBox = () => {
           sx={{ width: { xs: "22px", sm: "20px", md: "22px" } }}
         />
         <TypoButton>Upload File</TypoButton>
-        <input type="file" hidden />
+        <input
+          hidden
+          name="avatar"
+          ref={fileRef}
+          type="file"
+          onChange={(e) => {
+            action({ ...customer, avatar: e.target.files[0] });
+            reader.readAsDataURL(e.target.files[0]);
+          }}
+        />
       </ButtonAvatar>
       <ButtonDiv>
         <ButtonSave
@@ -73,7 +90,12 @@ const AvatarBox = () => {
         >
           <TypoCancel>Cancel</TypoCancel>
         </ButtonSave>
-        <ButtonSave style={{ backgroundColor: "#55ABAB" }}>
+        <ButtonSave
+          onClick={() => {
+            onSubmit();
+          }}
+          style={{ backgroundColor: "#55ABAB" }}
+        >
           <TypoSave>Save</TypoSave>
         </ButtonSave>
       </ButtonDiv>

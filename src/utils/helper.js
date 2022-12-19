@@ -13,6 +13,7 @@ export const MONTHS_SHORT = [
   "12",
 ];
 export const WEEKDAYS_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 export const formatDate = (
   date,
   { hasDate = true, hasMonth = true, hasYear = true } = {}
@@ -39,7 +40,7 @@ export const formatDate = (
 
   const weekdays = WEEKDAYS_SHORT;
   const months = MONTHS_SHORT;
-  console.log(date.getMonth());
+
   const dateTime = {
     weekDay: weekdays[date.getDay()],
     day: date.getDate() > 10 ? `${date.getDate()}` : `0${date.getDate()}`,
@@ -50,4 +51,22 @@ export const formatDate = (
   return `${hasDate ? dateTime.day + "-" : ""}${
     hasMonth ? dateTime.month + "-" : ""
   }${hasYear ? dateTime.year : ""}`;
+};
+
+export const ConvertStringToDate = (date) => {
+  let NewDate = new Date(date);
+
+  return NewDate.toString();
+};
+
+export const FormateDateType = (date) => {
+  let NewDate = new Date(date);
+  const months = MONTHS_SHORT;
+  const dateTime = {
+    day:
+      NewDate.getDate() > 10 ? `${NewDate.getDate()}` : `0${NewDate.getDate()}`,
+    month: months[NewDate.getMonth()],
+    year: NewDate.getFullYear(),
+  };
+  return `${dateTime.day + "-"}${dateTime.month + "-"}${dateTime.year}`;
 };

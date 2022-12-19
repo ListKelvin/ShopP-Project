@@ -56,14 +56,14 @@ const AvatarUser = () => {
             <Avatar
               alt="Unknown user"
               src={
-                !user.customer
+                !user.customer || !token
                   ? AvaUnknown
                   : `https://shopp-be.lethanhlong.me/file/${user.customer?.avatar.filename}`
               }
               sx={{ width: 32, height: 32 }}
             />
             <Typography sx={{ color: "dark" }}>
-              {!user ? token.email : user.customer?.name}
+              {!user.customer || !token ? token.email : user.customer?.name}
             </Typography>
 
             <UserMenu open={open}>

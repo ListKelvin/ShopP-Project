@@ -18,6 +18,28 @@ const customerApi = {
       })
       .catch((err) => console.log(err));
   },
+  editCustomer: async (customer) => {
+    const token = LocalStorageUtils.getToken();
+    console.log(token);
+    const endpoint = `/customer/edit`;
+    return await post(
+      endpoint,
+      customer,
+      {},
+      {
+        Authorization: token,
+        "content-type": "multipart/form-data",
+      }
+    )
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      });
+  },
 };
 
 export default customerApi;

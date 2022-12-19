@@ -2,7 +2,11 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
-
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { ConvertStringToDate } from "../../../utils/helper";
+import { formatDate } from "../../../utils/helper";
 import {
   InputTwoFiledStyle,
   InputFieldStyle,
@@ -20,17 +24,14 @@ const options = [
     label: "FEMALE",
   },
 ];
-export default function InputField({
-  customer,
-  shopName,
-
-  action,
-}) {
+export default function InputField({ customer, shopName, action }) {
+  console.log(customer);
   const handleChangeCustomer = (props) => (e) => {
     action({ ...customer, [props]: e.target.value });
   };
 
   const CHARACTER_LIMIT = 200;
+  console.log(ConvertStringToDate(customer.dob));
 
   return (
     <Box
@@ -66,14 +67,31 @@ export default function InputField({
           placeholder="abc@gmail.com"
         />
       </InputFieldStyle>
+
       <InputTwoFiledStyle>
         <InputFieldStylePlace>
-          <TextField
-            required
-            sx={{ width: "100%" }}
-            label="Date of birth"
-            placeholder="MM/DD/YY"
-          />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              disableFuture
+              label="Date of birth"
+              openTo="day"
+              views={["day", "month", "year"]}
+              value={ConvertStringToDate(customer.dob)}
+              onChange={(newValue) => {
+                action({ ...customer, dob: newValue });
+              }}
+              renderInput={(params) => {
+                return (
+                  <TextField
+                    required
+                    sx={{ width: "100%" }}
+                    placeholder="MM/DD/YY"
+                    {...params}
+                  />
+                );
+              }}
+            />
+          </LocalizationProvider>
         </InputFieldStylePlace>
         <InputFieldStyleSex>
           <TextField

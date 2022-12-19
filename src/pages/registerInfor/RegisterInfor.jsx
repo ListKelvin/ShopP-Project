@@ -254,7 +254,6 @@ const RegisterInfor = () => {
                       setFieldValue("file", e.target.files[0]);
                     }}
                   />
-
                   <Button
                     onClick={() => {
                       fileRef.current.click();
