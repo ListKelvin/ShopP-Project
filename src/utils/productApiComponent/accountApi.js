@@ -18,6 +18,23 @@ const accountApi = {
         return err;
       });
   },
+  EditAccount: async (account, token) => {
+    const endpoint = "/account/edit";
+    return await post(endpoint, account, {}, { Authorization: token })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          return res.data.message;
+        }
+        return undefined;
+      })
+      .catch((err) => {
+        {
+          const mute = err;
+        }
+        return err;
+      });
+  },
 };
 
 export default accountApi;

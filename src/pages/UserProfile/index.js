@@ -7,10 +7,12 @@ import { useSelector } from "react-redux";
 import accountApi from "../../utils/productApiComponent/accountApi";
 import customerApi from "../../utils/productApiComponent/customerApi";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
+
 import { formatDate, FormateDateType } from "../../utils/helper";
 const UserProfilePage = () => {
   const user = useSelector(selectUser);
-  console.log(user);
+  const token = LocalStorageUtils.getToken();
+
   // const getUserInfo = async () => {
   //   const token = LocalStorageUtils.getToken();
   //   const result = await accountApi.getOwnUser(token).then((res) => {
@@ -39,7 +41,10 @@ const UserProfilePage = () => {
     const result = await customerApi.editCustomer(formatDataCustomer);
     console.log("line 39:", result);
   };
-
+  const EditAccountAction = async (formatDataAccount, token) => {
+    const result = await accountApi.EditAccount(formatDataAccount, token);
+    console.log("line 45:", result);
+  };
   const onSubmit = () => {
     const formatDataCustomer = {
       name: customer.name,
@@ -52,8 +57,13 @@ const UserProfilePage = () => {
       bio: customer.bio,
       avatar: customer.avatar,
     };
-    const formatDataAccount = {};
+    const formatDataAccount = {
+      email: customer.email,
+      phone: customer.phone,
+    };
+
     EditCustomer(formatDataCustomer);
+    EditAccountAction(formatDataAccount, token);
   };
   return (
     <UserProfileDiv>

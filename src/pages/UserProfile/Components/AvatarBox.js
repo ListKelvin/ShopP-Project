@@ -27,7 +27,7 @@ const AvatarBox = ({ onSubmit, action, customer }) => {
   reader.onload = () => {
     setPreview(reader.result);
   };
-  console.log(customer.avatar);
+
   return (
     <AvatarBoxStyle>
       <Popup show={show} action={setShow} />
