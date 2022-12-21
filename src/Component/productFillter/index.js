@@ -33,6 +33,7 @@ import {
 } from "../../slices/filterReducer";
 import { clearFilterProducts } from "../../slices/filterReducer";
 import { selectCategories } from "../../selectors/categorySelect";
+import Rating from "@mui/material/Rating";
 import { selectFilterProductsApi } from "../../selectors/filterSelector";
 import { updateFilterProductByPrice } from "../../slices/filterReducer";
 const ProductFilter = () => {
@@ -40,21 +41,42 @@ const ProductFilter = () => {
     category: [],
     response: [],
   });
+  const [star, setStar] = useState({
+    starValue: [],
+    response: [],
+  });
 
-  const handleChange = (e) => {
-    // Destructuring
+  if (star.response.length !== 0) {
+  }
+  //change star
+  const handleChangeStar = (e) => {
+    const { checked, id } = e.target;
+    const { starValue } = star;
 
-    const { value, checked, id } = e.target;
+    if (checked) {
+      setStar({
+        starValue: [...starValue, parseInt(id)],
+        response: [...starValue, parseInt(id)],
+      });
+    }
+    // Case 2  : The user unchecks the box
+    else {
+      setStar({
+        starValue: starValue.filter((e) => e !== parseInt(id)),
+        response: starValue.filter((e) => e !== parseInt(id)),
+      });
+    }
+  };
+  //change category
+  const handleChangeCategory = (e) => {
+    const { checked, id } = e.target;
     const { category } = userinfo;
-
-    // Case 1 : The user checks the box
     if (checked) {
       setUserInfo({
         category: [...category, parseInt(id)],
         response: [...category, parseInt(id)],
       });
     }
-
     // Case 2  : The user unchecks the box
     else {
       setUserInfo({
@@ -71,7 +93,7 @@ const ProductFilter = () => {
 
   const [minRange, setMinRange] = useState();
   const [maxRange, setMaxRange] = useState();
-
+  //change min max
   const handleChangeMax = (e) => {
     if (e.target.value > 10000000000) {
       setMaxRange(100000000);
@@ -98,7 +120,7 @@ const ProductFilter = () => {
   useEffect(() => {
     if (userinfo.response.length !== 0) {
       const formatCategories = {
-        take: 11,
+        take: 5,
         skip: 0,
         categoryIds: userinfo.response,
       };
@@ -106,10 +128,29 @@ const ProductFilter = () => {
     } else {
       dispatch(loadFilterProductAPi(productItems[0]));
     }
-  }, [userinfo.response, dispatch]);
+  }, [userinfo.response, dispatch, productItems]);
   useEffect(() => {
-    dispatch(loadFilterProduct(productItems[0]));
-  }, [productItems, dispatch]);
+    if (star.response.length !== 0) {
+      let maxNum = star.response.reduce((prev, current) => {
+        return Math.max(prev, current);
+      });
+
+      let minNum = star.response.reduce((prev, current) => {
+        return Math.min(prev, current);
+      });
+      const formatStar = {
+        take: 5,
+        skip: 0,
+        star: {
+          min: minNum,
+          max: maxNum,
+        },
+      };
+      dispatch(FilterProductApi(formatStar));
+    } else {
+      dispatch(loadFilterProductAPi(productItems[0]));
+    }
+  }, [star.response, dispatch, productItems]);
   return (
     <>
       <h1>Product</h1>
@@ -120,14 +161,13 @@ const ProductFilter = () => {
             <TypeofFilter label="By Category">
               {allCategories?.data.map((el, index) => {
                 return (
-                  <WrapperFlexStyled>
+                  <WrapperFlexStyled key={index}>
                     <FilterCategory
-                      key={index}
                       id={el.id}
                       name="category"
                       value={el.name}
                       label={el.name}
-                      onClick={handleChange}
+                      onClick={handleChangeCategory}
                     ></FilterCategory>
                     <label htmlFor={el.name}>{el.name}</label>
                   </WrapperFlexStyled>
@@ -135,7 +175,7 @@ const ProductFilter = () => {
               })}
             </TypeofFilter>
             <TypeofFilter label="Price Range">
-              {/* <WrapperFlex>
+              <WrapperFlex>
                 <InputRange
                   type="number"
                   placeholder="Min"
@@ -150,14 +190,29 @@ const ProductFilter = () => {
               <ApplyFlex>
                 <Button onClick={() => ApplyPriceRange({ minRange, maxRange })}>
                   Apply
-            </Button>
-              </ApplyFlex>*/}
+                </Button>
+              </ApplyFlex>
             </TypeofFilter>
-            <TypeofFilter label="test2">
-              <FilterComponent>
-                <NameofFilter>Rating</NameofFilter>
-                <KeyboardArrowRightIcon />
-              </FilterComponent>
+            <TypeofFilter label="By Star">
+              {allCategories?.data.map((el, index) => {
+                return (
+                  <WrapperFlexStyled key={index}>
+                    <FilterCategory
+                      id={index}
+                      name="star"
+                      value={index}
+                      onClick={handleChangeStar}
+                    ></FilterCategory>
+                    <Rating
+                      name="simple-controlled"
+                      value={index}
+                      sx={{ fontSize: "14px" }}
+                      precision={0.5}
+                      readOnly
+                    />
+                  </WrapperFlexStyled>
+                );
+              })}
             </TypeofFilter>
             <TypeofFilter label="test3">
               <FilterComponent>

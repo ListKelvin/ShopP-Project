@@ -25,7 +25,7 @@ export const FilterProductApi = createAsyncThunk(
     const endpoint = API_URL + "/product/filter";
 
     const result = await axios.post(endpoint, product);
-    console.log(result);
+
     return result.data.data;
   }
 );
@@ -66,7 +66,6 @@ export const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(FilterProductApi.fulfilled, (state, action) => {
-      console.log("line 74: ", action.payload);
       state.filterProductsApi = action.payload;
     });
   },

@@ -135,6 +135,8 @@ export const FilterCategory = styled.input.attrs({
   // background-color: transparent;
   // text-transform: capitalize;
   cursor: pointer;
+  width: 1rem;
+  height: 1rem;
   // text-align: left;
   // font-family: "Open Sans";
   // font-style: normal;
