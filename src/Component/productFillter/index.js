@@ -15,11 +15,15 @@ import {
   InputRange,
   WrapperFlex,
   ApplyFlex,
+  WrapperFlexStyled,
 } from "./style";
+import { FilterProductApi } from "../../slices/filterReducer";
+import { loadFilterProductAPi } from "../../slices/filterReducer";
 import Button from "../Button";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Accordion from "./components/Accordion";
 import GridView from "../ProductList/ProductList";
+import productApi from "../../utils/productApiComponent/productApi";
 import { selectProducts } from "../../selectors/productSelect";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -28,19 +32,42 @@ import {
   filterProducts,
 } from "../../slices/filterReducer";
 import { clearFilterProducts } from "../../slices/filterReducer";
-import { selectFilterProducts } from "../../selectors/filterSelector";
-import { selectFilters } from "../../selectors/filterSelector";
-import { selectAllProducts } from "../../selectors/filterSelector";
 import { selectCategories } from "../../selectors/categorySelect";
-import productApi from "../../utils/productApiComponent/productApi";
+import { selectFilterProductsApi } from "../../selectors/filterSelector";
 import { updateFilterProductByPrice } from "../../slices/filterReducer";
 const ProductFilter = () => {
+  const [userinfo, setUserInfo] = useState({
+    category: [],
+    response: [],
+  });
+
+  const handleChange = (e) => {
+    // Destructuring
+
+    const { value, checked, id } = e.target;
+    const { category } = userinfo;
+
+    // Case 1 : The user checks the box
+    if (checked) {
+      setUserInfo({
+        category: [...category, parseInt(id)],
+        response: [...category, parseInt(id)],
+      });
+    }
+
+    // Case 2  : The user unchecks the box
+    else {
+      setUserInfo({
+        category: category.filter((e) => e !== parseInt(id)),
+        response: category.filter((e) => e !== parseInt(id)),
+      });
+    }
+  };
+
   const dispatch = useDispatch();
   const allCategories = useSelector(selectCategories);
   const productItems = useSelector(selectProducts);
-  const allProducts = useSelector(selectAllProducts);
-  const filters = useSelector(selectFilters);
-  const filterProduct = useSelector(selectFilterProducts);
+  const filterProduct = useSelector(selectFilterProductsApi);
 
   const [minRange, setMinRange] = useState();
   const [maxRange, setMaxRange] = useState();
@@ -56,25 +83,6 @@ const ProductFilter = () => {
     } else setMinRange(e.target.value);
   };
 
-  const getUniqueData = (data, attr) => {
-    let newVal = data.map((curElem) => {
-      return curElem[attr];
-    });
-
-    if (attr === "colors") {
-      // return (newVal = ["All", ...new Set([].concat(...newVal))]);
-      newVal = newVal.flat();
-    }
-
-    return (newVal = ["all", ...new Set(newVal)]);
-  };
-  const categoryData = getUniqueData(allCategories.data, "name");
-  const updateFilterValue = (event) => {
-    let name = event.target.name;
-    let value = event.target.value;
-
-    return dispatch(updateFilterValues({ name, value }));
-  };
   const ApplyPriceRange = async (product) => {
     console.log(product);
     dispatch(clearFilterProducts());
@@ -86,10 +94,19 @@ const ProductFilter = () => {
     }
     console.log(result.status == 200);
   };
-  useEffect(() => {
-    dispatch(filterProducts());
-  }, [allProducts, filters]);
 
+  useEffect(() => {
+    if (userinfo.response.length !== 0) {
+      const formatCategories = {
+        take: 11,
+        skip: 0,
+        categoryIds: userinfo.response,
+      };
+      dispatch(FilterProductApi(formatCategories));
+    } else {
+      dispatch(loadFilterProductAPi(productItems[0]));
+    }
+  }, [userinfo.response, dispatch]);
   useEffect(() => {
     dispatch(loadFilterProduct(productItems[0]));
   }, [productItems, dispatch]);
@@ -101,22 +118,24 @@ const ProductFilter = () => {
           <FilterTitle>Search Filter</FilterTitle>
           <Accordion>
             <TypeofFilter label="By Category">
-              {categoryData.map((el, index) => {
+              {allCategories?.data.map((el, index) => {
                 return (
-                  <FilterCategory
-                    key={index}
-                    type="button"
-                    name="category"
-                    value={el}
-                    onClick={updateFilterValue}
-                  >
-                    {el}
-                  </FilterCategory>
+                  <WrapperFlexStyled>
+                    <FilterCategory
+                      key={index}
+                      id={el.id}
+                      name="category"
+                      value={el.name}
+                      label={el.name}
+                      onClick={handleChange}
+                    ></FilterCategory>
+                    <label htmlFor={el.name}>{el.name}</label>
+                  </WrapperFlexStyled>
                 );
               })}
             </TypeofFilter>
             <TypeofFilter label="Price Range">
-              <WrapperFlex>
+              {/* <WrapperFlex>
                 <InputRange
                   type="number"
                   placeholder="Min"
@@ -131,8 +150,8 @@ const ProductFilter = () => {
               <ApplyFlex>
                 <Button onClick={() => ApplyPriceRange({ minRange, maxRange })}>
                   Apply
-                </Button>
-              </ApplyFlex>
+            </Button>
+              </ApplyFlex>*/}
             </TypeofFilter>
             <TypeofFilter label="test2">
               <FilterComponent>

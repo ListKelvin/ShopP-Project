@@ -17,3 +17,7 @@ export const selectFilters = createSelector(
   [selectDomain],
   (state) => state.filters
 );
+export const selectFilterProductsApi = createSelector(
+  [selectDomain],
+  (state) => state.filterProductsApi
+);

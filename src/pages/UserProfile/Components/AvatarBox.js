@@ -13,7 +13,7 @@ import Avatar from "@mui/material/Avatar";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { Button } from "@mui/material";
 import Popup from "./Popup";
-
+import { API_URL } from "../../../config/config";
 import { useState, useRef } from "react";
 const name = "Nguyen Van A";
 const date = "10/11/2022";
@@ -27,13 +27,18 @@ const AvatarBox = ({ onSubmit, action, customer }) => {
   reader.onload = () => {
     setPreview(reader.result);
   };
+  // console.log(customer.avatar);
 
   return (
     <AvatarBoxStyle>
       <Popup show={show} action={setShow} />
       <Avatar
-        alt="Remy Sharp"
-        src={preview}
+        alt="Ava Use"
+        src={
+          customer.avatar?.filename
+            ? `${API_URL}/file/${customer.avatar?.filename}`
+            : preview
+        }
         sx={{
           width: {
             xxl: "100px",

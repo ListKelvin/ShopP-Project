@@ -25,13 +25,11 @@ const options = [
   },
 ];
 export default function InputField({ customer, shopName, action }) {
-  console.log(customer);
   const handleChangeCustomer = (props) => (e) => {
     action({ ...customer, [props]: e.target.value });
   };
 
   const CHARACTER_LIMIT = 200;
-  console.log(ConvertStringToDate(customer.dob));
 
   return (
     <Box
@@ -60,7 +58,7 @@ export default function InputField({ customer, shopName, action }) {
       <InputFieldStyle>
         <TextField
           required
-          defaultValue={customer.email}
+          defaultValue={customer.email === "" ? `unknown` : `${customer.email}`}
           onChange={handleChangeCustomer("email")}
           sx={{ width: "100%" }}
           label="Email"
@@ -80,7 +78,7 @@ export default function InputField({ customer, shopName, action }) {
               onChange={(newValue) => {
                 action({ ...customer, dob: newValue });
               }}
-              renderInput={(params) => {
+              renderInput={({ error, ...params }) => {
                 return (
                   <TextField
                     required

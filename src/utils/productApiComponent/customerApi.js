@@ -1,5 +1,6 @@
 import { get, post, put } from "../ApiCaller";
 import LocalStorageUtils from "../LocalStorageUtils";
+import { toastError } from "../../Component/ToastNotification";
 const customerApi = {
   // subject api
   createCustomer: async (customer) => {
@@ -37,6 +38,7 @@ const customerApi = {
       })
       .catch((err) => {
         console.log(err);
+        toastError(err.response.data.error);
         return err;
       });
   },

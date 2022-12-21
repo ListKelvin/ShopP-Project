@@ -21,6 +21,10 @@ const productApi = {
     }/${minRange ? minRange : 1}`;
     return await get(endpoint, {}, {}).catch((err) => console.log(err.message));
   },
+  filterProduct: async (product) => {
+    const endpoint = `/product/filter`;
+    return post(endpoint, product, {}, {}).catch((err) => console.log(err));
+  },
 };
 
 export default productApi;

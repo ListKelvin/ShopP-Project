@@ -22,9 +22,8 @@ const accountApi = {
     const endpoint = "/account/edit";
     return await post(endpoint, account, {}, { Authorization: token })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
-          return res.data.message;
+          return res;
         }
         return undefined;
       })

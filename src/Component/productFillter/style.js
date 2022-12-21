@@ -93,11 +93,11 @@ export const CollapsedAccordion = styled.div`
   align-items: flex-start;
 
   max-height: ${(props) => {
-    return props.isOpen ? "250px" : "0px";
+    return props.isOpen ? "500px" : "0px";
   }};
 
   overflow: hidden;
-  transition: all 0.2s;
+  transition: all 0.5s;
 `;
 export const WrapperFlex = styled.div`
   margin-top: 1rem;
@@ -110,24 +110,43 @@ export const WrapperFlex = styled.div`
 export const ApplyFlex = styled(WrapperFlex)`
   margin-bottom: 0.5rem;
 `;
-export const FilterCategory = styled.button`
-  border: none;
-  width: 100%;
-  background-color: transparent;
-  text-transform: capitalize;
-  cursor: pointer;
-  text-align: left;
-  font-family: "Open Sans";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  padding: 10px 20px;
-  line-height: 16px;
-  transition: all 0.2s;
-  &:hover {
-    color: #2f5e5e;
-    background: rgba(85, 171, 171, 0.5);
+export const WrapperFlexStyled = styled(WrapperFlex)`
+  margin-top: 0.5rem;
+  margin-left: 3rem;
+  align-items: center;
+  justify-content: flex-start;
+  & label {
+    margin-left: 0.5rem;
+    text-transform: capitalize;
+    cursor: pointer;
+    text-align: left;
+    // font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 400;
+
+    transition: all 0.2s;
   }
+`;
+export const FilterCategory = styled.input.attrs({
+  type: "checkbox",
+})`
+  // border: none;
+  // width: 100%;
+  // background-color: transparent;
+  // text-transform: capitalize;
+  cursor: pointer;
+  // text-align: left;
+  // font-family: "Open Sans";
+  // font-style: normal;
+  // font-weight: 400;
+  // font-size: 20px;
+  // padding: 10px 20px;
+  // line-height: 16px;
+  // transition: all 0.2s;
+  // &:hover {
+  //   color: #2f5e5e;
+  //   background: rgba(85, 171, 171, 0.5);
+  // }
 `;
 
 export const WrapperFlexColumn = styled.div`

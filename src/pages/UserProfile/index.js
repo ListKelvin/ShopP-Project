@@ -7,24 +7,45 @@ import { useSelector } from "react-redux";
 import accountApi from "../../utils/productApiComponent/accountApi";
 import customerApi from "../../utils/productApiComponent/customerApi";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
-
+import { toastSuccess } from "../../Component/ToastNotification";
 import { formatDate, FormateDateType } from "../../utils/helper";
+import { usePersistedState } from "../../utils/UsePersistedState";
 const UserProfilePage = () => {
   const user = useSelector(selectUser);
   const token = LocalStorageUtils.getToken();
-
-  // const getUserInfo = async () => {
-  //   const token = LocalStorageUtils.getToken();
-  //   const result = await accountApi.getOwnUser(token).then((res) => {
-  //     return res;
-  //   });
-  //   console.log(result);
-  // };
-  // const [userInfo, setUserInfo] = useState();
+  // const [customer2, setCustomer2] = useState({
+  //   name: "",
+  //   gender: "",
+  //   dob: "",
+  //   placeOfDelivery: "",
+  //   bio: "",
+  //   phone: "",
+  //   email: "",
+  //   avatar: "",
+  // });
 
   // useEffect(() => {
+  //   const getUserInfo = async () => {
+  //     const result = await accountApi.getOwnUser(token).then((res) => {
+  //       return res;
+  //     });
+  //     console.log("line 32: ", result);
+
+  //     await setCustomer2({
+  //       name: result.customer?.name || "",
+  //       gender: result.customer?.gender || "",
+  //       dob: result.customer?.dob || "",
+  //       placeOfDelivery: result.customer?.placeOfDelivery || "",
+  //       bio: result.customer?.bio || "",
+  //       phone: result.phone || "",
+  //       email: result.email || "",
+  //       avatar: result.customer?.avatar || "",
+  //     });
+  //   };
+
   //   getUserInfo();
-  // }, []);
+  // }, [token]);
+
   const [customer, setCustomer] = useState({
     name: user.customer?.name || "",
     gender: user.customer?.gender || "",
@@ -35,16 +56,21 @@ const UserProfilePage = () => {
     email: user.email || "",
     avatar: user.customer?.avatar || "",
   });
-  // const [email, setEmail] = useState(user.email || "");
+
   const [shopName, setShopName] = useState(user.shop);
-  const EditCustomer = async (formatDataCustomer) => {
-    const result = await customerApi.editCustomer(formatDataCustomer);
-    console.log("line 39:", result);
+  const EditAccount = async (formatDataCustomer, formatDataAccount, token) => {
+    const resultCustomer = await customerApi.editCustomer(formatDataCustomer);
+    const resultAccount = await accountApi.EditAccount(
+      formatDataAccount,
+      token
+    );
+    if (resultCustomer.status === 200 && resultAccount.status === 200) {
+      toastSuccess("Edit Information successfully");
+    }
+    // console.log("line 45:", resultCustomer);
+    // console.log("line 46:", resultAccount);
   };
-  const EditAccountAction = async (formatDataAccount, token) => {
-    const result = await accountApi.EditAccount(formatDataAccount, token);
-    console.log("line 45:", result);
-  };
+
   const onSubmit = () => {
     const formatDataCustomer = {
       name: customer.name,
@@ -61,18 +87,15 @@ const UserProfilePage = () => {
       email: customer.email,
       phone: customer.phone,
     };
-
-    EditCustomer(formatDataCustomer);
-    EditAccountAction(formatDataAccount, token);
+    EditAccount(formatDataCustomer, formatDataAccount, token);
   };
+  console.log(customer.name === "");
   return (
     <UserProfileDiv>
       <GeneralInfor
         customer={customer}
-        // email={email}
         shopName={shopName}
         action={setCustomer}
-        // setEmail={setEmail}
       />
 
       <AvatarBox onSubmit={onSubmit} customer={customer} action={setCustomer} />

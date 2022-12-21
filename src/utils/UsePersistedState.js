@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import sessionStorageUtils from "./sessionStorageUtils";
+
+import LocalStorageUtils from "./LocalStorageUtils";
 
 export const usePersistedState = (key, defaultValue) => {
   const [state, setState] = useState(
-    () => sessionStorageUtils.getUser(key) || defaultValue
+    () => LocalStorageUtils.getUser(key) || defaultValue
   );
   useEffect(() => {
-    sessionStorageUtils.setItem(key, state);
+    LocalStorageUtils.setItem(key, state);
   }, [key, state]);
   return [state, setState];
 };

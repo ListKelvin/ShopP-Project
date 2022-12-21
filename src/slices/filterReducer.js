@@ -1,9 +1,11 @@
 import { injectReducer } from "../store/store";
-import { createSlice } from "@reduxjs/toolkit";
-
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { API_URL } from "../config/config";
+import axios from "axios";
 export const initialState = {
   filter_products: [],
   all_products: [],
+  filterProductsApi: [],
   grid_view: true,
   sorting_value: "lowest",
   filters: {
@@ -17,60 +19,34 @@ export const initialState = {
   },
 };
 
+export const FilterProductApi = createAsyncThunk(
+  "filter/FilterProductApi",
+  async (product) => {
+    const endpoint = API_URL + "/product/filter";
+
+    const result = await axios.post(endpoint, product);
+    console.log(result);
+    return result.data.data;
+  }
+);
+
 export const name = "filter";
 
 export const slice = createSlice({
   name,
   initialState,
   reducers: {
+    loadFilterProductAPi: (state, action) => {
+      console.log(action.payload);
+      state.filterProductsApi = action.payload;
+    },
     loadFilterProduct: (state, action) => {
-      let priceArr = action.payload.map((curElem) => curElem.amount);
-
-      let maxPrice = Math.max(...priceArr);
-
       state.filter_products = [...action.payload];
       state.all_products = [...action.payload];
-      state.filters = { ...state.filters, maxPrice, price: maxPrice };
     },
     filterProducts: (state, action) => {
       let { all_products } = state;
       let tempFilterProduct = [...all_products];
-
-      const { text, category, company, color, price } = state.filters;
-
-      if (text) {
-        tempFilterProduct = tempFilterProduct.filter((curElem) => {
-          return curElem.name.toLowerCase().includes(text);
-        });
-      }
-
-      if (category !== "all") {
-        tempFilterProduct = tempFilterProduct.filter(
-          (curElem) => curElem.category.name === category
-        );
-      }
-
-      //   if (company !== "all") {
-      //     tempFilterProduct = tempFilterProduct.filter(
-      //       (curElem) => curElem.company.toLowerCase() === company.toLowerCase()
-      //     );
-      //   }
-
-      //   if (color !== "all") {
-      //     tempFilterProduct = tempFilterProduct.filter((curElem) =>
-      //       curElem.colors.includes(color)
-      //     );
-      //   }
-
-      if (price === 0) {
-        tempFilterProduct = tempFilterProduct.filter(
-          (curElem) => curElem.amount == price
-        );
-      } else {
-        tempFilterProduct = tempFilterProduct.filter(
-          (curElem) => curElem.amount <= price
-        );
-      }
 
       state.filter_products = tempFilterProduct;
     },
@@ -80,13 +56,19 @@ export const slice = createSlice({
       state.filters = { ...state.filters, [name]: value };
     },
     clearFilterProducts: (state, action) => {
-      state.filter_products = [];
+      state.filterProductsApi = [];
     },
     updateFilterProductByPrice: (state, action) => {
       const arrayOfPrice = action.payload;
       const tmpArrayOfPrice = [...arrayOfPrice];
       state.filter_products = tmpArrayOfPrice;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(FilterProductApi.fulfilled, (state, action) => {
+      console.log("line 74: ", action.payload);
+      state.filterProductsApi = action.payload;
+    });
   },
 });
 injectReducer(name, slice.reducer);
@@ -96,6 +78,7 @@ export const {
   updateFilterValues,
   clearFilterProducts,
   updateFilterProductByPrice,
+  loadFilterProductAPi,
 } = slice.actions;
 
 export default slice;
