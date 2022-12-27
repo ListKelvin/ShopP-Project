@@ -8,7 +8,16 @@ const shopApi = {
       formData,
       {},
       { Authorization: token, "content-type": "multipart/form-data" }
-    ).catch((err) => console.log(err));
+    ).catch((err) => {
+      console.log(err);
+      return err.response;
+    });
+  },
+  getShopById: async (id, token) => {
+    const endpoint = `/shop/get-shop/${id}`;
+    return await get(endpoint, {}, { Authorization: token }).catch((err) =>
+      console.log(err)
+    );
   },
 };
 

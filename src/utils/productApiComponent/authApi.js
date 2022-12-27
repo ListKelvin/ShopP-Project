@@ -18,6 +18,20 @@ const authApi = {
         return err;
       });
   },
+  postForgotPassword: async (email) => {
+    const token = LocalStorageUtils.getToken();
+    const endpoint = "/auth/forgot-password";
+    return await post(endpoint, email, {}, {})
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        {
+          const mute = err;
+        }
+        return err;
+      });
+  },
 };
 
 export default authApi;

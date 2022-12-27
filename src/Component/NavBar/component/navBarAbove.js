@@ -21,7 +21,7 @@ import { ShopButton, RightToolbar } from "../style";
 import CartDropdown from "../../CartDropDown/CartDropDown";
 import { ClickAwayListener } from "@mui/material";
 const NavBarAbove = () => {
-  const naviage = useNavigate();
+  const navigate = useNavigate();
   const [searchProduct, setSearchProduct] = useState("empty");
   const filter = useSelector(selectFilters);
   const isCartOpen = useSelector(selectIsCartOpen);
@@ -139,6 +139,9 @@ const NavBarAbove = () => {
           <ShopButton
             variant="contained"
             endIcon={<StorefrontIcon sx={{ color: "" }} />}
+            onClick={() => {
+              navigate("shopRegister");
+            }}
           >
             Shop Channel
           </ShopButton>

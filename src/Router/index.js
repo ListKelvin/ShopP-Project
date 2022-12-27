@@ -19,6 +19,8 @@ import ScrollToTop from "../utils/ScrollToTop";
 import UserSetting from "../pages/UserSetting";
 import ChangePassword from "../Component/MenuSetting/Components/ChangePassword";
 import SettingRoute from "./settingRoute";
+import ShopPage from "../pages/shopPage";
+import ShopDashBoard from "../pages/ShopDashBoard";
 const publicRoute = [
   {
     index: true,
@@ -93,6 +95,20 @@ const publicRoute = [
     index: false,
     path: "shopRegister",
     component: <ShopRegister />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "shopPage/:id",
+    component: <ShopPage />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "shopDashBoard",
+    component: <ShopDashBoard />,
     exact: true,
     restrict: true,
   },

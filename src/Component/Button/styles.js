@@ -51,3 +51,8 @@ export const LightButton = styled(BaseButton)`
   background: #b6e3e3;
   color: #000000;
 `;
+export const WhiteButton = styled(BaseButton)`
+  background: #ffffff;
+  border-radius: 5px;
+  color: #000000;
+`;

@@ -28,6 +28,9 @@ export const TypoSave = styled.div`
     font-size: 14px;
   }
 `;
+export const TypoH1 = styled(TypoSave)`
+  color: #000000;
+`;
 export const TypoCancel = styled.div`
   text-transform: none;
   color: #55abab;
@@ -225,6 +228,7 @@ export const Wrapper = styled.div`
   align-items: center;
   // margin-bottom: 1rem;
 `;
+
 export const PopupTextDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -233,7 +237,9 @@ export const PopupTextDiv = styled.div`
 export const ButtonPopupDiv = styled(ButtonDiv)`
   justify-content: center;
 `;
-
+export const ButtonPopUpSend = styled(ButtonDiv)`
+  justify-content: flex-end;
+`;
 export const ButtonPopupSave = styled(ButtonSave)`
   position: absolute;
 

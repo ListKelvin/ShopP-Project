@@ -21,6 +21,8 @@ import FormikControl from "../../Component/FormikControl";
 import { Button } from "@mui/material";
 import PreviewImage from "../registerInfor/components/PreviewImage";
 import AVaUnknow from "../../assets/Avaunknow/istockphoto-1223671392-612x612.jpg";
+import { toastError } from "../../Component/ToastNotification";
+import { useNavigate } from "react-router-dom";
 const ShopRegister = () => {
   const token = LocalStorageUtils.getToken();
   const [state, setState] = useState({
@@ -28,6 +30,7 @@ const ShopRegister = () => {
     description: "",
     email: "",
   });
+  const navigate = useNavigate();
   const initialValues = {
     name: "",
     email: "",
@@ -36,13 +39,17 @@ const ShopRegister = () => {
     confirm: false,
     file: null,
   };
-  const registerShoop = async (formatData) => {
+  const registerShoop = async (formatData, resetForm) => {
     const result = await shopApi.postNewShop(formatData, token);
-    console.log(result);
-    return result;
+    if (result.status === 400 || result.status === 401) {
+      resetForm();
+      toastError(result.data.message);
+    } else {
+      navigate("shopDashBoard");
+    }
   };
   const fileRef = useRef(null);
-  const onSubmit = (values) => {
+  const onSubmit = (values, { resetForm }) => {
     const formatData = {
       name: values.name,
       email: values.email,
@@ -51,9 +58,8 @@ const ShopRegister = () => {
       avatar: values.file,
     };
     if (token) {
-      registerShoop(formatData);
+      registerShoop(formatData, resetForm);
     }
-    console.log(values);
   };
   const handleChangeCustomer = (props) => (e) => {
     setState({ ...state, [props]: e.target.value });

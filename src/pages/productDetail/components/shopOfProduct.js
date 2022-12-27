@@ -7,20 +7,24 @@ import {
   BoxShopAction,
   StyledSmallDescriptionWrapper,
 } from "../styled";
+import { useNavigate } from "react-router-dom";
 import Flexbox from "../../../Component/Flexbox";
 import Button from "../../../Component/Button";
 import Avatar from "@mui/material/Avatar";
 import { API_URL } from "../../../config/config";
 const ShopOfProduct = ({ product }) => {
   const { shop } = product;
-
+  const navigate = useNavigate();
   return (
     <StyleProductShopWrapper>
       <BoxShop>
         <Flexbox flexDirection="row" justifyContent="flex-start" gap="20">
           <Avatar
             src={`${API_URL}/file/${shop.avatar.filename}`}
-            sx={{ width: 70, height: 70 }}
+            sx={{ width: 70, height: 70, cursor: "pointer" }}
+            onClick={() => {
+              navigate(`/shopPage/${shop.id}`);
+            }}
           />
           <BoxShopAction>
             <Flexbox
@@ -32,7 +36,14 @@ const ShopOfProduct = ({ product }) => {
               <div>{shop.name}</div>
               <Flexbox justifyContent="flex-start" gap="10">
                 <Button> Chat now</Button>
-                <Button> View Shop</Button>
+                <Button
+                  onClick={() => {
+                    navigate(`/shopPage/${shop.id}`);
+                  }}
+                >
+                  {" "}
+                  View Shop
+                </Button>
               </Flexbox>
             </Flexbox>
             <ShopInformationWrapper>

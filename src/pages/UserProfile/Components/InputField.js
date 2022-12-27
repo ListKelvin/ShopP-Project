@@ -130,17 +130,6 @@ export default function InputField({ customer, shopName, action }) {
         />
       </InputFieldStyle>
 
-      <InputFieldStyle>
-        <TextField
-          required
-          disabled={shopName === null ? true : false}
-          defaultValue={shopName}
-          sx={{ width: "100%" }}
-          label="Shop's Name"
-          placeholder="Long Deep Trai"
-        />
-      </InputFieldStyle>
-
       <InputFieldStyle className="App">
         <TextField
           id="outlined-multiline-static"
@@ -162,3 +151,14 @@ export default function InputField({ customer, shopName, action }) {
     </Box>
   );
 }
+
+// <InputFieldStyle>
+// <TextField
+//   required
+//   disabled={shopName === null ? true : false}
+//   defaultValue={shopName}
+//   sx={{ width: "100%" }}
+//   label="Shop's Name"
+//   placeholder="Long Deep Trai"
+// />
+// </InputFieldStyle>

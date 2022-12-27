@@ -19,8 +19,10 @@ import PersonIcon from "@mui/icons-material/Person";
 import InputAdornment from "@mui/material/InputAdornment";
 import * as Yup from "yup";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
+import ModalForgotPassword from "../../Component/Modal/ModalForgotPassword";
 const SignInComponent = () => {
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -117,6 +119,7 @@ const SignInComponent = () => {
             backgroundPosition: "center",
           }}
         />
+        <ModalForgotPassword show={show} action={setShow} />
         <Grid item xs={12} sm={8} md={6} component={Paper} square>
           <Box
             sx={{
@@ -200,7 +203,13 @@ const SignInComponent = () => {
                         />
                       </Grid>
                       <Grid item sx={{ display: "flex", alignItems: "center" }}>
-                        <Link href="#">Forgot password?</Link>
+                        <Link
+                          onClick={() => {
+                            setShow(true);
+                          }}
+                        >
+                          Forgot password?
+                        </Link>
                       </Grid>
                     </Grid>
                     <BaseButton

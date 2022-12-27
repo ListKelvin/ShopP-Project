@@ -26,6 +26,11 @@ import GridView from "../ProductList/ProductList";
 import productApi from "../../utils/productApiComponent/productApi";
 import { selectProducts } from "../../selectors/productSelect";
 import { useSelector, useDispatch } from "react-redux";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import {
   loadFilterProduct,
   updateFilterValues,
@@ -41,6 +46,11 @@ const ProductFilter = () => {
     category: [],
     response: [],
   });
+  const [age, setAge] = useState("ASC");
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
   const [star, setStar] = useState({
     starValue: [],
     response: [],
@@ -258,9 +268,12 @@ const ProductFilter = () => {
             <SortButton>
               <b>Top Sales</b>
             </SortButton>
-            <SortButton>
-              <b>Price</b>
-            </SortButton>
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <Select value={age} onChange={handleChange} displayEmpty>
+                <MenuItem value={"ASC"}>ASC</MenuItem>
+                <MenuItem value={"DSC"}>DSC</MenuItem>
+              </Select>
+            </FormControl>
           </SortFrame>
           <GridView products={filterProduct} />
         </WrapperFlexColumn>
