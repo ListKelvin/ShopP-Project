@@ -27,7 +27,7 @@ const Home = () => {
 
       if (user === undefined) {
         dispatch(deleteUser());
-        toastError("Please login again your account has expired");
+        // toastError("Please login again your account has expired");
       }
       const simplifyUser = {
         customer: user.data.customer,

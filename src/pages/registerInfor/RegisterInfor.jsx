@@ -125,6 +125,7 @@ const RegisterInfor = () => {
                     component="main"
                     sx={{
                       width: { lg: "500px", sm: "340px", xs: "215px" },
+                      marginBottom: "20px",
                       "& .MuiOutlinedInput-root": {
                         borderRadius: "50px",
                       },
@@ -141,6 +142,7 @@ const RegisterInfor = () => {
                             xs: "200px",
                             sm: "335px",
                           },
+                          marginBottom: "20px",
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "50px",
                           },
@@ -156,6 +158,7 @@ const RegisterInfor = () => {
                         sx={{
                           width: { lg: "320px", xs: "200px", sm: "210px" },
 
+                          marginBottom: "20px",
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "50px",
                           },
@@ -170,6 +173,7 @@ const RegisterInfor = () => {
                         sx={{
                           width: { lg: "135px", sm: "97px", xs: "200px" },
                           marginLeft: { sm: "10px" },
+                          marginBottom: "20px",
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "50px",
                           },
@@ -186,6 +190,7 @@ const RegisterInfor = () => {
                         sx={{
                           width: { lg: "475px", xs: "200px", sm: "335px" },
 
+                          marginBottom: "20px",
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "50px",
                           },
@@ -199,6 +204,7 @@ const RegisterInfor = () => {
                         control="MuiInput"
                         sx={{
                           width: { lg: "475px", xs: "200px", sm: "335px" },
+                          marginBottom: "20px",
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "50px",
                           },
@@ -213,6 +219,7 @@ const RegisterInfor = () => {
                         control="MuiInput"
                         sx={{
                           width: { lg: "475px", xs: "200px", sm: "335px" },
+                          marginBottom: "20px",
                           "& .MuiOutlinedInput-root": {
                             borderRadius: "50px",
                           },

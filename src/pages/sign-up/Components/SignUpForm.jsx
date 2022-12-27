@@ -87,6 +87,12 @@ const SignUpForm = () => {
               type="email"
               label="Email"
               name="email"
+              sx={{
+                marginBottom: "20px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "50px",
+                },
+              }}
             />
 
             <FormikControl
@@ -94,6 +100,12 @@ const SignUpForm = () => {
               type="text"
               label="Phone number"
               name="phone"
+              sx={{
+                marginBottom: "20px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "50px",
+                },
+              }}
             />
 
             <FormikControl
@@ -101,6 +113,12 @@ const SignUpForm = () => {
               type="password"
               label="Password"
               name="password"
+              sx={{
+                marginBottom: "20px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "50px",
+                },
+              }}
             />
 
             <FormikControl
@@ -108,6 +126,12 @@ const SignUpForm = () => {
               type="password"
               label="Confirm Password"
               name="confirmPassword"
+              sx={{
+                marginBottom: "20px",
+                "& .MuiOutlinedInput-root": {
+                  borderRadius: "50px",
+                },
+              }}
             />
             <RegisterButton
               sx={{

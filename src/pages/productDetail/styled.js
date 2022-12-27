@@ -136,3 +136,103 @@ export const RemoveButton = styled.div`
   padding-left: 12px;
   cursor: pointer;
 `;
+
+export const StyleProductShopWrapper = styled.div`
+  width: 100%;
+  height: 10rem;
+  background-color: rgba(85, 171, 171, 0.2);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2rem 3rem;
+  ${down("md")} {
+    margin-top: 1rem;
+  }
+`;
+export const StyleDetailWrapper = styled(StyleProductShopWrapper)`
+  margin-top: 2rem;
+  min-height: 20rem;
+  // max-width: 50rem;
+  box-shadow: none;
+  flex-direction: column;
+  padding: 4rem;
+  gap: 1rem;
+`;
+export const BoxShop = styled.div`
+  width: 100%;
+  padding: 0 3rem;
+`;
+export const BoxShopAction = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  ${down("md")} {
+    flex-direction: column;
+  }
+`;
+export const ShopInformationWrapper = styled.div`
+  width: 100%;
+  padding: 0 3rem;
+  ${down("md")} {
+    margin-top: 1rem;
+  }
+`;
+export const SmallDescriptionWrapper = styled.span`
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+  /* identical to box height */
+
+  color: rgba(0, 0, 0, 0.75);
+`;
+
+export const StyledSmallDescriptionWrapper = styled(SmallDescriptionWrapper)`
+  margin-left: 0.5rem;
+  color: #2f5e5e;
+`;
+
+export const Title = styled.h2`
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+  color: #000000;
+  margin-bottom: 1rem;
+`;
+
+export const StyleSmallDetail = styled.span`
+  font-family: "Open Sans";
+  font-style: normal;
+  width: 5rem;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  text-align: left;
+  /* Text-title */
+  color: #2f5e5e;
+`;
+
+export const ItemDetail = styled.div`
+  // width: 20rem;
+  margin-left: 2rem;
+`;
+
+export const DescriptionWrapper = styled.span`
+  font-family: "Open Sans";
+  font-style: normal;
+  width: 100%;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  text-align: left;
+  /* Text-title */
+  color: #2f5e5e;
+`;

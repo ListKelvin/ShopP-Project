@@ -4,7 +4,7 @@ import { CarouselStyled, ImgPreviewStyled } from "../styled";
 import { API_URL } from "../../../config/config";
 const Carousel2 = ({ item }) => {
   const linkFile = `${API_URL}/file/`;
-  console.log(item.productImage);
+
   return (
     <CarouselStyled
       autoPlay={true}
@@ -26,5 +26,5 @@ const Carousel2 = ({ item }) => {
     </CarouselStyled>
   );
 };
-//<ImgPreview  url={`${ResourceImage}`}/>
+
 export default Carousel2;

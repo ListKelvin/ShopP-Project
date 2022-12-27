@@ -6,7 +6,6 @@ import Rating from "@mui/material/Rating";
 import { Box } from "@mui/system";
 import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
-import Img from "../../assets/Product/download.jpg";
 import { ProductLink } from "../../pages/Home/style";
 const ProductCard = ({ rate, price, sold, name, img, id }) => {
   const [value, setValue] = React.useState(rate);

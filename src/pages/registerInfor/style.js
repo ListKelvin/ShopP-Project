@@ -29,6 +29,7 @@ export const PreviewContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  border-radius: 
   width: 100%;
 `;

@@ -45,7 +45,8 @@ const ProductFilter = () => {
     starValue: [],
     response: [],
   });
-
+  const min = 1;
+  const max = 1000000;
   if (star.response.length !== 0) {
   }
   //change star
@@ -91,30 +92,38 @@ const ProductFilter = () => {
   const productItems = useSelector(selectProducts);
   const filterProduct = useSelector(selectFilterProductsApi);
 
-  const [minRange, setMinRange] = useState();
-  const [maxRange, setMaxRange] = useState();
+  const [minRange, setMinRange] = useState(0);
+  const [maxRange, setMaxRange] = useState(0);
   //change min max
   const handleChangeMax = (e) => {
-    if (e.target.value > 10000000000) {
-      setMaxRange(100000000);
-    } else setMaxRange(e.target.value);
+    const value = Math.max(min, Math.min(max, Number(e.target.value)));
+    console.log("line 100", value);
+    setMaxRange(value);
   };
   const handleChangeMin = (e) => {
-    if (e.target.value < 0) {
-      setMinRange(1);
-    } else setMinRange(e.target.value);
+    const value = Math.max(min, Math.min(max, Number(e.target.value)));
+    console.log("line 105", value);
+    setMinRange(value);
   };
 
   const ApplyPriceRange = async (product) => {
-    console.log(product);
+    console.log("line 110", product);
     dispatch(clearFilterProducts());
-
-    const result = await productApi.filterProductByPrice(product);
-    if (result.status === 200) {
-      console.log(result.data.data);
-      dispatch(updateFilterProductByPrice(result.data.data));
-    }
-    console.log(result.status == 200);
+    const formatFilterByPrice = {
+      take: 5,
+      skip: 0,
+      price: {
+        min: product.minRange,
+        max: product.maxRange,
+        orderBy: "DES",
+      },
+    };
+    dispatch(FilterProductApi(formatFilterByPrice));
+    // const result = await productApi.filterProductByPrice(product);
+    // if (result.status === 200) {
+    //   console.log(result.data.data);
+    //   dispatch(updateFilterProductByPrice(result.data.data));
+    // }
   };
 
   useEffect(() => {

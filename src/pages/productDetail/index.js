@@ -6,7 +6,8 @@ import { Grid } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { selectProducts } from "../../selectors/productSelect";
-
+import ShopOfProduct from "./components/shopOfProduct";
+import Detail from "./components/detail";
 const ProductDetails = () => {
   const [state, setState] = useState();
   const { id } = useParams();
@@ -40,6 +41,8 @@ const ProductDetails = () => {
           <Grid item xs={5}>
             <ProductInfo product={state} />
           </Grid>
+          <ShopOfProduct product={state} />
+          <Detail product={state} />
         </Grid>
       )}
     </>

@@ -11,19 +11,7 @@ const MuiInput = ({ label, name, ...rest }) => {
             <TextField
               label={label}
               id={name}
-              sx={{
-                width: {
-                  xs: "220px",
-                  sm: "255px",
-                  md: "320px",
-                },
-                // "320px",
-                // height: "40px",
-                marginBottom: "20px",
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: "50px",
-                },
-              }}
+              fullWidth
               {...rest}
               {...field}
               error={meta.touched && form.errors[name] ? true : false}

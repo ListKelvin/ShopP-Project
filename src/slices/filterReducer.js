@@ -6,7 +6,7 @@ export const initialState = {
   filter_products: [],
   all_products: [],
   filterProductsApi: [],
-  grid_view: true,
+
   sorting_value: "lowest",
   filters: {
     text: "",
@@ -24,9 +24,14 @@ export const FilterProductApi = createAsyncThunk(
   async (product) => {
     const endpoint = API_URL + "/product/filter";
 
-    const result = await axios.post(endpoint, product);
-
-    return result.data.data;
+    try {
+      const result = await axios.post(endpoint, product);
+      console.log(result);
+      return result.data.data;
+    } catch (error) {
+      console.log(error.response.data);
+      return error.response.data;
+    }
   }
 );
 

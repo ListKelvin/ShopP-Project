@@ -19,6 +19,7 @@ import { selectCartItems } from "../../../selectors/cartSelector";
 import { addCartItem, removeCartItem } from "../../../slices/cartReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { setCartItems } from "../../../slices/cartReducer";
+import { addToCart } from "../../../slices/cartReducer";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import Button from "../../../Component/Button";
 const Voucher = [

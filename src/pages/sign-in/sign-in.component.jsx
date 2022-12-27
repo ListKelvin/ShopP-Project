@@ -82,9 +82,7 @@ const SignInComponent = () => {
     let data2 = {};
     data2.password = values.password;
     data2.emailOrPhone = values.email;
-
     setLoading(true);
-
     dispatch(login(data2))
       .unwrap()
       .then(() => {
@@ -142,6 +140,12 @@ const SignInComponent = () => {
                     <FormikControl
                       // control="input"
                       control="MuiInput"
+                      sx={{
+                        marginBottom: "20px",
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "50px",
+                        },
+                      }}
                       placeholder="example@gmail.com"
                       InputProps={{
                         startAdornment: (
@@ -154,7 +158,6 @@ const SignInComponent = () => {
                       name="email"
                     />
                     <FormikControl
-                      // control="input"
                       control="MuiInput"
                       type="password"
                       placeholder="asdQE123!@#"
@@ -164,6 +167,12 @@ const SignInComponent = () => {
                       //   name="phoneOrEmail"
                       //   options={options}
                       // />
+                      sx={{
+                        marginBottom: "20px",
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "50px",
+                        },
+                      }}
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">

@@ -89,7 +89,7 @@ const UserProfilePage = () => {
     };
     EditAccount(formatDataCustomer, formatDataAccount, token);
   };
-  console.log(customer.name === "");
+
   return (
     <UserProfileDiv>
       <GeneralInfor
