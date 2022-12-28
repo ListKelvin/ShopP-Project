@@ -140,7 +140,7 @@ const NavBarAbove = () => {
             variant="contained"
             endIcon={<StorefrontIcon sx={{ color: "" }} />}
             onClick={() => {
-              navigate("shopRegister");
+              navigate("/shopRegister");
             }}
           >
             Shop Channel

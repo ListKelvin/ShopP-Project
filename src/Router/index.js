@@ -21,6 +21,7 @@ import ChangePassword from "../Component/MenuSetting/Components/ChangePassword";
 import SettingRoute from "./settingRoute";
 import ShopPage from "../pages/shopPage";
 import ShopDashBoard from "../pages/ShopDashBoard";
+import ResetPassword from "../pages/ResetPassword";
 const publicRoute = [
   {
     index: true,
@@ -157,6 +158,7 @@ const RouterComponent = () => {
           </Route>
         </Route>
         <Route path="/info" element={<RegisterInfor />} />
+        <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/signIn" element={<SignInComponent />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="*" element={<p>404</p>} />

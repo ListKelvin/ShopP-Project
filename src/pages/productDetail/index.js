@@ -17,14 +17,17 @@ const ProductDetails = () => {
 
   useEffect(() => {
     let item = null;
+    let newItem;
     for (let i = 0; i < listProducts.length; i++) {
       if (listProducts[i].id === id) {
         item = listProducts[i];
+        newItem = Object.assign({ amountInCart: 0 }, item);
+
         break;
       }
     }
     if (item != null) {
-      setState(item);
+      setState(newItem);
     } else {
       navigate("/home");
     }
@@ -39,7 +42,7 @@ const ProductDetails = () => {
             <Carousel2 item={state} />
           </Grid>
           <Grid item xs={5}>
-            <ProductInfo product={state} />
+            <ProductInfo product={state} action={setState} />
           </Grid>
           <ShopOfProduct product={state} />
           <Detail product={state} />
