@@ -32,6 +32,20 @@ const authApi = {
         return err;
       });
   },
+  postResetPassword: async (formData) => {
+    const token = LocalStorageUtils.getToken();
+    const endpoint = "/auth/reset-password";
+    return await post(endpoint, formData, {}, {})
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        {
+          const mute = err;
+        }
+        return err.response;
+      });
+  },
 };
 
 export default authApi;

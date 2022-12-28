@@ -64,12 +64,6 @@ const publicRoute = [
     component: <SettingRoute />,
     exact: true,
     restrict: true,
-    // Children: [
-    //   {
-    //     path: "/ChangePassword",
-    //     component: <ChangePassword />,
-    //   },
-    // ],
   },
   {
     index: false,

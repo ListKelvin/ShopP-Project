@@ -5,14 +5,28 @@ import Wrapper from "../../../Component/Wrapper";
 import Flexbox from "../../../Component/Flexbox";
 import { FormStyled, ButtonStyled } from "../styles";
 import Button from "../../../Component/Button";
+import authApi from "../../../utils/productApiComponent/authApi";
+import { useNavigate } from "react-router-dom";
+import { toastSuccess, toastError } from "../../../Component/ToastNotification";
 const FormResetPassword = ({ location }) => {
   const { state } = location;
-  console.log(state.email);
+  const navigate = useNavigate();
   const initialValues = {
     email: `${state.email}`,
     otp: "",
     password: "",
     confirmPassword: "",
+  };
+  const ResetPassword = async (formData, resetForm) => {
+    const result = await authApi.postResetPassword(formData);
+    console.log(result);
+    if (result.status === 200) {
+      navigate("/signIn");
+      toastSuccess(result.data.message);
+    } else if (result.status === 400) {
+      toastError(result.data[0].message);
+      resetForm();
+    }
   };
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -37,6 +51,7 @@ const FormResetPassword = ({ location }) => {
       .max(6, "Your OTP is too long."),
   });
   const onSubmit = (values, { resetForm }) => {
+    ResetPassword(values, resetForm);
     console.log("Form data", values);
   };
   return (
@@ -93,7 +108,6 @@ const FormResetPassword = ({ location }) => {
                 },
               }}
             />
-
             <Button buttonType={"reset"}> Reset password</Button>
           </FormStyled>
         );
