@@ -22,6 +22,7 @@ import SettingRoute from "./settingRoute";
 import ShopPage from "../pages/shopPage";
 import ShopDashBoard from "../pages/ShopDashBoard";
 import ResetPassword from "../pages/ResetPassword";
+import CartPageV2 from "../pages/CartPageVer2";
 const publicRoute = [
   {
     index: true,
@@ -110,6 +111,13 @@ const publicRoute = [
     index: false,
     path: "shopDashBoard",
     component: <ShopDashBoard />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "cart_page_v2",
+    component: <CartPageV2 />,
     exact: true,
     restrict: true,
   },

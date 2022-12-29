@@ -13,3 +13,8 @@ export const selectCartItems = createSelector(
   [selectDomain],
   (state) => state.cartItems
 );
+export const selectProduct = createSelector(
+  [selectDomain],
+  (state) => state.product
+);
+export const selectItem = createSelector([selectDomain], (state) => state.item);

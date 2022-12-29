@@ -10,9 +10,10 @@ import {
 } from "./StyleTable";
 import ImgBrand from "../../../assets/image 68.svg";
 import { Checkbox2 } from "./CheckBox";
-import { clearCartItem, setCartItems } from "../../../slices/cartReducer";
+// import { clearCartItem, setCartItems } from "../../../slices/cartReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCartItems } from "../../../selectors/cartSelector";
+import { addToCart } from "../../../slices/cartReducer";
 const Product = ({ item }) => {
   const { filename } = item.productImage[0].localFile;
   const cartItems = useSelector(selectCartItems);
@@ -35,13 +36,13 @@ const Product = ({ item }) => {
       </Image>
 
       <PriceTag>{item.amount} VND</PriceTag>
-      <AmountTag>{item.amountInCart}</AmountTag>
-      <TotalTag>{item.amount * item.amountInCart}</TotalTag>
+      <AmountTag>{item.cartQuantity}</AmountTag>
+      <TotalTag>{item.amount * item.cartQuantity}</TotalTag>
       <ActionTag>
         <button
-          onClick={() => {
-            dispatch(setCartItems(clearCartItem(cartItems, item)));
-          }}
+          // onClick={() => {
+          //   dispatch(addToCart(item));
+          // }}
           style={{
             backgroundColor: "transparent",
             border: "none",
@@ -50,7 +51,7 @@ const Product = ({ item }) => {
             textDecoration: "none",
           }}
         >
-          Delete
+          add to cart
         </button>
       </ActionTag>
     </>
@@ -58,3 +59,11 @@ const Product = ({ item }) => {
 };
 
 export default Product;
+
+// const Total = ({ products }) => (
+//   <h3>
+//     Price:
+//     {products.reduce((sum, i) => (
+//       sum += i.count * i.price
+//     ), 0)}
+//   </h3>
