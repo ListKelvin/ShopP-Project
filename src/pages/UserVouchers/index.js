@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { EvaluationDiv, EvaluationsContainer, EvaluationTitle, WrapperAble, } from "../UserEvaluation/style";
 import VoucherList from './Components/VoucherList';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import SearchIcon from '@mui/icons-material/Search';
-import {FilterContainer, Title, SearchTitle, SearchBox, SearchKeyWord, TitleContainer,  SearchContainer, IconStyle} from "./Components/styleComponents"
+import {FilterContainer, Title, SearchTitle, SearchBox, SearchKeyWord, TitleContainer,  SearchContainer, IconStyle, TitleAfter, TitleDiv} from "./Components/styleComponents"
 const Categories = [
   {
     id: 0,
@@ -26,14 +26,26 @@ const Categories = [
 ]
 
 const UserVouchers = ({label}) => {
+  const [isActive, setActive] = useState(false);
+
+  const toggleClass = () => {
+    setActive(!isActive);
+  }
   return (
   <EvaluationDiv>
-    <EvaluationsContainer>
+    <EvaluationsContainer style={{width: "90%"}}>
       <EvaluationTitle>My Voucher</EvaluationTitle> 
       <FilterContainer>
-        {Categories.map (({label}) => {return (
-          <Title>{label}</Title>
+      <TitleDiv>
+        {Categories.map (({id, label}) => {return (
+          <Title 
+          key = {id}
+          className={isActive ? 'Title' : null}
+          onClick={toggleClass}
+          >{label}</Title>
+          
           );})}
+          </TitleDiv>
         </FilterContainer>
 
         <SearchContainer>
@@ -48,9 +60,7 @@ const UserVouchers = ({label}) => {
       </SearchContainer>
       
       {Categories.map (({id, label, titles, status}) => {return (
-        <div id = {id} label = {label} titles = {titles} status = {status}>
-        <VoucherList id = {id} label = {label} titles = {titles} status = {status} />
-      </div>
+        <VoucherList key={id} id = {id} label = {label} titles = {titles} status = {status} />
       );})}
     </EvaluationsContainer>
   </EvaluationDiv>)

@@ -1,8 +1,13 @@
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import {up, down, only} from "styled-breakpoints";
 
-export const VoucherListDiv = styled.div`
+const slide = keyframes`
+    100% {
+        transform: translateX(0);
+    }
+`;
 
+export const VoucherListDiv = styled.div`
 `;
 
 export const SearchContainer = styled.div`
@@ -120,7 +125,8 @@ export const IconContainer = styled.div`
 
 export const FilterContainer = styled.div`
     display: flex;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
+    flex-direction: column;
 `;
 export const Title = styled.div`
     position: relative;
@@ -131,20 +137,62 @@ export const Title = styled.div`
     text-align: center;
     color: #000000;
     width: 7em;
-    &::after {
+    /* &::after {
         content: "";
         width: 7em;
         height: .5em;
         background: #55ABAB;
-        border-radius: .2em;
+        opacity: 0;
         position: absolute;
+        transition: .5s;
+        transform: translateX(-100%);
         bottom: -1em;
         left: 0;
         right: 0;
+        border-radius: .2em;
     }
 
+    &:first-child {
+        &::after {
+            transform: translateX(0);
+        }
+    }
+    &:last-child {
+        &::after {
+            transform: translateX(100%/3);
+        }
+    } */
+    
     &:hover {
         cursor: pointer;
         color:  #55ABAB;
     }
+
+    /* &:hover {
+        &::after {
+            background: #55ABAB;
+            opacity: 1;
+            animation: 1.2s ${slide} ease forwards;
+        }
+    } */
 `;
+
+export const TitleAfter = styled.div`
+    background: #55ABAB;
+    opacity: 0.5;
+    width: calc(7.71em*3);
+    height: 0.5em;
+    border-radius: .2em;
+    margin-top: .6em;
+    overflow: hidden;
+`;
+
+export const TitleDiv = styled.div`
+    display: flex;
+    &:first-child {
+        &::after { 
+            transform: translateX(0);
+        }
+    }
+`;
+
