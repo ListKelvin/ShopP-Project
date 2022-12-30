@@ -26,7 +26,7 @@ const ModalForgotPassword = ({ show, action }) => {
       const result = await authApi.postForgotPassword(formatData);
       console.log(result);
       if (result.status === 200) {
-        navigate("/resetPassword");
+        navigate("/resetPassword", { state: formatData });
         toastSuccess(result.data.message);
       }
     } else toastError("Please input email!!");

@@ -4,6 +4,7 @@ import {
   InvertedButton,
   LightButton,
   WhiteButton,
+  StyleResetButton,
 } from "./styles";
 
 export const BUTTON_TYPE_CLASSES = {
@@ -12,6 +13,7 @@ export const BUTTON_TYPE_CLASSES = {
   inverted: "inverted",
   light: "light",
   white: "white",
+  reset: "reset",
 };
 
 const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
@@ -21,6 +23,7 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
     [BUTTON_TYPE_CLASSES.inverted]: InvertedButton,
     [BUTTON_TYPE_CLASSES.light]: LightButton,
     [BUTTON_TYPE_CLASSES.white]: WhiteButton,
+    [BUTTON_TYPE_CLASSES.reset]: StyleResetButton,
   }[buttonType]);
 
 const Button = ({ children, buttonType, ...otherProps }) => {

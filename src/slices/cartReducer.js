@@ -3,7 +3,6 @@ import { createSlice, current } from "@reduxjs/toolkit";
 
 export const initialState = {
   isCartOpen: false,
-
   cartItems: [],
 };
 export const addCartItem = (cartItems, productToAdd) => {
@@ -19,31 +18,32 @@ export const addCartItem = (cartItems, productToAdd) => {
     shop: productToAdd.shop,
     category: productToAdd.category,
     productImage: productToAdd.productImage,
-    amountInCart: 1,
+    amountInCart: productToAdd.amountInCart,
   };
   const checkShopInCart = cartItems.find((item) => {
     if (item.idShop === productToAdd.shop?.id) {
       return item;
     } else return false;
   });
-  console.log(checkShopInCart);
+  console.log(Object.isExtensible(checkShopInCart));
+
   if (checkShopInCart) {
     const existingCartItem = checkShopInCart?.itemOfShop.find(
       (cartItem) => cartItem.id === productToAdd.id
     );
-    console.log("line 19:", existingCartItem);
+
     if (existingCartItem) {
-      for (let i = 0; i < cartItems.length; i++) {
-        if (cartItems[i].idShop === productToAdd.shop?.id) {
-          let itemChilds = cartItems[i].itemOfShop;
-          for (let j = 0; j < itemChilds.length; j++) {
-            if (itemChilds[j].id === productToAdd.id) {
-              // itemChilds[j].amountInCart = itemChilds[j].amountInCart + 1;
-              break;
-            }
-          }
-        }
-      }
+      // for (let i = 0; i < cartItems.length; i++) {
+      //   if (cartItems[i].idShop === productToAdd.shop?.id) {
+      //     let itemChilds = cartItems[i].itemOfShop;
+      //     for (let j = 0; j < itemChilds.length; j++) {
+      //       if (itemChilds[j].id === productToAdd.id) {
+      //         itemChilds[j].amountInCart = itemChilds[j].amountInCart + 1;
+      //         break;
+      //       }
+      //     }
+      //   }
+      // }
     } else {
       checkShopInCart.itemOfShop = [...cartItems, newItems];
     }
@@ -52,14 +52,13 @@ export const addCartItem = (cartItems, productToAdd) => {
   //   cartItem.id === productToAdd.id
   //     ? { ...cartItem, amountInCart: cartItem.amountInCart + 1 }
   //     : cartItem
-  // );
-
+  // );;
   return [
     ...cartItems,
     {
       shopName: newItems.shop?.name || "unknown",
       idShop: newItems.shop?.id,
-      itemOfShop: [{ ...newItems, amountInCart: 1 }],
+      itemOfShop: [newItems],
     },
   ];
 };
@@ -103,7 +102,7 @@ export const slice = createSlice({
         idShop: action.payload.shop?.id,
         itemOfShop: [action.payload],
       };
-
+      console.log(Object.isExtensible(formatItem));
       //check shop in cart true return itemOfShop
       const checkShopInCart = current(state.cartItems).find((item) => {
         if (item.idShop === action.payload.shop?.id) {
@@ -111,7 +110,7 @@ export const slice = createSlice({
         } else return false;
       });
       // check itemOfShop is existing
-
+      console.log(Object.isExtensible(checkShopInCart));
       if (checkShopInCart) {
         const checkItemInShop = checkShopInCart?.itemOfShop.find((item) => {
           if (item.id === action.payload.id) {
@@ -131,7 +130,7 @@ export const slice = createSlice({
           });
         }
       } else {
-        state.cartItems.push({ ...formatItem });
+        state.cartItems.push(formatItem);
       }
 
       // const itemInCart = state.cartItems.find(

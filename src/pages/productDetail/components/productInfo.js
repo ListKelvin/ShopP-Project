@@ -50,13 +50,14 @@ const AddtionalInfor = [
     ],
   },
 ];
-const ProductInfo = ({ product }) => {
+const ProductInfo = ({ product, action }) => {
   const cartItems = useSelector(selectCartItems);
   const dispatch = useDispatch();
   const [amountInCart, setAmountInCart] = useState(1);
 
   const setDecrease = () => {
-    amountInCart > 1 ? setAmountInCart(amountInCart - 1) : setAmountInCart(1);
+    Object.preventExtensions(product);
+    amountInCart > 1 ? action((product.amountInCart = 2)) : setAmountInCart(1);
   };
 
   const setIncrease = () => {
@@ -67,6 +68,7 @@ const ProductInfo = ({ product }) => {
     product.amountInCart = amountInCart;
     Object.preventExtensions(product);
   };
+  console.log(Object.isExtensible(cartItems));
   return (
     <>
       <ProductName> {product.name}</ProductName>
@@ -219,6 +221,7 @@ const ProductInfo = ({ product }) => {
         <Button
           onClick={() => {
             dispatch(setCartItems(addCartItem(cartItems, product)));
+            // dispatch(addToCart(product));
           }}
         >
           Add to Cart
