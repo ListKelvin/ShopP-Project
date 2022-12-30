@@ -63,3 +63,6 @@ export const StyleResetButton = styled(BaseButton)`
   font-size: 16px;
   padding: 26px 0;
 `;
+export const StyleButton = styled(BaseButton)`
+  min-width: 80px;
+`;

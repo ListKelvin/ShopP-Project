@@ -9,7 +9,7 @@ import Home from "../pages/Home";
 import RegisterInfor from "../pages/registerInfor/RegisterInfor";
 import LayoutComponent from "../Component/layout/Layout.component";
 import Wishlist from "../pages/Wislist";
-import CartPage from "../pages/CartPage";
+
 import ProductDetails from "../pages/productDetail";
 import ProductPage from "../pages/productPage";
 import UserAddressPage from "../pages/UserAddress/UserAddress";
@@ -38,13 +38,7 @@ const publicRoute = [
     exact: true,
     restrict: true,
   },
-  {
-    index: false,
-    path: "cartPage",
-    component: <CartPage />,
-    exact: true,
-    restrict: true,
-  },
+
   {
     index: false,
     path: "productPage",
@@ -116,7 +110,7 @@ const publicRoute = [
   },
   {
     index: false,
-    path: "cart_page_v2",
+    path: "cart",
     component: <CartPageV2 />,
     exact: true,
     restrict: true,

@@ -1,7 +1,6 @@
-import TitleCartPage from "../CartPage/Component CartPage/Title";
-import { ContainerV2 } from "./style";
-import { EmptyCart } from "../CartPage/Component CartPage/EmptyCart";
-import Flexbox from "../../Component/Flexbox";
+import TitleCartPage from "./component/Title";
+
+import { EmptyCart } from "./component/EmptyCart";
 import { selectCartItems } from "../../selectors/cartSelector";
 import { useSelector } from "react-redux";
 import TableCart from "./component/table";
