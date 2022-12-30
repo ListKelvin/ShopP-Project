@@ -22,7 +22,7 @@ import { Button } from "@mui/material";
 import PreviewImage from "../registerInfor/components/PreviewImage";
 import AVaUnknow from "../../assets/Avaunknow/istockphoto-1223671392-612x612.jpg";
 import { toastError } from "../../Component/ToastNotification";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 const ShopRegister = () => {
   const token = LocalStorageUtils.getToken();
   const [state, setState] = useState({
@@ -30,6 +30,7 @@ const ShopRegister = () => {
     description: "",
     email: "",
   });
+
   const navigate = useNavigate();
   const initialValues = {
     name: "",
