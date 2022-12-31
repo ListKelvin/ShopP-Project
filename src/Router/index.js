@@ -9,7 +9,7 @@ import Home from "../pages/Home";
 import RegisterInfor from "../pages/registerInfor/RegisterInfor";
 import LayoutComponent from "../Component/layout/Layout.component";
 import Wishlist from "../pages/Wislist";
-import CartPage from "../pages/CartPage";
+
 import ProductDetails from "../pages/productDetail";
 import ProductPage from "../pages/productPage";
 import UserAddressPage from "../pages/UserAddress/UserAddress";
@@ -22,6 +22,7 @@ import SettingRoute from "./settingRoute";
 import ShopPage from "../pages/shopPage";
 import ShopDashBoard from "../pages/ShopDashBoard";
 import ResetPassword from "../pages/ResetPassword";
+import CartPageV2 from "../pages/CartPageVer2";
 const publicRoute = [
   {
     index: true,
@@ -37,13 +38,7 @@ const publicRoute = [
     exact: true,
     restrict: true,
   },
-  {
-    index: false,
-    path: "cartPage",
-    component: <CartPage />,
-    exact: true,
-    restrict: true,
-  },
+
   {
     index: false,
     path: "productPage",
@@ -110,6 +105,13 @@ const publicRoute = [
     index: false,
     path: "shopDashBoard",
     component: <ShopDashBoard />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "cart",
+    component: <CartPageV2 />,
     exact: true,
     restrict: true,
   },
