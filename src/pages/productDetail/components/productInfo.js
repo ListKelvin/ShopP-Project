@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ProductName,
   ProductEvaluated,
@@ -16,20 +16,25 @@ import { ReactComponent as FlashIcon } from "../../../assets/image 68.svg";
 import Rating from "@mui/material/Rating";
 import Chip from "@mui/material/Chip";
 import { selectCartItems } from "../../../selectors/cartSelector";
-import { addCartItem, removeCartItem } from "../../../slices/cartReducer";
+
 import { useDispatch, useSelector } from "react-redux";
-import { setCartItems } from "../../../slices/cartReducer";
-import { addToCart } from "../../../slices/cartReducer";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
+
+////////////////
+
+import { selectProduct, selectItem } from "../../../selectors/cartSelector";
+/////////////////
+import {
+  addToCart,
+  decreaseCart,
+  removeFromCart,
+  clearCart,
+} from "../../../slices/cartReducer";
 import Button from "../../../Component/Button";
 const Voucher = [
   { id: 1, label: "Discount -30%" },
   { id: 2, label: "Discount -50%" },
   { id: 3, label: "Discount -10%" },
-  // { id: 4, label: "Discount -55%" },
-  // { id: 5, label: "Discount -20%" },
-  // { id: 6, label: "Discount -90%" },
-  // { id: 7, label: "Discount -90%" },
 ];
 const AddtionalInfor = [
   {
@@ -51,7 +56,9 @@ const AddtionalInfor = [
   },
 ];
 const ProductInfo = ({ product, action }) => {
+  const productTest = useSelector(selectProduct);
   const cartItems = useSelector(selectCartItems);
+  const item = useSelector(selectItem);
   const dispatch = useDispatch();
   const [amountInCart, setAmountInCart] = useState(1);
 
@@ -68,7 +75,24 @@ const ProductInfo = ({ product, action }) => {
     product.amountInCart = amountInCart;
     Object.preventExtensions(product);
   };
-  console.log(Object.isExtensible(cartItems));
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+  };
+  const handleDecreaseCart = (product) => {
+    dispatch(decreaseCart(product));
+  };
+  const handleRemoveFromCart = (product) => {
+    dispatch(removeFromCart(product));
+  };
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // useEffect(() => {
+  //   dispatch(setItem(product));
+  //   return function cleanup() {};
+  // }, [dispatch, product]);
   return (
     <>
       <ProductName> {product.name}</ProductName>
@@ -196,11 +220,11 @@ const ProductInfo = ({ product, action }) => {
           <div className="content">
             <Amount>
               {" "}
-              <IncreaseAndDecrease onClick={() => setDecrease()}>
+              <IncreaseAndDecrease onClick={() => handleDecreaseCart(product)}>
                 <RemoveOutlinedIcon />
               </IncreaseAndDecrease>
               <Value>{amountInCart}</Value>
-              <IncreaseAndDecrease onClick={() => setIncrease()}>
+              <IncreaseAndDecrease onClick={() => handleAddToCart(product)}>
                 <AddOutlinedIcon />
               </IncreaseAndDecrease>
             </Amount>
@@ -220,11 +244,11 @@ const ProductInfo = ({ product, action }) => {
       >
         <Button
           onClick={() => {
-            dispatch(setCartItems(addCartItem(cartItems, product)));
-            // dispatch(addToCart(product));
+            dispatch(addToCart(product));
           }}
         >
-          Add to Cart
+          {" "}
+          add to cart
         </Button>
         <Button buttonType={"light"}> Buy now</Button>{" "}
       </div>

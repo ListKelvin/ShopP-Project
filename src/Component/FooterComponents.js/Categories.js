@@ -1,5 +1,28 @@
 import { TableDesciption, CategoriesTable, TableTitle, FooterTd, LinkStyle } from "./StyleFooter";
 
+const CategoriesList1 = [
+    {id: 1, name: "Delicious Food"},
+    {id: 2, name: "Discount"},
+    {id: 3, name: "Balo"},
+    {id: 4, name: "Tea Milk"},
+    {id: 5, name: "Watches"},
+    {id: 6, name: "Self-help Book"},
+    {id: 7, name: "Computer & Accessories"},
+    {id: 8, name: "Home & Living"},
+    {id: 9, name: "Cameras"},
+    {id: 10, name: "Vacuum Bottle"},
+];
+const CategoriesList2 = [
+    {id: 1, name: "Woman Clothes"},
+    {id: 2, name: "Mom & Babies"},
+    {id: 3, name: "Beauty"},
+    {id: 4, name: "Health"},
+    {id: 5, name: "Cabinets, Bookshelves"},
+    {id: 6, name: "Manga Comic"},
+    {id: 7, name: "Grocey"},
+    {id: 8, name: "Men Clothes"},
+    {id: 9, name: "Sport & Outdoor"},
+];
 const Categories = () => {
     return(
         <CategoriesTable>
@@ -10,27 +33,14 @@ const Categories = () => {
             </thead>
             <tbody >
             <FooterTd>
-                <TableDesciption><LinkStyle href = "url">Delicious Food</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Discount</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Balo</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Tea Milk</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Watches</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Self-help Book</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Computer & Accessories</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Home & Living</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Cameras</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Vacuum Bottle</LinkStyle></TableDesciption>
-                </FooterTd>
+            {CategoriesList1.map(({id, name}) => {return(
+                <TableDesciption key = {id}><LinkStyle href = "url">{name}</LinkStyle></TableDesciption>
+                );})}
+            </FooterTd>
             <FooterTd>
-                <TableDesciption><LinkStyle href = "url">Woman Clothes</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Mom & Babies</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Beauty</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Health</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Cabinets, Bookshelves</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Manga Comic</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Grocey</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Men Clothes</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Sport & Outdoor</LinkStyle></TableDesciption>
+            {CategoriesList2.map(({id, name}) => {return(
+                <TableDesciption key={id}><LinkStyle href = "url">{name}</LinkStyle></TableDesciption>
+                );})}
             </FooterTd>
             </tbody>
         </CategoriesTable>

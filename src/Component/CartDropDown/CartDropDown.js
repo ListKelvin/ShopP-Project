@@ -55,7 +55,7 @@ const CartDropdown = () => {
       </CartItems>
       <CartInfoWrapper>
         <TotalCartItems> Count</TotalCartItems>
-        <ButtonAddToCart to="cartPage">My Cart</ButtonAddToCart>
+        <ButtonAddToCart to="cart">My Cart</ButtonAddToCart>
       </CartInfoWrapper>
     </CartDropdownContainer>
   );

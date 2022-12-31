@@ -3,25 +3,18 @@ import { createSlice, current } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 export const initialState = {
-  isCartOpen: false,
-  cartItems: localStorage.getItem("cartItems")
-    ? JSON.parse(localStorage.getItem("cartItems"))
-    : [],
-  cartTotalQuantity: 0,
-  cartTotalAmount: 0,
-  cartTotalBySelected: 0,
+  orderItems: [],
+  orderQuantity: 0,
+  orderTotalAmount: 0,
 };
 
-export const name = "Cart";
+export const name = "order";
 
 export const slice = createSlice({
   name,
   initialState,
   reducers: {
-    setCartOpen: (state, action) => {
-      state.isCartOpen = action.payload;
-    },
-    addToCart: (state, action) => {
+    addToOrder: (state, action) => {
       const existingIndex = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -110,35 +103,10 @@ export const slice = createSlice({
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       toast.error("Cart cleared", { position: "bottom-left" });
     },
-    getTotalsBySelection(state, action) {
-      let { total } = action.payload.reduce(
-        (cartTotal, cartItem) => {
-          const { amount, cartQuantity } = cartItem;
-          const itemTotal = amount * cartQuantity;
-
-          cartTotal.total += itemTotal;
-
-          return cartTotal;
-        },
-        {
-          total: 0,
-        }
-      );
-      total = parseFloat(total.toFixed(2));
-      state.cartTotalBySelected = total;
-    },
   },
 });
 
 injectReducer(name, slice.reducer);
-export const {
-  setCartOpen,
-  addToCart,
-  decreaseCart,
-  removeFromCart,
-  getTotals,
-  clearCart,
-  getTotalsBySelection,
-} = slice.actions;
+export const {} = slice.actions;
 
 export default slice;
