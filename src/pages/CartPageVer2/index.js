@@ -4,6 +4,7 @@ import { EmptyCart } from "./component/EmptyCart";
 import { selectCartItems } from "../../selectors/cartSelector";
 import { useSelector } from "react-redux";
 import TableCart from "./component/table";
+import TransferList from "./component/Test";
 const CartPageV2 = () => {
   const cartItems = useSelector(selectCartItems);
 

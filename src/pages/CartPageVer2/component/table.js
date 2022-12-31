@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   ContainerV2,
   HeaderCart,
@@ -29,6 +29,7 @@ import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import Checkbox from "@mui/material/Checkbox";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getTotals,
@@ -37,20 +38,23 @@ import {
   removeFromCart,
   clearCart,
 } from "../../../slices/cartReducer";
+import { selectCartTotalBySelected } from "../../../selectors/cartSelector";
 import { selectCartItems } from "../../../selectors/cartSelector";
 import { API_URL } from "../../../config/config";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import Button from "../../../Component/Button";
+import { getTotalsBySelection } from "../../../slices/cartReducer";
 import CartFooter from "./CartFooter";
 import { width } from "@mui/system";
 const TableCart = () => {
   const cartItems = useSelector(selectCartItems);
+  const totalItems = useSelector(selectCartTotalBySelected);
   const dispatch = useDispatch();
-  //   let CheckItemInCart = cartItems.reduce(function (acc, curr) {
-  //     if (!(acc.shop?.id === curr.shop?.id)) acc.push(curr);
-  //     return acc;
-  //   }, []);
+  const [checked, setChecked] = useState([]);
+  const [left, setLeft] = useState(cartItems);
+  console.log("line 54: ", checked);
+  //function
   function unique(array) {
     return array.reduce(function (results, currentItem) {
       //using array find
@@ -61,32 +65,116 @@ const TableCart = () => {
         : [...results, currentItem];
     }, []);
   }
+
+  const not = (a, b) => {
+    return a.filter((value) => {
+      return b.indexOf(value) === -1;
+    });
+  };
+
+  const intersection = (a, b) => {
+    return a.filter((value) => {
+      return b.indexOf(value) !== -1;
+    });
+  };
+  const union = (a, b) => {
+    return [...a, ...not(b, a)];
+  };
+
+  // checkbox group handle
+  const handleToggle = (value) => () => {
+    console.log(value);
+    const currentIndex = checked.indexOf(value);
+    console.log("line 85:", currentIndex);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+  };
+  const numberOfChecked = (items) => intersection(checked, items).length;
+  const handleToggleAll = (items) => () => {
+    if (numberOfChecked(items) === items.length) {
+      setChecked(not(checked, items));
+    } else {
+      setChecked(union(checked, items));
+    }
+  };
+  // const handleCheckedLeft = () => {
+  //   setLeft(left.concat(rightChecked));
+  //   setRight(not(right, rightChecked));
+  //   setChecked(not(checked, rightChecked));
+  // };
+  //handle cart render
   const handleAddToCart = (product) => {
+    const currentIndex = checked.indexOf(product);
+    console.log("line 85:", currentIndex);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(product);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
     dispatch(addToCart(product));
   };
   const handleDecreaseCart = (product) => {
+    const currentIndex = checked.indexOf(product);
+    console.log("line 85:", currentIndex);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(product);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
     dispatch(decreaseCart(product));
   };
   const handleRemoveFromCart = (product) => {
+    console.log("run");
     dispatch(removeFromCart(product));
+    handleToggle(product);
   };
   const handleClearCart = () => {
     dispatch(clearCart());
   };
   let ShopInCart = unique(cartItems);
-
   useEffect(() => {
     dispatch(getTotals());
   }, [cartItems, dispatch]);
+  useEffect(() => {
+    dispatch(getTotalsBySelection(checked));
+  }, [dispatch, checked]);
   return (
     <ContainerV2>
       <Flexbox flexDirection="column" gap="10px" alignItems="center">
+        {/* Header Section  */}
+
         <HeaderCart>
           <CheckBoxWrap>
-            <label class="stardust-checkbox">
-              <input class="stardust-checkbox__input" type="checkbox" />
-            </label>
-            <div class="stardust-checkbox__box"></div>
+            <Checkbox
+              onClick={handleToggleAll(cartItems)}
+              checked={
+                numberOfChecked(cartItems) === cartItems.length &&
+                cartItems.length !== 0
+              }
+              indeterminate={
+                numberOfChecked(cartItems) !== cartItems.length &&
+                numberOfChecked(cartItems) !== 0
+              }
+              disabled={cartItems.length === 0}
+              inputProps={{
+                "aria-label": "all items selected",
+              }}
+            />
           </CheckBoxWrap>
           <div
             style={{
@@ -108,23 +196,34 @@ const TableCart = () => {
             let itemOfShop = cartItems.filter(
               (el2) => el2.shop?.id === el.shop?.id
             );
-            console.log(itemOfShop);
+            // const labelId = `transfer-list-all-item-${el}-label`;
+
             return (
               <Item key={id}>
                 <ShopContainer>
                   <ShopInfo>
                     <CheckBoxWrap>
-                      <label class="stardust-checkbox">
-                        <input
-                          class="stardust-checkbox__input"
-                          type="checkbox"
-                        />
-                      </label>
-                      <div class="stardust-checkbox__box"></div>
+                      <Checkbox
+                        onClick={handleToggleAll(itemOfShop)}
+                        checked={
+                          numberOfChecked(itemOfShop) === itemOfShop.length &&
+                          itemOfShop.length !== 0
+                        }
+                        indeterminate={
+                          numberOfChecked(itemOfShop) !== itemOfShop.length &&
+                          numberOfChecked(itemOfShop) !== 0
+                        }
+                        disabled={itemOfShop.length === 0}
+                        inputProps={{
+                          "aria-label": "all items selected",
+                        }}
+                      />
                     </CheckBoxWrap>
                     <div> {el.shop?.name}</div>
                   </ShopInfo>
                   <div style={{ position: "relative", paddingBottom: "1px" }}>
+                    {/* Item Section  */}
+
                     {
                       /*map function here */ itemOfShop.map((item, id) => {
                         const { productImage } = item;
@@ -132,13 +231,15 @@ const TableCart = () => {
                           <Wrap key={id}>
                             <Flexbox alignItems="center">
                               <CheckBoxWrap>
-                                <label class="stardust-checkbox">
-                                  <input
-                                    class="stardust-checkbox__input"
-                                    type="checkbox"
-                                  />
-                                </label>
-                                <div class="stardust-checkbox__box"></div>
+                                <Checkbox
+                                  onClick={handleToggle(item)}
+                                  checked={checked.indexOf(item) !== -1}
+                                  tabIndex={-1}
+                                  disableRipple
+                                  // inputProps={{
+                                  //   "aria-labelledby": labelId,
+                                  // }}
+                                />
                               </CheckBoxWrap>
                               <StyleDiv>
                                 <Flexbox alignItems="center" gap="10px">
@@ -173,7 +274,6 @@ const TableCart = () => {
                                 justifyContent="center"
                                 flexDirection="row"
                               >
-                                {" "}
                                 <div> ${item.amount}</div>
                               </Flexbox>
                               <Flexbox
@@ -183,9 +283,10 @@ const TableCart = () => {
                                 flexDirection="row"
                                 gap="20px"
                               >
-                                {" "}
                                 <IncreaseAndDecrease
-                                  onClick={() => handleDecreaseCart(item)}
+                                  onClick={() => {
+                                    handleDecreaseCart(item);
+                                  }}
                                 >
                                   <RemoveOutlinedIcon />
                                 </IncreaseAndDecrease>
@@ -225,18 +326,36 @@ const TableCart = () => {
             );
           })
         }
+
+        {/* Cart Footer  */}
         <CartFooterContainer>
           <ToolFooter alignItems="center" flexDirection="row" gap="10px">
             <CheckBoxWrap>
-              <label class="stardust-checkbox">
-                <input class="stardust-checkbox__input" type="checkbox" />
-              </label>
-              <div class="stardust-checkbox__box"></div>
+              <Checkbox
+                onClick={handleToggleAll(cartItems)}
+                checked={
+                  numberOfChecked(cartItems) === cartItems.length &&
+                  cartItems.length !== 0
+                }
+                indeterminate={
+                  numberOfChecked(cartItems) !== cartItems.length &&
+                  numberOfChecked(cartItems) !== 0
+                }
+                disabled={cartItems.length === 0}
+                inputProps={{
+                  "aria-label": "all items selected",
+                }}
+              />
             </CheckBoxWrap>
             <SelectAllProduct type="button" className="select_all_btn">
-              Select all ({cartItems.length})
+              Select all (
+              {`${numberOfChecked(cartItems)}/${cartItems.length} selected`} )
             </SelectAllProduct>
-            <DeleteProduct type="button" className="delete_btn">
+            <DeleteProduct
+              type="button"
+              className="delete_btn"
+              onClick={() => handleClearCart()}
+            >
               Delete
             </DeleteProduct>
             <VoucherBtn>
@@ -251,8 +370,8 @@ const TableCart = () => {
           </ToolFooter>
 
           <Flexbox justifyContent="space-around" alignItems="center">
-            <div> Total (0 product):</div>
-            <div> $0</div>
+            <div> Total ({`${numberOfChecked(cartItems)}`} product):</div>
+            <div> ${totalItems}</div>
           </Flexbox>
           <WrapBtn>
             <Button>Buy Now</Button>

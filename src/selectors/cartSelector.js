@@ -18,3 +18,11 @@ export const selectProduct = createSelector(
   (state) => state.product
 );
 export const selectItem = createSelector([selectDomain], (state) => state.item);
+export const selectCartTotal = createSelector(
+  [selectDomain],
+  (state) => state.cartTotalAmount
+);
+export const selectCartTotalBySelected = createSelector(
+  [selectDomain],
+  (state) => state.cartTotalBySelected
+);

@@ -64,7 +64,7 @@ export const ShopInfo = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 `;
 export const CheckBoxWrap = styled.div`
-  padding: 0 12px 0 20px;
+  // padding: 0 12px 0 20px;
   display: flex;
   flex-direction: row-reverse;
   min-width: 58px;
@@ -156,7 +156,7 @@ export const CartFooterContainer = styled.div`
 `;
 
 export const ToolFooter = styled.div`
-  padding: 12px 0;
+  padding: 12px 20px;
   // grid-column-start: 1;
   // grid-column-end: 4;
   // -ms-grid-column-span: 3;
