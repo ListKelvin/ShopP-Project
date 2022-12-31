@@ -15,6 +15,21 @@ import Express3 from "../../assets/PaymentLogictics/VietNamPost.png";
 import Express4 from "../../assets/PaymentLogictics/[Vector Logo] Ninja Van - Công Ty TNHH Nin Sing Logistics - Download Định Dạng EPS, SVG Cho AI, Corel » Hải Triều.png";
 import Express5 from "../../assets/PaymentLogictics/GrabTaxi rebrands to Grab, makes brand loyalty a priority _ Advertising _ Campaign Asia.png";
 
+const PaymentList = [
+  {id: 1, name: CreditCard},
+  {id: 2, name: MasterCard},
+  {id: 3, name: VisaCard},
+];
+const LogicticsList1 = [
+  {id: 1, name: Express2},
+  {id: 2, name: Express1},
+  {id: 3, name: Express3},
+];
+const LogicticsList2 = [
+  {id: 1, name: Express4},
+  {id: 2, name: Express5},
+  {id: 3, name: Express6},
+]
 const PaymentLogictics = () => {
   return (
     <PaymentTableStyle>
@@ -26,13 +41,10 @@ const PaymentLogictics = () => {
       <tbody>
         <tr>
           <PaymentTd>
-            <PaymentCard src={CreditCard} alt="" />
-          </PaymentTd>
-          <PaymentTd>
-            <PaymentCard src={MasterCard} alt="" />
-          </PaymentTd>
-          <PaymentTd>
-            <PaymentCard src={VisaCard} alt="" />
+          {PaymentList.map(({id, name}) => {
+          return(
+            <PaymentCard key = {id} src={name} alt="" />
+            );})}
           </PaymentTd>
         </tr>
         <tr>
@@ -40,24 +52,18 @@ const PaymentLogictics = () => {
         </tr>
         <tr>
           <PaymentTd>
-            <PaymentCard src={Express2} alt="" />
-          </PaymentTd>
-          <PaymentTd>
-            <PaymentCard src={Express1} alt="" />
-          </PaymentTd>
-          <PaymentTd>
-            <PaymentCard src={Express3} alt="" />
+          {LogicticsList1.map(({id, name}) => {
+          return(
+            <PaymentCard key = {id} src={name} alt="" />
+            );})}
           </PaymentTd>
         </tr>
         <tr>
           <PaymentTd>
-            <PaymentCard src={Express4} alt="" />
-          </PaymentTd>
-          <PaymentTd>
-            <PaymentCard src={Express5} alt="" />
-          </PaymentTd>
-          <PaymentTd>
-            <PaymentCard src={Express6} alt="" />
+          {LogicticsList2.map(({id, name}) => {
+          return(
+            <PaymentCard key = {id} src={name} alt="" />
+            );})}
           </PaymentTd>
         </tr>
       </tbody>

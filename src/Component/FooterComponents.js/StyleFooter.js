@@ -113,11 +113,14 @@ export const FooterTd = styled.td`
 
 export const PaymentTd = styled.td`
   text-align: center;
+  display: flex;
 `;
 
 export const PaymentCard = styled.img`
   height: 33.33px;
   vertical-align: middle;
+  margin: 0 0.25em;
+  border-radius: 0.15em;
   ${down("lg")} {
     max-width: 70px;
     height: 20px;

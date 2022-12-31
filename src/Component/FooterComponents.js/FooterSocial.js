@@ -11,30 +11,36 @@ import {
   LinkStyle,
 } from "./StyleFooter";
 
+const SocialList = [
+  {id: 1, name: Facebook, link: "facebook"},
+  {id: 2, name: Twitter, link: "twitter"},
+  {id: 3, name: Instagram, link: "instagram"},
+  {id: 4, name: Linkedin, link: "linkedin"},
+];
+const Policy = [
+  {id: 1, name: "PRIVACY POLICY"},
+  {id: 2, name: "TERM OF SERVICE"},
+  {id: 3, name: "SHIPPING POLICY"},
+  {id: 4, name: "VIOLATION"},
+];
 const FooterSocial = () => {
   return (
     <FootSocialStyle>
       <FootSpan>Copyright @2022 ShopP. All Rights Reserved.</FootSpan>
       <FootSocDiv>
-        <a href="facebook">
-          <FooterSocialImage src={Facebook} alt=""></FooterSocialImage>
+      {SocialList.map(({id, name, link}) => {
+          return(
+        <a href={link} key={id}>
+          <FooterSocialImage src={name} alt=""></FooterSocialImage>
         </a>
-        <a href="twitter">
-          <FooterSocialImage src={Twitter} alt=""></FooterSocialImage>
-        </a>
-        <a href="instagram">
-          <FooterSocialImage src={Instagram} alt=""></FooterSocialImage>
-        </a>
-        <a href="linkedin">
-          <FooterSocialImage src={Linkedin} alt=""></FooterSocialImage>
-        </a>
+        );})}
       </FootSocDiv>
       <>
         <FootPolicy>
-          <LinkStyle href="url">PRIVACY POLICY</LinkStyle>|
-          <LinkStyle href="url">TERM OF SERVICE</LinkStyle>|
-          <LinkStyle href="url">SHIPPING POLICY</LinkStyle>|
-          <LinkStyle href="url">VIOLATION</LinkStyle>
+        {Policy.map(({id, name}) => {
+          return(
+          <LinkStyle key={id} href="url">{name}  |</LinkStyle>
+          );})}
         </FootPolicy>
       </>
     </FootSocialStyle>
