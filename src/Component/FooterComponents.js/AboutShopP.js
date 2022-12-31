@@ -1,5 +1,13 @@
 import { TableDesciption, TableStyle, TableTitle, LinkStyle } from "./StyleFooter";
-
+const list = [
+    {id: 1, name: "About Us"},
+    {id: 2, name: "ShopP Policies"},
+    {id: 3, name: "Privacy Policy"},
+    {id: 4, name: "ShopP Club"},
+    {id: 5, name: "Seller Center"},
+    {id: 6, name: "Flash Deals"},
+    {id: 7, name: "Media Contact"},
+];
 const AboutShopP = () => {
     return(
         <TableStyle>
@@ -9,13 +17,11 @@ const AboutShopP = () => {
                     </tr>
             </thead>
             <tbody style = {{height: "fit-content"}}>
-                <TableDesciption><LinkStyle href = "url">About Us</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">ShopP Policies</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Privacy Policy</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">ShopP Club</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Seller Center</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Flash Deals</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Media Contact</LinkStyle></TableDesciption>
+            {list.map(({id, name}) => {
+                return(
+                <TableDesciption key = {id}><LinkStyle href = "url">{name}</LinkStyle></TableDesciption>
+                );
+            })}
             </tbody>
         </TableStyle>
     )

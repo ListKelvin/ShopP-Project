@@ -6,9 +6,9 @@ export const EvaluationDiv = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
+    padding: 0 5%;
 `;
 export const EvaluationsContainer = styled.div`
-    width: 90%;
     background: white;
     border-radius: 8px;
     padding: 1em;
@@ -23,6 +23,7 @@ export const EvaluationTitle = styled.div`
     line-height: 18px;
     color: #2F5E5E;
     text-transform: uppercase;
+    padding: 0.35em 0  0.75em 0;
 `;
 
 export const ProductEvaluation = styled.div`

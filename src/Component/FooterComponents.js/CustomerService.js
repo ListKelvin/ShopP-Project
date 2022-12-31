@@ -1,4 +1,16 @@
 import { TableDesciption, TableStyle, TableTitle, LinkStyle } from "./StyleFooter";
+const ServiceList = [
+    {id: 1, name: "Help Center"},
+    {id: 2, name: "ShopP Club"},
+    {id: 3, name: "How To Buy"},
+    {id: 4, name: "How To Sell"},
+    {id: 5, name: "Payment"},
+    {id: 6, name: "ShopP Coins"},
+    {id: 7, name: "Shipping"},
+    {id: 8, name: "Return & Refund"},
+    {id: 9, name: "Contact Us"},
+    {id: 10, name: "Warranty Policy"},
+];
 const CustomerService = () => {
     return(
         <TableStyle>
@@ -8,16 +20,10 @@ const CustomerService = () => {
                     </tr>
             </thead>
             <tbody>
-                <TableDesciption><LinkStyle href = "url">Help Center</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">ShopP Club</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">How To Buy</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">How To Sell</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Payment</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">ShopP Coins</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Shipping</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Return & Refund</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Contact Us</LinkStyle></TableDesciption>
-                <TableDesciption><LinkStyle href = "url">Warranty Policy</LinkStyle></TableDesciption>
+            {ServiceList.map(({id, name}) => {
+                return(
+                <TableDesciption key = {id}><LinkStyle href = "url">{name}</LinkStyle></TableDesciption>
+            );})}
             </tbody>
         </TableStyle>
     )

@@ -33,6 +33,7 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ErrorIcon from "@mui/icons-material/Error";
 import Button from "../../Component/Button";
+import { useState } from "react";
 
 const RatingProduct = [
   {
@@ -68,7 +69,16 @@ const RatingProduct = [
   },
 ];
 const UsrEvaluation = () => {
-  const [state, setState] = useState(true);
+  const [liked, setLiked] = useState(100);
+  const [isClicked, setIsClicked] = useState(false);
+  const handleClick = () => {
+    if (isClicked) {
+      setLiked(liked - 1);
+    } else {
+      setLiked(liked + 1);
+    }
+    setIsClicked(!isClicked);
+  };
   return (
     <EvaluationDiv>
       <EvaluationsContainer>
@@ -124,18 +134,22 @@ const UsrEvaluation = () => {
                       </ProductImageContainer>
                     )}
                     <LikeDiv>
-                      <Unlike>
+                      <WrapperAble
+                        className={`like-button ${isClicked && "liked"}`}
+                        onclick={handleClick}
+                        show={setLiked}
+                      >
                         <ThumbUpOffAltIcon sx={{ marginRight: ".4rem" }} />
-                      </Unlike>
-                      <Like>
+                      </WrapperAble>
+                      <WrapperAble show={!setLiked}>
                         <ThumbUpIcon sx={{ marginRight: ".4rem" }} />
-                      </Like>
+                      </WrapperAble>
                       {like}
                     </LikeDiv>
                   </BottomContainer>
                 </EvaluationContent>
                 <EvaluationButton>
-                  <WrapperAble show={state}>
+                  <WrapperAble show={true}>
                     <ButtonDiv>
                       <Button
                         style={{
@@ -149,7 +163,7 @@ const UsrEvaluation = () => {
                       </Button>
                     </ButtonDiv>
                   </WrapperAble>
-                  <WrapperAble show={!state}>
+                  <WrapperAble show={false}>
                     <ButtonDiv>
                       <ButtonStyle
                         style={{

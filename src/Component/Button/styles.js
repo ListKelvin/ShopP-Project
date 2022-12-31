@@ -56,3 +56,10 @@ export const WhiteButton = styled(BaseButton)`
   border-radius: 5px;
   color: #000000;
 `;
+
+export const StyleResetButton = styled(BaseButton)`
+  width: 100%;
+  border-radius: 6px;
+  font-size: 16px;
+  padding: 26px 0;
+`;
