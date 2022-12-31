@@ -33,7 +33,6 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ErrorIcon from "@mui/icons-material/Error";
 import Button from "../../Component/Button";
-import { useState } from "react";
 
 const RatingProduct = [
   {
