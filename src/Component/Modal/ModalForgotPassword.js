@@ -15,8 +15,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import { TextField } from "@mui/material";
 import Flexbox from "../Flexbox";
 import { toastError, toastSuccess } from "../ToastNotification";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 const ModalForgotPassword = ({ show, action }) => {
   const [email, setEmail] = useState();
+
   const navigate = useNavigate();
   const postForgotPassword = async (email) => {
     const formatData = {
@@ -25,11 +28,14 @@ const ModalForgotPassword = ({ show, action }) => {
     if (email) {
       const result = await authApi.postForgotPassword(formatData);
       console.log(result);
+
       if (result.status === 200) {
         navigate("/resetPassword", { state: formatData });
         toastSuccess(result.data.message);
       }
-    } else toastError("Please input email!!");
+    } else {
+      toastError("Please input email!!");
+    }
   };
 
   return (

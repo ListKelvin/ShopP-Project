@@ -9,7 +9,7 @@ import Home from "../pages/Home";
 import RegisterInfor from "../pages/registerInfor/RegisterInfor";
 import LayoutComponent from "../Component/layout/Layout.component";
 import Wishlist from "../pages/Wislist";
-
+import OrderPage from "../pages/OrderPage";
 import ProductDetails from "../pages/productDetail";
 import ProductPage from "../pages/productPage";
 import UserAddressPage from "../pages/UserAddress/UserAddress";
@@ -23,6 +23,7 @@ import ShopPage from "../pages/shopPage";
 import ShopDashBoard from "../pages/ShopDashBoard";
 import ResetPassword from "../pages/ResetPassword";
 import CartPageV2 from "../pages/CartPageVer2";
+import AdminDashBoard from "../pages/AdminDashBoard/styled";
 const publicRoute = [
   {
     index: true,
@@ -59,12 +60,6 @@ const publicRoute = [
     component: <SettingRoute />,
     exact: true,
     restrict: true,
-    // Children: [
-    //   {
-    //     path: "/ChangePassword",
-    //     component: <ChangePassword />,
-    //   },
-    // ],
   },
   {
     index: false,
@@ -103,7 +98,7 @@ const publicRoute = [
   },
   {
     index: false,
-    path: "shopDashBoard",
+    path: "shop_dash_board",
     component: <ShopDashBoard />,
     exact: true,
     restrict: true,
@@ -112,6 +107,20 @@ const publicRoute = [
     index: false,
     path: "cart",
     component: <CartPageV2 />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "orders",
+    component: <OrderPage />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "admin_dash_board",
+    component: <AdminDashBoard />,
     exact: true,
     restrict: true,
   },

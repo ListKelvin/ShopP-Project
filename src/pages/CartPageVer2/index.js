@@ -5,9 +5,13 @@ import { selectCartItems } from "../../selectors/cartSelector";
 import { useSelector } from "react-redux";
 import TableCart from "./component/table";
 import TransferList from "./component/Test";
+import cartApi from "../../utils/productApiComponent/cartApi";
 const CartPageV2 = () => {
   const cartItems = useSelector(selectCartItems);
-
+  const getCart = async () => {
+    const result = await cartApi.getCart();
+    console.log(result);
+  };
   return (
     <>
       <TitleCartPage />

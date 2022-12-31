@@ -46,7 +46,7 @@ const ResetPassword = () => {
         >
           <FormResetPassword location={location} />
         </Flexbox>
-        <LinkBacked>
+        <LinkBacked to="/signIn">
           <KeyboardBackspaceRoundedIcon style={{ marginRight: "10px" }} />
           Back to log in
         </LinkBacked>

@@ -46,7 +46,7 @@ const ShopRegister = () => {
       resetForm();
       toastError(result.data.message);
     } else {
-      navigate("shopDashBoard");
+      navigate("shop_dash_board");
     }
   };
   const fileRef = useRef(null);
