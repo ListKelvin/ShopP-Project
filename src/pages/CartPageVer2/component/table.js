@@ -46,7 +46,7 @@ import IconButton from "@mui/material/IconButton";
 import Button from "../../../Component/Button";
 import { getTotalsBySelection } from "../../../slices/cartReducer";
 import CartFooter from "./CartFooter";
-import { width } from "@mui/system";
+import cartApi from "../../../utils/productApiComponent/cartApi";
 const TableCart = () => {
   const cartItems = useSelector(selectCartItems);
   const totalItems = useSelector(selectCartTotalBySelected);
@@ -80,7 +80,13 @@ const TableCart = () => {
   const union = (a, b) => {
     return [...a, ...not(b, a)];
   };
-
+  const UpdateCart = async (cartItems) => {
+    const formatData = {
+      products: JSON.stringify(cartItems),
+    };
+    const result = await cartApi.updateCart(formatData);
+    console.log(result);
+  };
   // checkbox group handle
   const handleToggle = (value) => () => {
     console.log(value);
@@ -149,10 +155,12 @@ const TableCart = () => {
   let ShopInCart = unique(cartItems);
   useEffect(() => {
     dispatch(getTotals());
+    UpdateCart(cartItems);
   }, [cartItems, dispatch]);
   useEffect(() => {
     dispatch(getTotalsBySelection(checked));
   }, [dispatch, checked]);
+
   return (
     <ContainerV2>
       <Flexbox flexDirection="column" gap="10px" alignItems="center">
