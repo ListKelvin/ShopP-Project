@@ -24,6 +24,7 @@ export const login = (formData) => {
 };
 const logout = () => {
   LocalStorageUtils.removeItem("token");
+  LocalStorageUtils.removeItem("cartItems");
 };
 export const register = (formData, navigate) => {
   const url = `${API_URL}/account/sign-up`;

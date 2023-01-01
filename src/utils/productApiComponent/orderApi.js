@@ -3,21 +3,12 @@ import LocalStorageUtils from "../LocalStorageUtils";
 import { toastError } from "../../Component/ToastNotification";
 const orderApi = {
   // subject api
-  createOrder: async (customer) => {
+  createOrder: async (order) => {
     const token = LocalStorageUtils.getToken();
-
     const endpoint = "/order/new";
-    return await post(
-      endpoint,
-      customer,
-      {},
-      { Authorization: token, "content-type": "multipart/form-data" }
-    )
-      .then((res) => {
-        if (res.data.code !== 200) console.log(res);
-        return res;
-      })
-      .catch((err) => console.log(err));
+    return await post(endpoint, order, {}, { Authorization: token }).catch(
+      (err) => console.log(err)
+    );
   },
 };
 

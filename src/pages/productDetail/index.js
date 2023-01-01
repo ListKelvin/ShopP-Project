@@ -17,17 +17,16 @@ const ProductDetails = () => {
 
   useEffect(() => {
     let item = null;
-    let newItem;
+
     for (let i = 0; i < listProducts.length; i++) {
       if (listProducts[i].id === id) {
         item = listProducts[i];
-        newItem = Object.assign({ amountInCart: 0 }, item);
 
         break;
       }
     }
     if (item != null) {
-      setState(newItem);
+      setState(item);
     } else {
       navigate("/home");
     }
