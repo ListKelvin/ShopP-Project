@@ -38,6 +38,7 @@ import {
   removeFromCart,
   clearCart,
 } from "../../../slices/cartReducer";
+import { addToOrder } from "../../../slices/orderReducer";
 import { selectCartTotalBySelected } from "../../../selectors/cartSelector";
 import { selectCartItems } from "../../../selectors/cartSelector";
 import { API_URL } from "../../../config/config";
@@ -46,14 +47,18 @@ import IconButton from "@mui/material/IconButton";
 import Button from "../../../Component/Button";
 import { getTotalsBySelection } from "../../../slices/cartReducer";
 import CartFooter from "./CartFooter";
+import { useNavigate } from "react-router-dom";
+import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 import cartApi from "../../../utils/productApiComponent/cartApi";
 const TableCart = () => {
   const cartItems = useSelector(selectCartItems);
   const totalItems = useSelector(selectCartTotalBySelected);
   const dispatch = useDispatch();
+  const token = LocalStorageUtils.getToken();
   const [checked, setChecked] = useState([]);
   const [left, setLeft] = useState(cartItems);
-  console.log("line 54: ", checked);
+  const navigate = useNavigate();
+
   //function
   function unique(array) {
     return array.reduce(function (results, currentItem) {
@@ -65,7 +70,6 @@ const TableCart = () => {
         : [...results, currentItem];
     }, []);
   }
-
   const not = (a, b) => {
     return a.filter((value) => {
       return b.indexOf(value) === -1;
@@ -89,7 +93,6 @@ const TableCart = () => {
   };
   // checkbox group handle
   const handleToggle = (value) => () => {
-    console.log(value);
     const currentIndex = checked.indexOf(value);
     console.log("line 85:", currentIndex);
     const newChecked = [...checked];
@@ -103,6 +106,9 @@ const TableCart = () => {
     setChecked(newChecked);
   };
   const numberOfChecked = (items) => intersection(checked, items).length;
+  console.log(checked);
+  console.log(numberOfChecked(cartItems));
+  console.log(cartItems);
   const handleToggleAll = (items) => () => {
     if (numberOfChecked(items) === items.length) {
       setChecked(not(checked, items));
@@ -110,33 +116,38 @@ const TableCart = () => {
       setChecked(union(checked, items));
     }
   };
-  // const handleCheckedLeft = () => {
-  //   setLeft(left.concat(rightChecked));
-  //   setRight(not(right, rightChecked));
-  //   setChecked(not(checked, rightChecked));
-  // };
+
   //handle cart render
+
   const handleAddToCart = (product) => {
     const currentIndex = checked.indexOf(product);
     console.log("line 85:", currentIndex);
     const newChecked = [...checked];
-
+    // let newChecked;
     if (currentIndex === -1) {
-      newChecked.push(product);
-    } else {
+      // newChecked.push(product);
       newChecked.splice(currentIndex, 1);
     }
-
+    // console.log(testFunction(product));
+    // const existingIndex = checked.findIndex((item) => item.id === product.id);
+    // if (existingIndex >= 0) {
+    //   newChecked = checked.map((cartItem) =>
+    //     cartItem.id === product.id
+    //       ? { ...cartItem, cartQuantity: cartItem.cartQuantity + 1 }
+    //       : cartItem
+    //   );
+    // } else newChecked = [];
     setChecked(newChecked);
     dispatch(addToCart(product));
   };
+
   const handleDecreaseCart = (product) => {
     const currentIndex = checked.indexOf(product);
     console.log("line 85:", currentIndex);
     const newChecked = [...checked];
 
     if (currentIndex === -1) {
-      newChecked.push(product);
+      newChecked.splice(currentIndex, 1);
     } else {
       newChecked.splice(currentIndex, 1);
     }
@@ -154,9 +165,10 @@ const TableCart = () => {
   };
   let ShopInCart = unique(cartItems);
   useEffect(() => {
-    dispatch(getTotals());
-    UpdateCart(cartItems);
-  }, [cartItems, dispatch]);
+    if (token) {
+      UpdateCart(cartItems);
+    }
+  }, [cartItems, dispatch, token]);
   useEffect(() => {
     dispatch(getTotalsBySelection(checked));
   }, [dispatch, checked]);
@@ -204,7 +216,6 @@ const TableCart = () => {
             let itemOfShop = cartItems.filter(
               (el2) => el2.shop?.id === el.shop?.id
             );
-            // const labelId = `transfer-list-all-item-${el}-label`;
 
             return (
               <Item key={id}>
@@ -235,6 +246,11 @@ const TableCart = () => {
                     {
                       /*map function here */ itemOfShop.map((item, id) => {
                         const { productImage } = item;
+
+                        // const CheckItemSelection = checked.some((checkItem) =>
+                        //   checkItem.id === item.id ? true : false
+                        // );
+
                         return (
                           <Wrap key={id}>
                             <Flexbox alignItems="center">
@@ -382,7 +398,14 @@ const TableCart = () => {
             <div> ${totalItems}</div>
           </Flexbox>
           <WrapBtn>
-            <Button>Buy Now</Button>
+            <Button
+              onClick={() => {
+                dispatch(addToOrder(checked));
+                navigate("/orders");
+              }}
+            >
+              Buy Now
+            </Button>
           </WrapBtn>
         </CartFooterContainer>
       </Flexbox>

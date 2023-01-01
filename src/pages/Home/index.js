@@ -15,11 +15,12 @@ import GridView from "../../Component/ProductList/ProductList";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import Modal from "../../Component/Modal/Modal";
 import { toastError } from "../../Component/ToastNotification";
+import cartApi from "../../utils/productApiComponent/cartApi";
 const Home = () => {
   const dispatch = useDispatch();
   const AllProducts = useSelector(selectProducts);
 
-  // const token = LocalStorageUtils.getJWTUser();
+  const token = LocalStorageUtils.getToken();
 
   useEffect(() => {
     const getUser = async () => {
@@ -39,6 +40,8 @@ const Home = () => {
       };
       dispatch(setUser(simplifyUser));
     };
+    if (token) {
+    }
     getUser();
   }, []);
 

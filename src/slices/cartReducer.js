@@ -1,7 +1,9 @@
 import { injectReducer } from "../store/store";
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-
+import { API_URL } from "../config/config";
+import axios from "axios";
+import LocalStorageUtils from "../utils/LocalStorageUtils";
 export const initialState = {
   isCartOpen: false,
   cartItems: localStorage.getItem("cartItems")
@@ -11,7 +13,34 @@ export const initialState = {
   cartTotalAmount: 0,
   cartTotalBySelected: 0,
 };
+const urlGetCart = API_URL + "/cart";
 
+export const fetchCart = createAsyncThunk("Cart/fetchCart", async () => {
+  try {
+    const token = LocalStorageUtils.getToken();
+    const res = await axios.get(urlGetCart, { Authorization: token });
+    const data = await res.data;
+    return data;
+  } catch (error) {
+    return error;
+  }
+});
+
+export const addCartItem = (cartItems, productToAdd) => {
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === productToAdd.id
+  );
+
+  if (existingCartItem) {
+    return cartItems.map((cartItem) =>
+      cartItem.id === productToAdd.id
+        ? { ...cartItem, quantity: cartItem.quantity + 1 }
+        : cartItem
+    );
+  }
+
+  return [...cartItems, { ...productToAdd, quantity: 1 }];
+};
 export const name = "Cart";
 
 export const slice = createSlice({
@@ -124,9 +153,14 @@ export const slice = createSlice({
           total: 0,
         }
       );
-      total = parseFloat(total.toFixed(2));
+      total = parseFloat(total.toFixed(4));
       state.cartTotalBySelected = total;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCart.fulfilled, (state, action) => {
+      state.categories = action.payload;
+    });
   },
 });
 
