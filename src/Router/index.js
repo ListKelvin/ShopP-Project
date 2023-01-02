@@ -23,7 +23,7 @@ import ShopPage from "../pages/shopPage";
 import ShopDashBoard from "../pages/ShopDashBoard";
 import ResetPassword from "../pages/ResetPassword";
 import CartPageV2 from "../pages/CartPageVer2";
-import AdminDashBoard from "../pages/AdminDashBoard/styled";
+import AdminDashBoard from "../pages/AdminDashBoard/index";
 const publicRoute = [
   {
     index: true,

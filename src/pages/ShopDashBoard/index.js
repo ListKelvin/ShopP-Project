@@ -1,22 +1,38 @@
+import Shop from "./Components/Shop";
 import Flexbox from "../../Component/Flexbox";
-import Button from "../../Component/Button";
+import { DashBoardContainer, DashBoardTop, TitleStyle, ShopStyle } from "./style";
+import Orders from "./Components/Orders";
+import Products from "./Components/Products";
+import Finance from "./Components/Finance";
+import Setting from "./Components/Setting";
+
 const ShopDashBoard = () => {
   return (
-    <div>
-      <Flexbox
-        width="100%"
-        height="500px"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
+    <>
+    <Flexbox 
+      width="100%"
+      justifyContent="space-between"
       >
-        <Button buttonType={"reset"}> test 1 </Button>
-        <div> test 1 </div>
-        <div> test 1 </div>
-        <div> test 1 </div>
-        <div> test 1 </div>
-      </Flexbox>
-    </div>
+    <div>
+      <DashBoardContainer>
+        <Shop/>
+        <Orders/>
+        <Products/>
+        <Finance/>
+        <Setting/>
+      </DashBoardContainer>
+      </div>
+      <DashBoardTop>
+        <div>
+          <TitleStyle>All Orders</TitleStyle>
+          <Flexbox>
+          <ShopStyle>Shop</ShopStyle>
+          <div style={{minWidth: "fit-content"}}>/ All Orders</div>
+          </Flexbox>
+        </div>
+      </DashBoardTop>
+    </Flexbox>
+    </>
   );
 };
 
