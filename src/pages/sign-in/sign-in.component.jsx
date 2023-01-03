@@ -20,6 +20,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import * as Yup from "yup";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import ModalForgotPassword from "../../Component/Modal/ModalForgotPassword";
+import { toastWarning } from "../../Component/ToastNotification";
 const SignInComponent = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
@@ -27,7 +28,7 @@ const SignInComponent = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.message);
-  console.log(message);
+
   useEffect(() => {
     dispatch(clearMessage());
   }, [dispatch]);
@@ -74,13 +75,13 @@ const SignInComponent = () => {
         navigate("/info");
         window.location.reload();
       } else {
-        navigate("/home");
         window.location.reload();
       }
-      console.log(res.data);
     });
+
+    return user;
   };
-  const onSubmit = (values) => {
+  const onSubmit = (values, { resetForm }) => {
     let data2 = {};
     data2.password = values.password;
     data2.emailOrPhone = values.email;
@@ -90,10 +91,18 @@ const SignInComponent = () => {
       .then(() => {
         fetchUser();
       })
-      .catch(() => {
+      .catch((err) => {
         setLoading(false);
       });
+    if (isLoggedIn) {
+      console.log("run1");
 
+      // navigate("/home");
+    } else {
+      console.log("run2");
+      toastWarning("Email/phone or password is incorrect!");
+      resetForm();
+    }
     console.log("Form data", values);
   };
   if (isLoggedIn) {
@@ -111,10 +120,10 @@ const SignInComponent = () => {
           sx={{
             backgroundImage: "url(https://source.unsplash.com/random)",
             backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
+            // backgroundColor: (t) =>
+            //   t.palette.mode === "light"
+            //     ? t.palette.grey[50]
+            //     : t.palette.grey[900],
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

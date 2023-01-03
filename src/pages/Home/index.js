@@ -1,6 +1,7 @@
 import ProductCard from "../../Component/ProductCard";
 import { ProductWrapper } from "./style";
-import { useEffect, useState } from "react";
+import { Wrapper } from "../../Component/ProductList/style";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SuggestContainer from "./Components/CategoryFilter";
 import Branding from "./Components/Branding";
@@ -9,19 +10,16 @@ import FlashSale from "./Components/FlashSale";
 import { Box } from "@mui/material";
 import CategoryContainer from "../../pages/Home/Components/CategoryContainer";
 import Brand from "../../assets/Branding/image 69.png";
-import { ProductLink } from "./style";
+import { STATUS } from "../../utils/status";
 import { setUser, deleteUser } from "../../slices/user";
-import GridView from "../../Component/ProductList/ProductList";
+import FullScreenLoader from "../../Component/FulllScreenLoader/FullScreenLoader";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
-import Modal from "../../Component/Modal/Modal";
-import { toastError } from "../../Component/ToastNotification";
-import cartApi from "../../utils/productApiComponent/cartApi";
+
 const Home = () => {
   const dispatch = useDispatch();
   const AllProducts = useSelector(selectProducts);
 
   const token = LocalStorageUtils.getToken();
-
   useEffect(() => {
     const getUser = async () => {
       const user = await LocalStorageUtils.getUser();
@@ -41,9 +39,9 @@ const Home = () => {
       dispatch(setUser(simplifyUser));
     };
     if (token) {
+      getUser();
     }
-    getUser();
-  }, []);
+  }, [dispatch, token]);
 
   return (
     <>
@@ -54,9 +52,10 @@ const Home = () => {
       </Box>
       <SuggestContainer />
       <CategoryContainer />
-      <ProductWrapper>
-        {AllProducts[0] !== undefined
-          ? AllProducts[0].map((el, index) => {
+      <Wrapper className="section">
+        <div className="container grid grid-three-column">
+          {AllProducts[0] !== undefined ? (
+            AllProducts[0].map((el, index) => {
               const { amount, name, star, sold, productImage, id } = el;
 
               return (
@@ -71,10 +70,14 @@ const Home = () => {
                 />
               );
             })
-          : ""}
-      </ProductWrapper>
+          ) : (
+            <FullScreenLoader />
+          )}
+        </div>
+      </Wrapper>
     </>
   );
 };
 
 export default Home;
+//

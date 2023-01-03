@@ -3,12 +3,7 @@ import { get, post, put } from "../ApiCaller";
 const productApi = {
   getAllProduct: async () => {
     const endpoint = "/product/list-all";
-    return await get(endpoint, {}, {})
-      .then((res) => {
-        if (res.data.code !== 200) console.log(res.data.message);
-        return res;
-      })
-      .catch((err) => console.log(err.message));
+    return await get(endpoint, {}, {}).catch((err) => console.log(err.message));
   },
   getProductByName: async (name) => {
     const endpoint = `/product/search-by-name/${name}`;
@@ -28,6 +23,12 @@ const productApi = {
   getProductByShopId: async (shopId) => {
     const endpoint = `/product/search-by-shop/${shopId}`;
     return get(endpoint, {}, {}).catch((err) => console.log(err));
+  },
+  getProductAdditionalInfo: async (productId, token) => {
+    const endpoint = `/product-additional-info/product-information/${productId}`;
+    return get(endpoint, {}, { Authorization: token }).catch((err) =>
+      console.log(err)
+    );
   },
 };
 

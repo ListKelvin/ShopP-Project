@@ -3,7 +3,7 @@ import AvaUnknown from "../../assets/Avaunknow/istockphoto-1223671392-612x612.jp
 const CartItem = ({ cartItem }) => {
   const { name, productImage, amount, amountInCart } = cartItem;
 
-  const { filename } = productImage[0].localFile;
+  const { filename } = productImage.localFile;
 
   return (
     <CartItemContainer>

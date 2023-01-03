@@ -51,20 +51,29 @@ export const slice = createSlice({
       state.isCartOpen = action.payload;
     },
     addToCart: (state, action) => {
+      console.log(action.payload);
       const existingIndex = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
       );
 
       if (existingIndex >= 0) {
+        let newQty =
+          state.cartItems[existingIndex].cartQuantity +
+          action.payload.cartQuantity;
+        console.log("line 62: ", newQty);
         state.cartItems[existingIndex] = {
           ...state.cartItems[existingIndex],
-          cartQuantity: state.cartItems[existingIndex].cartQuantity + 1,
+          cartQuantity: newQty,
         };
         toast.info("Increased product quantity", {
           position: "bottom-left",
         });
       } else {
-        let tempProductItem = { ...action.payload, cartQuantity: 1 };
+        // let newQty =
+        //   state.cartItems[existingIndex].cartQuantity +
+        //   action.payload.cartQuantity;
+
+        let tempProductItem = { ...action.payload };
         state.cartItems.push(tempProductItem);
         toast.success("Product added to cart", {
           position: "bottom-left",

@@ -15,21 +15,11 @@ import CountDown from "../../../Component/Countdown/CountDown";
 import { ReactComponent as FlashIcon } from "../../../assets/image 68.svg";
 import Rating from "@mui/material/Rating";
 import Chip from "@mui/material/Chip";
-import { selectCartItems } from "../../../selectors/cartSelector";
-
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
-
-////////////////
-
-import { selectProduct, selectItem } from "../../../selectors/cartSelector";
-/////////////////
-import {
-  addToCart,
-  decreaseCart,
-  removeFromCart,
-  clearCart,
-} from "../../../slices/cartReducer";
+import ListAdditional from "./ListAdditonal";
+import { addToCart } from "../../../slices/cartReducer";
 import Button from "../../../Component/Button";
 const Voucher = [
   { id: 1, label: "Discount -30%" },
@@ -55,38 +45,46 @@ const AddtionalInfor = [
     ],
   },
 ];
-const ProductInfo = ({ product, action }) => {
-  const productTest = useSelector(selectProduct);
-  const cartItems = useSelector(selectCartItems);
-  const item = useSelector(selectItem);
+const ProductInfo = ({ product, additional }) => {
   const dispatch = useDispatch();
-  const [amountInCart, setAmountInCart] = useState(1);
+  const navigate = useNavigate();
+  const [qty, setQty] = useState(1);
+  const [value2, setValue2] = useState();
 
-  const setDecrease = () => {
-    Object.preventExtensions(product);
-    amountInCart > 1 ? action((product.amountInCart = 2)) : setAmountInCart(1);
+  // const { product, additionalInformation } = state;
+
+  const increaseQty = () => {
+    setQty((prevQty) => {
+      let newQty = prevQty + 1;
+      return newQty;
+    });
   };
 
-  const setIncrease = () => {
-    amountInCart < product.quantity
-      ? setAmountInCart(amountInCart + 1)
-      : setAmountInCart(product.quantity);
+  const decreaseQty = () => {
+    setQty((prevQty) => {
+      let newQty = prevQty - 1;
+      if (newQty < 1) {
+        newQty = 1;
+      }
+      return newQty;
+    });
+  };
 
-    product.amountInCart = amountInCart;
-    Object.preventExtensions(product);
+  const addToCartHandler = (product) => {
+    const tempProduct = {
+      shopId: product.shop.id,
+      shopName: product.shop.name,
+      productImage: product.productImage[0],
+      amount: product.amount,
+      name: product.name,
+      id: product.id,
+      cartQuantity: qty,
+      additionalInfo: value2,
+    };
+    dispatch(addToCart(tempProduct));
+    navigate("/cart");
   };
-  const handleAddToCart = (product) => {
-    dispatch(addToCart(product));
-  };
-  const handleDecreaseCart = (product) => {
-    dispatch(decreaseCart(product));
-  };
-  const handleRemoveFromCart = (product) => {
-    dispatch(removeFromCart(product));
-  };
-  const handleClearCart = () => {
-    dispatch(clearCart());
-  };
+
   ////////////////////////////////////////////////////////////////////////////////////////////////
 
   // useEffect(() => {
@@ -98,11 +96,11 @@ const ProductInfo = ({ product, action }) => {
       <ProductName> {product.name}</ProductName>
       <ProductEvaluated>
         <div>
-          {product.star}
+          {parseFloat(product?.star)}
           <Rating
             name="simple-controlled"
             value={product.star}
-            sx={{ fontSize: "14px" }}
+            sx={{ fontSize: "14px", marginLeft: "0.5rem" }}
             precision={0.5}
             readOnly
           />
@@ -156,9 +154,9 @@ const ProductInfo = ({ product, action }) => {
                 size="small"
                 sx={{
                   minWidth: "50px",
-
                   marginRight: "10px",
                   color: "#55ABAB",
+                  cursor: "pointer",
                   backgroundColor: " #B6E3E3",
                 }}
               />
@@ -193,38 +191,20 @@ const ProductInfo = ({ product, action }) => {
             </div>
           </div>
         </ShopVoucherContainer>
-        {AddtionalInfor.map((el) => {
-          return (
-            <ShopVoucherContainer key={el.id}>
-              <div className="title">{el.label}</div>
-              {el.itemChosen.map((item) => {
-                return (
-                  <Chip
-                    key={item.id}
-                    label={item.name}
-                    size="small"
-                    sx={{
-                      minWidth: "50px",
-                      marginRight: "10px",
-                      color: "#55ABAB",
-                      backgroundColor: " #B6E3E3",
-                    }}
-                  />
-                );
-              })}
-            </ShopVoucherContainer>
-          );
-        })}
+        <ListAdditional
+          additional={additional}
+          action={setValue2}
+          value2={value2}
+        />
         <ShopVoucherContainer>
           <div className="title">Amount</div>
           <div className="content">
             <Amount>
-              {" "}
-              <IncreaseAndDecrease onClick={() => handleDecreaseCart(product)}>
+              <IncreaseAndDecrease onClick={() => decreaseQty()}>
                 <RemoveOutlinedIcon />
               </IncreaseAndDecrease>
-              <Value>{amountInCart}</Value>
-              <IncreaseAndDecrease onClick={() => handleAddToCart(product)}>
+              <Value>{qty}</Value>
+              <IncreaseAndDecrease onClick={() => increaseQty()}>
                 <AddOutlinedIcon />
               </IncreaseAndDecrease>
             </Amount>
@@ -244,10 +224,9 @@ const ProductInfo = ({ product, action }) => {
       >
         <Button
           onClick={() => {
-            dispatch(addToCart(product));
+            addToCartHandler(product);
           }}
         >
-          {" "}
           add to cart
         </Button>
         <Button buttonType={"light"}> Buy now</Button>{" "}

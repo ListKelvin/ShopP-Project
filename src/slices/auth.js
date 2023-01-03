@@ -2,7 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage } from "./message";
 import { injectReducer } from "../store/store";
 import AuthService from "../services/auth.service";
-
+import { Navigate } from "react-router-dom";
+import { toastWarning } from "../Component/ToastNotification";
+import LocalStorageUtils from "../utils/LocalStorageUtils";
 const user = JSON.parse(localStorage.getItem("user"));
 
 export const register = createAsyncThunk(
@@ -21,6 +23,7 @@ export const register = createAsyncThunk(
         error.message ||
         error.response.data.message ||
         error.toString();
+
       thunkAPI.dispatch(setMessage(message));
       return thunkAPI.rejectWithValue();
     }
@@ -32,8 +35,9 @@ export const login = createAsyncThunk(
   async (formdata, thunkAPI) => {
     try {
       const data = await AuthService.login(formdata);
-      console.log(data);
-      return { user: data };
+      console.log("line 38:", data);
+      LocalStorageUtils.setItem("token", data.data.token);
+      return { user: data.data };
     } catch (error) {
       const message =
         (error.response &&
@@ -42,6 +46,7 @@ export const login = createAsyncThunk(
         error.response.data.message ||
         error.message ||
         error.toString();
+      console.log("line 49", error);
       thunkAPI.dispatch(setMessage(message));
       return thunkAPI.rejectWithValue();
     }

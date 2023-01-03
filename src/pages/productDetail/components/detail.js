@@ -13,6 +13,7 @@ const fakeDate = [
   { Quantity: "1000" },
 ];
 const Detail = ({ product }) => {
+  // const { product } = state;
   const { shop } = product;
   return (
     <StyleDetailWrapper>

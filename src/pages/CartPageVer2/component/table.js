@@ -64,7 +64,7 @@ const TableCart = () => {
     return array.reduce(function (results, currentItem) {
       //using array find
       return results.find(function (result) {
-        return currentItem.shop.id === result.shop.id;
+        return currentItem.shopId === result.shopId;
       })
         ? results
         : [...results, currentItem];
@@ -89,7 +89,6 @@ const TableCart = () => {
       products: JSON.stringify(cartItems),
     };
     const result = await cartApi.updateCart(formatData);
-    console.log(result);
   };
   // checkbox group handle
   const handleToggle = (value) => () => {
@@ -106,9 +105,7 @@ const TableCart = () => {
     setChecked(newChecked);
   };
   const numberOfChecked = (items) => intersection(checked, items).length;
-  console.log(checked);
-  console.log(numberOfChecked(cartItems));
-  console.log(cartItems);
+
   const handleToggleAll = (items) => () => {
     if (numberOfChecked(items) === items.length) {
       setChecked(not(checked, items));
@@ -214,7 +211,7 @@ const TableCart = () => {
           /* map function shop here */
           ShopInCart.map((el, id) => {
             let itemOfShop = cartItems.filter(
-              (el2) => el2.shop?.id === el.shop?.id
+              (el2) => el2.shopId === el.shopId
             );
 
             return (
@@ -238,7 +235,7 @@ const TableCart = () => {
                         }}
                       />
                     </CheckBoxWrap>
-                    <div> {el.shop?.name}</div>
+                    <div> {el.shopName}</div>
                   </ShopInfo>
                   <div style={{ position: "relative", paddingBottom: "1px" }}>
                     {/* Item Section  */}
@@ -269,7 +266,7 @@ const TableCart = () => {
                                 <Flexbox alignItems="center" gap="10px">
                                   <LinkImg to={`/productpage/${item.id}`}>
                                     <img
-                                      src={`${API_URL}/file/${productImage[0].localFile.filename}`}
+                                      src={`${API_URL}/file/${productImage.localFile.filename}`}
                                       alt={item.name}
                                     />
                                   </LinkImg>
@@ -285,12 +282,20 @@ const TableCart = () => {
                                 justifyContent="center"
                                 flexDirection="column"
                               >
-                                <Classification>
-                                  Classification <ArrowDropDownIcon />
-                                </Classification>
-                                <Classification>
-                                  test additional info
-                                </Classification>
+                                {item.additionalInfo ? (
+                                  <Classification>
+                                    Classification <ArrowDropDownIcon />
+                                  </Classification>
+                                ) : (
+                                  ""
+                                )}
+                                {item.additionalInfo ? (
+                                  <Classification>
+                                    {item.additionalInfo}
+                                  </Classification>
+                                ) : (
+                                  ""
+                                )}
                               </Flexbox>
                               <Flexbox
                                 width="15.88022%"

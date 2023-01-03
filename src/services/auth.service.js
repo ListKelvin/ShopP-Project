@@ -9,19 +9,20 @@ import {
 import { API_URL } from "../config/config";
 export const login = (formData) => {
   const url = `${API_URL}/auth/login`;
-  return axios
-    .post(url, formData)
-    .then((response) => {
-      if (response.data.token) {
-        LocalStorageUtils.setItem("token", response.data.token);
-      }
-      toastSuccess(response.data.message);
-      return response.data;
-    })
-    .catch((error) => {
-      toastWarning(error.response.data.message);
-    });
+  return axios.post(url, formData);
 };
+// .then((response) => {
+//   console.log(response);
+//   if (response.data.token) {
+//     LocalStorageUtils.setItem("token", response.data.token);
+//   }
+//   toastSuccess(response.data.message);
+//   return response.data;
+// })
+// .catch((error) => {
+//   toastWarning(error.response.data.message);
+//   return error.response.data;
+// });
 const logout = () => {
   LocalStorageUtils.removeItem("token");
   LocalStorageUtils.removeItem("cartItems");

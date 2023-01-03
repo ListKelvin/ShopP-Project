@@ -77,9 +77,9 @@ const TableOrder = () => {
     let NewArray = orderItems.map((orderItem) => {
       let formateData = {
         productId: orderItem.id,
-        price: orderItem.amount,
+        // price: orderItem.amount,
         quantity: orderItem.cartQuantity,
-        additionalInfo: "no sugar",
+        additionalInfo: orderItem.additionalInfo,
       };
       return formateData;
     });
@@ -92,9 +92,10 @@ const TableOrder = () => {
       const formatOrder = {
         estimateDeliveryTime: "12/12/2022-15/12/2022",
         transportFee: 10000,
+
         shoppingUnitId: 1,
-        voucherIds: ["70adc07c-74aa-4aa0-a5a6-0677002811dd"],
-        shopId: el.shop.id,
+        shopVoucherId: "",
+        shopId: el.shopId,
         orderProducts: itemOfShopOrder,
       };
 
@@ -107,6 +108,8 @@ const TableOrder = () => {
     const formatData = {
       address: "Thu Duc, Ho Chi Minh City",
       paymentId: 1,
+      appVoucherId: "0ef0065b-be29-4952-9825-fe2b38bfd536",
+      freeShipVoucherId: "13d73d89-beff-4a21-99a2-f62db1c7c6df",
       orders: order,
     };
     console.log(order);
@@ -147,7 +150,7 @@ const TableOrder = () => {
               <Item key={id}>
                 <ShopContainer>
                   <ShopInfo>
-                    <div> {el.shop?.name}</div>
+                    <div> {el.shopName}</div>
                   </ShopInfo>
                   <div style={{ position: "relative", paddingBottom: "1px" }}>
                     {/* Item Section  */}
@@ -166,7 +169,7 @@ const TableOrder = () => {
                                 <Flexbox alignItems="center" gap="10px">
                                   <LinkImg>
                                     <img
-                                      src={`${API_URL}/file/${productImage[0].localFile.filename}`}
+                                      src={`${API_URL}/file/${productImage.localFile.filename}`}
                                       alt={item.name}
                                     />
                                   </LinkImg>

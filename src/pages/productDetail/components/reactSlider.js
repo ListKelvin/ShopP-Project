@@ -4,15 +4,30 @@ import { CarouselStyled, ImgPreviewStyled } from "../styled";
 import { API_URL } from "../../../config/config";
 const Carousel2 = ({ item }) => {
   const linkFile = `${API_URL}/file/`;
+  // const { item } = state;
+  const renderThumbnail = () => {
+    const thumbList = item.productImage.map((product, index) => (
+      <picture style={{ border: "none" }} key={index}>
+        <img
+          key={product._id}
+          src={`${linkFile}${product.localFile.filename}`}
+          alt={product.name}
+          height="70"
+        />
+      </picture>
+    ));
 
+    return thumbList;
+  };
   return (
     <CarouselStyled
       autoPlay={true}
       interval={4000}
       infiniteLoop
-      showArrows={false}
+      showArrows={true}
       showStatus={false}
       showIndicators={false}
+      renderThumbs={renderThumbnail}
     >
       {item.productImage.map((el, id) => {
         return (

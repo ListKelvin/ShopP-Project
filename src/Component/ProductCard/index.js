@@ -13,7 +13,7 @@ const ProductCard = ({ rate, price, sold, name, img, id }) => {
   const { filename } = img[0].localFile;
 
   return (
-    <ProductLink to={`productpage/${id}`}>
+    <ProductLink to={`/productpage/${id}`}>
       <Card sx={{ maxWidth: 180 }}>
         <Box
           component="div"
@@ -50,7 +50,7 @@ const ProductCard = ({ rate, price, sold, name, img, id }) => {
           >
             <Rating
               name="simple-controlled"
-              value={parseInt(value)}
+              value={parseFloat(value)}
               sx={{ fontSize: "14px" }}
               precision={0.5}
               readOnly

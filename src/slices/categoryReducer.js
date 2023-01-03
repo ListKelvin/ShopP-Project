@@ -1,7 +1,9 @@
 import { injectReducer } from "../store/store";
 import axios from "axios";
 import { API_URL } from "../config/config";
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { STATUS } from "../utils/status";
 export const initialState = {
   isLoading: false,
   isError: false,
@@ -18,9 +20,10 @@ export const fetchCategories = createAsyncThunk(
     try {
       const res = await axios.get(urlGetCategories);
       const data = await res.data;
+
       return data;
     } catch (error) {
-      return error.message;
+      return error;
     }
   }
 );
