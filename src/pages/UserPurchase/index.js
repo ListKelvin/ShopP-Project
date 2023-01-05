@@ -6,61 +6,45 @@ import {
 } from "../UserEvaluation/style";
 import { FilterContainer } from "../UserVouchers/Components/styleComponents";
 import { TitlePurchase, TitlePurchaseAfter, TitlePurchaseDiv } from "./style";
-import TabGroup from "../../Component/Tabs";
 
-const Categories = [
-  { id: 0, label: "All" },
-  { id: 1, label: "Checking" },
-  { id: 2, label: "Confirmed" },
-  { id: 3, label: "Packaging" },
-  { id: 4, label: "Delivering" },
-  { id: 5, label: "Delivered" },
-  { id: 6, label: "Cancelled" },
-  { id: 7, label: "Returned" },
+import ProductPurchase from "./Components/ProductPurchase";
+
+const types = [
+  { title: "All", table: <ProductPurchase /> },
+  { title: "Checking", table: <ProductPurchase /> },
+  { title: "Confirm", table: <ProductPurchase /> },
+  { title: "Packaging", table: <ProductPurchase /> },
+  { title: "Delivering", table: <ProductPurchase /> },
+  { title: "Delivered", table: <ProductPurchase /> },
+  { title: "Cancelled", table: <ProductPurchase /> },
+  { title: "Returned", table: <ProductPurchase /> },
 ];
 
 const UserPurchase = () => {
-  const [isActive, setActive] = useState(false);
-
-  const toggleClass = () => {
-    setActive(!isActive);
-  };
-
+  const [active, setActive] = useState(types[0]);
   return (
     <EvaluationDiv>
       <EvaluationsContainer>
         <EvaluationTitle>My Purchase</EvaluationTitle>
         <FilterContainer>
           <TitlePurchaseDiv>
-            {Categories.map(({ id, label }) => {
+            {types.map((type, id) => {
               return (
                 <TitlePurchase
                   key={id}
-                  className={isActive ? "Title" : null}
-                  onClick={toggleClass}
+                  onClick={() => setActive(type)}
+                  active={active.title === type.title}
                 >
-                  {label}
+                  {type.title}
                 </TitlePurchase>
               );
             })}
           </TitlePurchaseDiv>
         </FilterContainer>
-        <TabGroup />
+        {active.table}
       </EvaluationsContainer>
     </EvaluationDiv>
   );
 };
 
-// <Tabs>
-//   <div label="Gator">
-//     See ya later, <em>Alligator</em>!
-//   </div>
-//   <div label="Croc">
-//     After 'while, <em>Crocodile</em>!
-//   </div>
-//   <div label="Sarcosuchus">
-//     Nothing to see here, this tab is <em>extinct</em>!
-//   </div>
-// </Tabs>
-// <ProductPurchase />
 export default UserPurchase;

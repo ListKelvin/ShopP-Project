@@ -49,8 +49,8 @@ const ProductInfo = ({ product, additional }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [qty, setQty] = useState(1);
-  const [value2, setValue2] = useState();
-
+  const [value2, setValue2] = useState([]);
+  console.log(value2);
   // const { product, additionalInformation } = state;
 
   const increaseQty = () => {

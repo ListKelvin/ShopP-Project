@@ -30,6 +30,7 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Checkbox from "@mui/material/Checkbox";
+import { ShopPContainers, ChooseVoucher, DividerDashed } from "../style";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getTotals,
@@ -38,6 +39,7 @@ import {
   removeFromCart,
   clearCart,
 } from "../../../slices/cartReducer";
+import ModalShopPVoucher from "../../../Component/Modal/ModalShopPVoucher";
 import { addToOrder } from "../../../slices/orderReducer";
 import { selectCartTotalBySelected } from "../../../selectors/cartSelector";
 import { selectCartItems } from "../../../selectors/cartSelector";
@@ -46,9 +48,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import Button from "../../../Component/Button";
 import { getTotalsBySelection } from "../../../slices/cartReducer";
+import {
+  fetchDiscountVoucher,
+  fetchFreeShipVoucher,
+} from "../../../slices/voucherSlice";
 import CartFooter from "./CartFooter";
 import { useNavigate } from "react-router-dom";
 import LocalStorageUtils from "../../../utils/LocalStorageUtils";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import cartApi from "../../../utils/productApiComponent/cartApi";
 const TableCart = () => {
   const cartItems = useSelector(selectCartItems);
@@ -56,7 +63,7 @@ const TableCart = () => {
   const dispatch = useDispatch();
   const token = LocalStorageUtils.getToken();
   const [checked, setChecked] = useState([]);
-  const [left, setLeft] = useState(cartItems);
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
   //function
@@ -89,6 +96,7 @@ const TableCart = () => {
       products: JSON.stringify(cartItems),
     };
     const result = await cartApi.updateCart(formatData);
+    console.log(result);
   };
   // checkbox group handle
   const handleToggle = (value) => () => {
@@ -164,6 +172,8 @@ const TableCart = () => {
   useEffect(() => {
     if (token) {
       UpdateCart(cartItems);
+      dispatch(fetchDiscountVoucher());
+      dispatch(fetchFreeShipVoucher());
     }
   }, [cartItems, dispatch, token]);
   useEffect(() => {
@@ -358,6 +368,17 @@ const TableCart = () => {
 
         {/* Cart Footer  */}
         <CartFooterContainer>
+          <ShopPContainers>
+            <Flexbox gap="10px" width="150px">
+              <LocalOfferIcon />
+              <div style={{ flexShrink: "0" }}> ShopP voucher</div>
+            </Flexbox>
+            <div style={{ flex: "1" }}></div>
+            <VoucherBtn onClick={() => setShow(!show)}>
+              Voucher <ArrowDropDownIcon />
+            </VoucherBtn>
+          </ShopPContainers>
+          <DividerDashed />
           <ToolFooter alignItems="center" flexDirection="row" gap="10px">
             <CheckBoxWrap>
               <Checkbox
@@ -387,9 +408,7 @@ const TableCart = () => {
             >
               Delete
             </DeleteProduct>
-            <VoucherBtn>
-              Voucher <ArrowDropDownIcon />
-            </VoucherBtn>
+
             <Button>
               <FavoriteBorderIcon
                 style={{ marginLeft: "0.5rem", textAlign: "center" }}
@@ -414,6 +433,7 @@ const TableCart = () => {
           </WrapBtn>
         </CartFooterContainer>
       </Flexbox>
+      {show && <ModalShopPVoucher show={show} action={setShow} />}
     </ContainerV2>
   );
 };

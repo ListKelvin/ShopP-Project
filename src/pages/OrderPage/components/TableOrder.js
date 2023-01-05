@@ -48,7 +48,7 @@ const TableOrder = () => {
     return array.reduce(function (results, currentItem) {
       //using array find
       return results.find(function (result) {
-        return currentItem.shop.id === result.shop.id;
+        return currentItem.shopId === result.shopId;
       })
         ? results
         : [...results, currentItem];
@@ -77,7 +77,6 @@ const TableOrder = () => {
     let NewArray = orderItems.map((orderItem) => {
       let formateData = {
         productId: orderItem.id,
-        // price: orderItem.amount,
         quantity: orderItem.cartQuantity,
         additionalInfo: orderItem.additionalInfo,
       };
@@ -92,9 +91,8 @@ const TableOrder = () => {
       const formatOrder = {
         estimateDeliveryTime: "12/12/2022-15/12/2022",
         transportFee: 10000,
-
         shoppingUnitId: 1,
-        shopVoucherId: "",
+        shopVoucherId: "d32c1341-97fe-4493-84c5-41efb5ec8b3e",
         shopId: el.shopId,
         orderProducts: itemOfShopOrder,
       };
@@ -105,6 +103,7 @@ const TableOrder = () => {
   };
   const PostOrder = async () => {
     let order = GenerateOrders();
+    console.log(order);
     const formatData = {
       address: "Thu Duc, Ho Chi Minh City",
       paymentId: 1,
@@ -112,7 +111,7 @@ const TableOrder = () => {
       freeShipVoucherId: "13d73d89-beff-4a21-99a2-f62db1c7c6df",
       orders: order,
     };
-    console.log(order);
+
     const results = await orderApi.createOrder(formatData);
     console.log(results);
     if (results.status === 200) {
@@ -143,7 +142,7 @@ const TableOrder = () => {
           /* map function shop here */
           ShopInOrder.map((el, id) => {
             let itemOfShop = orderItems.filter(
-              (el2) => el2.shop?.id === el.shop?.id
+              (el2) => el2.shopId === el.shopId
             );
 
             return (

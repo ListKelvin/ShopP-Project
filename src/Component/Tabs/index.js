@@ -17,9 +17,8 @@ export default function TabGroup() {
   return (
     <>
       <ButtonGroup>
-        {types.map((type, id) => (
+        {types.map((type) => (
           <Tab
-            key={id}
             active={active.title === type.title}
             onClick={() => setActive(type)}
           >

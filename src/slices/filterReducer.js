@@ -24,7 +24,7 @@ export const FilterProductApi = createAsyncThunk(
 
     try {
       const result = await axios.post(endpoint, product);
-      console.log(result);
+
       return result.data.data;
     } catch (error) {
       console.log(error.response.data);

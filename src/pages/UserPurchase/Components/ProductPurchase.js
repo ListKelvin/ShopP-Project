@@ -18,12 +18,10 @@ import {
 
 const TrackingOrder = [
   {
-    id: 1,
     shopName: "Panasonic",
     deliveryStatus: "Checking",
     Product: [
       {
-        id: 1,
         productImage: [Img],
         productName: "Tủ lạnh Panasonic Inverter 380 lít NR-BX421WGKV",
         quantity: "1",
@@ -31,7 +29,6 @@ const TrackingOrder = [
         total: "2000",
       },
       {
-        id: 2,
         productImage: [Img],
         productName: "Tủ lạnh Panasonic Inverter 380 lít NR-BX421WGKV",
         quantity: "1",
@@ -41,12 +38,10 @@ const TrackingOrder = [
     ],
   },
   {
-    id: 1,
     shopName: "Panasonic",
     deliveryStatus: "Checking",
     Product: [
       {
-        id: 1,
         productImage: [Img],
         productName: "Tủ lạnh Panasonic Inverter 380 lít NR-BX421WGKV",
         quantity: "1",
@@ -54,7 +49,6 @@ const TrackingOrder = [
         total: "2000",
       },
       {
-        id: 2,
         productImage: [Img],
         productName: "Tủ lạnh Panasonic Inverter 380 lít NR-BX421WGKV",
         quantity: "1",
@@ -62,7 +56,6 @@ const TrackingOrder = [
         total: "2000",
       },
       {
-        id: 3,
         productImage: [Img],
         productName: "Tủ lạnh Panasonic Inverter 380 lít NR-BX421WGKV",
         quantity: "1",
@@ -76,7 +69,7 @@ const TrackingOrder = [
 const ProductPurchase = () => {
   return (
     <div>
-      {TrackingOrder.map(({ id, shopName, deliveryStatus, Product }) => {
+      {TrackingOrder.map(({ shopName, deliveryStatus, Product }, id) => {
         return (
           <PurchaseContainer key={id}>
             <HeaderContainer>
@@ -99,7 +92,7 @@ const ProductPurchase = () => {
               </StatusContainer>
             </HeaderContainer>
             {Product.map(
-              ({ id, productImage, productName, quantity, price, total }) => {
+              ({ productImage, productName, quantity, price, total }, id) => {
                 return (
                   <BodyContainer key={id}>
                     <ImgDiv>

@@ -2,6 +2,7 @@ import styled, { keyframes } from "styled-components";
 import { down, only } from "styled-breakpoints";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import Flexbox from "../Flexbox";
 export const move = keyframes`
     0%{
         transform: scale(0.5);
@@ -30,6 +31,12 @@ export const TypoSave = styled.div`
 `;
 export const TypoH1 = styled(TypoSave)`
   color: #000000;
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: #222;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
 `;
 export const TypoCancel = styled.div`
   text-transform: none;
@@ -87,15 +94,13 @@ export const PopupContainer = styled.div`
   left: 0;
   display: ${(props) => (props.show ? "block" : "none")};
   animation: ${move} 0.15s linear forwards;
-  z-index: 99;
+  z-index: 1200;
 `;
 export const LayerPopup = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.38);
+  position: absolute;
 `;
 export const PopupDiv = styled.div`
   padding: 20px;
@@ -120,7 +125,21 @@ export const PopupDiv = styled.div`
     width: 80%;
   }
 `;
-
+export const PopupVoucherDiv = styled(PopupDiv)`
+  width: 40%;
+  min-width: 500px;
+  // min-height: 500px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  background: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 25px;
+`;
 export const TitlePopup = styled.div`
   // padding-bottom: 12px;
   display: flex;
@@ -273,4 +292,132 @@ export const TypoPopupCancel = styled(TypoCancel)`
   @media screen and (max-width: 280px) {
     font-size: 10px;
   }
+`;
+
+export const ModalFooter = styled.div`
+  // position: absolute;
+  // bottom: 0;
+  // left: 0;
+  display: flex;
+  justify-content: flex-end;
+  right: 0;
+  height: 84px;
+  text-transform: uppercase;
+  background: linear-gradient(hsla(0, 0%, 100%, 0.9), #fff);
+  align-items: center;
+  padding: 22px 30px;
+  gap: 10px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+`;
+export const ModalContent = styled.div`
+  flex: 1;
+  overflow-y: auto;
+  // padding-right: 50px;
+  // margin-right: -50px;
+  // padding-left: 50px;
+  // margin-left: -50px;
+  position: relative;
+`;
+export const SearchWrapper = styled(Flexbox)`
+  padding: 0.9375rem;
+  background: #f8f8f8;
+`;
+export const VoucherId = styled.span`
+  flex-shrink: 0;
+  text-transform: capitalize;
+  margin-right: 0.6875rem;
+`;
+export const SearchVoucher = styled.input.attrs({ type: "text" })`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  background-color: #fff;
+  position: relative;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: inset 0 2px 0 0 rgb(0 0 0 / 2%);
+  color: #222;
+  height: 40px;
+  outline: none;
+  box-shadow: none;
+  padding: 10px;
+  transition: border-color 0.1s ease;
+  &:focus {
+    border: 1px solid #55abab;
+  }
+`;
+export const SearchInput = styled.input.attrs({ type: "text" })`
+  font-size: 14px;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  border: 0;
+  width: 100%;
+  flex: none;
+`;
+export const VoucherList = styled.div`
+  // margin-left: -0.25rem;
+  padding-left: 0.25rem;
+  overflow: auto;
+  position: relative;
+  padding-right: 1.25rem;
+  margin-top: 1.25rem;
+  width: 100%;
+  height: 100%;
+`;
+
+export const TypeVoucher = styled.span`
+  margin-bottom: 0.625rem;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 1rem;
+
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const VoucherItem = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  // justify-content: s;
+  align-items: center;
+  background-color: #b6e3e3;
+  border-radius: 4px;
+  padding: 1rem 2rem;
+`;
+
+export const InforOfVoucher = styled.div`
+  width: 12rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* text-overflow: clip; */
+`;
+
+export const VoucherMax = styled.span`
+  background: #ebcac4;
+  border: 0.5px solid #ba4e3a;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 10px;
+  color: #ba4e3a;
+  padding: 0.3rem;
+  width: fit-content;
+  min-width: 25%;
+`;
+export const Exp = styled.span`
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 11px;
+  /* identical to box height */
+  color: rgba(0, 0, 0, 0.7);
+`;
+export const CheckBoxWrap = styled.div`
+  // padding: 0 12px 0 20px;
+  display: flex;
+  flex-direction: row-reverse;
+  min-width: 58px;
+  box-sizing: border-box;
 `;

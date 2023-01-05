@@ -4,13 +4,14 @@ import { ShopVoucherContainer } from "../styled";
 const ListAdditional = ({ additional, action, value2 }) => {
   const ToggledChip = (value) => {
     if (value !== value2) {
-      action(value);
+      action([...value2, value]);
       console.log("checked");
     } else {
       console.log("Un checked");
       action("");
     }
   };
+  console.log(additional);
 
   return (
     <>
@@ -26,7 +27,7 @@ const ListAdditional = ({ additional, action, value2 }) => {
                   //   disabled={!(item === value2) || item !== value2}
                   key={id}
                   onClick={() => {
-                    ToggledChip(item);
+                    ToggledChip(el);
                   }}
                   label={item}
                   size="small"
