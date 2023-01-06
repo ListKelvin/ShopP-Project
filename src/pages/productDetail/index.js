@@ -3,16 +3,19 @@ import { useEffect, useState } from "react";
 import Carousel2 from "./components/reactSlider";
 import ProductInfo from "./components/productInfo";
 import { Grid } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { selectProducts } from "../../selectors/productSelect";
 import ShopOfProduct from "./components/shopOfProduct";
 import Detail from "./components/detail";
 import productApi from "../../utils/productApiComponent/productApi";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
+import { fetchShopVoucher } from "../../slices/voucherSlice";
 const ProductDetails = () => {
   const [state, setState] = useState();
   const [additional, setAdditional] = useState();
+  const dispatch = useDispatch();
+
   const { id } = useParams();
   const navigate = useNavigate();
   const productItems = useSelector(selectProducts);
@@ -22,6 +25,7 @@ const ProductDetails = () => {
     const data = await productApi.getProductAdditionalInfo(productId, token);
     setAdditional(data.data.data);
   };
+
   useEffect(() => {
     let item = null;
 
@@ -29,7 +33,7 @@ const ProductDetails = () => {
       if (listProducts[i].id === id) {
         item = listProducts[i];
         fetchAdditionalInformation(id, token);
-
+        dispatch(fetchShopVoucher(listProducts[i]?.shop?.id));
         break;
       }
     }

@@ -9,10 +9,12 @@ const initialState = {
     voucherId: "",
     selected: false,
   },
+  shopVoucher: [],
   freeShipVoucher: [],
   discountVoucher: [],
   discountStatus: STATUS.IDLE,
   freeShipStatus: STATUS.IDLE,
+  shopVoucherStatus: STATUS.IDLE,
 };
 export const name = "voucher";
 
@@ -24,6 +26,23 @@ export const fetchDiscountVoucher = createAsyncThunk(
       const token = LocalStorageUtils.getToken();
       const res = await voucherApi.getDiscountVoucherOfUser(token);
       const data = await res.data.data;
+      return data;
+    } catch (error) {
+      console.log(error);
+      return error.response.data.message;
+    }
+  }
+);
+
+export const fetchShopVoucher = createAsyncThunk(
+  "voucher/fetchShopVoucher",
+  async (shopId) => {
+    // thunkApi.dispatch(setDiscountStatus(STATUS.LOADING));
+    try {
+      const token = LocalStorageUtils.getToken();
+      const res = await voucherApi.getVoucherByShop(shopId, token);
+      const data = await res.data.data;
+
       return data;
     } catch (error) {
       console.log(error);
@@ -91,6 +110,16 @@ const slice = createSlice({
       })
       .addCase(fetchFreeShipVoucher.rejected, (state, action) => {
         state.freeShipStatus = STATUS.ERROR;
+      })
+      .addCase(fetchShopVoucher.pending, (state, action) => {
+        state.shopVoucherStatus = STATUS.LOADING;
+      })
+      .addCase(fetchShopVoucher.fulfilled, (state, action) => {
+        state.shopVoucherStatus = STATUS.IDLE;
+        state.shopVoucher = action.payload;
+      })
+      .addCase(fetchShopVoucher.rejected, (state, action) => {
+        state.shopVoucherStatus = STATUS.ERROR;
       });
   },
 });

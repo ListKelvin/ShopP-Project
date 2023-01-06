@@ -13,6 +13,7 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import CountDown from "../../../Component/Countdown/CountDown";
 import { ReactComponent as FlashIcon } from "../../../assets/image 68.svg";
+import ShopVoucher from "../../../Component/ShopVoucher";
 import Rating from "@mui/material/Rating";
 import Chip from "@mui/material/Chip";
 import { useNavigate } from "react-router-dom";
@@ -26,31 +27,13 @@ const Voucher = [
   { id: 2, label: "Discount -50%" },
   { id: 3, label: "Discount -10%" },
 ];
-const AddtionalInfor = [
-  {
-    id: 1,
-    label: "Color",
-    itemChosen: [
-      { id: 1, name: "Red" },
-      { id: 2, name: "Green" },
-      { id: 3, name: "Yellow" },
-    ],
-  },
-  {
-    id: 2,
-    label: "Size",
-    itemChosen: [
-      { id: 1, name: "M" },
-      { id: 2, name: "X" },
-    ],
-  },
-];
+
 const ProductInfo = ({ product, additional }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [qty, setQty] = useState(1);
   const [value2, setValue2] = useState([]);
-  console.log(value2);
+
   // const { product, additionalInformation } = state;
 
   const increaseQty = () => {
@@ -143,12 +126,14 @@ const ProductInfo = ({ product, additional }) => {
           <Button>See All</Button>
         </div>
       </div>
+
       <ContainerAdditional>
         <ShopVoucherContainer>
           <div className="title">Shop Voucher </div>
           {Voucher.map((el) => {
             return (
               <Chip
+                className="small-voucher"
                 key={el.id}
                 label={el.label}
                 size="small"
@@ -162,6 +147,9 @@ const ProductInfo = ({ product, additional }) => {
               />
             );
           })}
+          <div className="voucher">
+            <ShopVoucher />
+          </div>
         </ShopVoucherContainer>
         <ShopVoucherContainer>
           <div className="title">Ship</div>

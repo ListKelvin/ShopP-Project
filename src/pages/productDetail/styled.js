@@ -59,6 +59,7 @@ export const ShopVoucherContainer = styled.div`
   padding: 4px;
   color: #222;
   display: flex;
+  position: relative;
   align-items: flex-start;
   & .title {
     color: #757575;
@@ -68,7 +69,12 @@ export const ShopVoucherContainer = styled.div`
     margin-right: 5px;
     margin-left: 20px;
   }
-
+  & .voucher {
+    display: none;
+  }
+  &:hover .voucher {
+    display: block;
+  }
   & .content {
     display: flex;
     flex-direction: column;

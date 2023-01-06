@@ -22,3 +22,8 @@ export const selectFreeShipStatus = createSelector(
   [selectDomain],
   (state) => state.freeShipStatus
 );
+
+export const selectShopVoucher = createSelector(
+  [selectDomain],
+  (state) => state.shopVoucher
+);

@@ -14,12 +14,18 @@ import { STATUS } from "../../utils/status";
 import { setUser, deleteUser } from "../../slices/user";
 import FullScreenLoader from "../../Component/FulllScreenLoader/FullScreenLoader";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
-
+import cartApi from "../../utils/productApiComponent/cartApi";
 const Home = () => {
   const dispatch = useDispatch();
   const AllProducts = useSelector(selectProducts);
 
   const token = LocalStorageUtils.getToken();
+  const getCart = async () => {
+    const result = await cartApi.getCart();
+    const cart = JSON.parse(result.data.data.products);
+    LocalStorageUtils.setItem("cartItems", JSON.stringify(cart));
+  };
+
   useEffect(() => {
     const getUser = async () => {
       const user = await LocalStorageUtils.getUser();
@@ -40,6 +46,7 @@ const Home = () => {
     };
     if (token) {
       getUser();
+      getCart();
     }
   }, [dispatch, token]);
 

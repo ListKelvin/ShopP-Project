@@ -14,7 +14,7 @@ const fakeDate = [
 ];
 const Detail = ({ product }) => {
   // const { product } = state;
-  const { shop } = product;
+
   return (
     <StyleDetailWrapper>
       <Flexbox flexDirection="column">

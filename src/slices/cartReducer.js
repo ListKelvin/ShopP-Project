@@ -50,6 +50,9 @@ export const slice = createSlice({
     setCartOpen: (state, action) => {
       state.isCartOpen = action.payload;
     },
+    setCart: (state, action) => {
+      state.cartItems = action.payload;
+    },
     addToCart: (state, action) => {
       console.log(action.payload);
       const existingIndex = state.cartItems.findIndex(

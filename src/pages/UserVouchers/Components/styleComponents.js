@@ -19,7 +19,10 @@ export const SearchContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-
+export const StyledSearchContainer = styled(SearchContainer)`
+  width: 100%;
+  height: 50px;
+`;
 export const ShipContainer = styled(SearchContainer)`
   padding-left: 0.35rem;
   margin-bottom: 0.75rem;
@@ -48,7 +51,9 @@ export const SearchBox = styled.form`
   display: flex;
   align-items: center;
 `;
-
+export const SearchBoxStyle = styled(SearchBox)`
+  padding: 0.2em;
+`;
 export const SearchKeyWord = styled.input`
   border: none;
   padding: 0 0.5em;

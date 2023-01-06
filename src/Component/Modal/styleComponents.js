@@ -360,6 +360,7 @@ export const VoucherList = styled.div`
   // margin-left: -0.25rem;
   padding-left: 0.25rem;
   overflow: auto;
+
   position: relative;
   padding-right: 1.25rem;
   margin-top: 1.25rem;
@@ -386,6 +387,7 @@ export const VoucherItem = styled.div`
   background-color: #b6e3e3;
   border-radius: 4px;
   padding: 1rem 2rem;
+  margin-top: 10px;
 `;
 
 export const InforOfVoucher = styled.div`
