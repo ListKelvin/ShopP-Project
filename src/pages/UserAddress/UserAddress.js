@@ -1,4 +1,5 @@
-import * as React from "react";
+import { useState } from "react";
+
 import {
   AddressFrame,
   AddressStatus,
@@ -16,9 +17,13 @@ import { Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import MenuSetting from "../../Component/MenuSetting";
-import { Login } from "@mui/icons-material";
-import { up, down } from "styled-breakpoints";
-
+import { useSelector } from "react-redux";
+import { selectUser } from "../../selectors/userSelector";
+import LocalStorageUtils from "../../utils/LocalStorageUtils";
+import accountApi from "../../utils/productApiComponent/accountApi";
+import customerApi from "../../utils/productApiComponent/customerApi";
+import { toastSuccess } from "../../Component/ToastNotification";
+import { FormateDateType, formatDate } from "../../utils/helper";
 const Address = [
   {
     id: 0,
@@ -44,6 +49,81 @@ const Address = [
 ];
 
 const UserAddressPage = () => {
+  const user = useSelector(selectUser);
+  // console.log(JSON.parse(user.customer.placeOfDelivery));
+  const token = LocalStorageUtils.getToken();
+  const [customer, setCustomer] = useState({
+    name: user.customer?.name || "",
+    gender: user.customer?.gender || "",
+    dob: user.customer?.dob || "",
+    placeOfDelivery: user.customer?.placeOfDelivery || "",
+    bio: user.customer?.bio || "",
+    phone: user.phone || "",
+    email: user.email || "",
+    avatar: user.customer?.avatar || "",
+  });
+  const [addresses, setAddresses] = useState([]);
+  /*
+[{default: true,
+address:
+
+
+
+  "Số 12, đường Trường Chinh, Bến Nghé, quận 3, Thành phố Hồ Chí Minh"
+
+
+}
+{default: false,
+address:
+
+
+
+  "Số 20, đường Trường Chinh, Bến Nghé, quận 1, Thành phố Hồ Chí Minh"
+
+
+}
+]
+
+
+*/
+
+  const EditAccount = async () => {
+    const testAddress = [
+      {
+        default: true,
+        address:
+          "Số 12, đường Trường Chinh, Bến Nghé, quận 3, Thành phố Hồ Chí Minh",
+      },
+      {
+        default: false,
+        address:
+          "Số 20, đường Trường Chinh, Bến Nghé, quận 1, Thành phố Hồ Chí Minh",
+      },
+    ];
+    const formatDataCustomer = {
+      name: customer.name,
+      gender: customer.gender,
+      dob:
+        typeof customer.dob === typeof ""
+          ? FormateDateType(customer.dob)
+          : formatDate(customer.dob.$d),
+      placeOfDelivery: JSON.stringify(testAddress),
+      bio: customer.bio,
+      avatar: customer.avatar,
+    };
+    const resultCustomer = await customerApi.editCustomer(formatDataCustomer);
+    // const resultAccount = await accountApi.EditAccount(
+    //   formatDataAccount,
+    //   token
+    // );
+    if (resultCustomer.status === 200) {
+      console.log(resultCustomer);
+      toastSuccess("Edit Information successfully");
+    }
+    // console.log("line 45:", resultCustomer);
+    // console.log("line 46:", resultAccount);
+  };
+
   return (
     <>
       <div

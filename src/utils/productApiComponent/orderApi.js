@@ -10,6 +10,13 @@ const orderApi = {
       (err) => console.log(err)
     );
   },
+  getOrderCustomer: async () => {
+    const token = LocalStorageUtils.getToken();
+    const endpoint = "/order/customer";
+    return await get(endpoint, {}, { Authorization: token }).catch((err) =>
+      console.log(err)
+    );
+  },
 };
 
 export default orderApi;

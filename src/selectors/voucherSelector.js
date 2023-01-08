@@ -27,3 +27,21 @@ export const selectShopVoucher = createSelector(
   [selectDomain],
   (state) => state.shopVoucher
 );
+
+export const selectVoucherDiscount = createSelector(
+  [selectDomain],
+  (state) => state.voucherDiscount
+);
+export const selectVoucherFreeShip = createSelector(
+  [selectDomain],
+  (state) => state.voucherFreeShip
+);
+
+export const selectApplyVoucher = createSelector(
+  [selectDomain],
+  (state) => state.applyVoucher
+);
+export const selectShopVoucherOfUser = createSelector(
+  [selectDomain],
+  (state) => state.shopVoucherOfUser
+);

@@ -31,50 +31,61 @@ import {
   selectFreeShipVoucher,
   selectDiscountStatus,
   selectFreeShipStatus,
+  selectVoucherFreeShip,
+  selectVoucherDiscount,
 } from "../../selectors/voucherSelector";
 import { toastError, toastSuccess } from "../ToastNotification";
 import { useDispatch, useSelector } from "react-redux";
 import { STATUS } from "../../utils/status";
 import Empty from "../Empty";
 import Error from "../Error";
-import { setVoucher, setIsSelected } from "../../slices/voucherSlice";
-const ModalShopPVoucher = ({ show, action }) => {
+import {
+  setApplyVoucher,
+  setVoucherDiscount,
+  setVoucherFreeShip,
+} from "../../slices/voucherSlice";
+const ModalShopPVoucher = ({ show, action, checkedList }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const discountVoucher = useSelector(selectDiscountVoucher);
   const freeShopVoucher = useSelector(selectFreeShipVoucher);
   const discountStatus = useSelector(selectDiscountStatus);
   const freeShipStatus = useSelector(selectFreeShipStatus);
-  const [checked, setChecked] = useState([]);
+  const voucherDiscount = useSelector(selectVoucherDiscount);
+  const voucherFreeShip = useSelector(selectVoucherFreeShip);
+
+  // const [checked, setChecked] = useState([]);
 
   const [errorMsg, setErrorMsg] = useState({
     voucherId: false,
   });
-  const ApplyVoucher = (voucher) => {
-    dispatch(setVoucher(voucher));
-    dispatch(setIsSelected({ voucherId: voucher.id, selected: true }));
+  const ApplyVoucher = (voucherFreeShip, voucherDiscount) => {
+    let formatData = [voucherFreeShip, voucherDiscount];
+    dispatch(setApplyVoucher(formatData));
     action(false);
   };
-  const handleToggle = (value) => () => {
-    const formatVoucher = {
-      id: value.id,
-      priceDiscount: value.priceDiscount,
-      title: value.title,
-      type: value.type,
-    };
-    const currentIndex = checked.indexOf(formatVoucher);
-    console.log("line 85:", currentIndex);
 
-    const newChecked = [...checked];
+  // const handleToggle = (value) => () => {
+  //   // const formatVoucher = {
+  //   //   id: value.id,
+  //   //   priceDiscount: value.priceDiscount,
+  //   //   title: value.title,
+  //   //   type: value.type,
+  //   // };
+  //   const currentIndex = checked.indexOf(value);
+  //   console.log("line 85:", currentIndex);
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
+  //   const newChecked = [...checked];
 
-    setChecked(newChecked);
-  };
+  //   if (currentIndex === -1) {
+  //     newChecked.push(value);
+  //   } else {
+  //     newChecked.splice(currentIndex, 1);
+  //   }
+
+  //   setChecked(newChecked);
+  // };
+  // console.log(checked);
   return (
     <PopupContainer show={show}>
       <LayerPopup />
@@ -120,8 +131,10 @@ const ModalShopPVoucher = ({ show, action }) => {
                       </Flexbox>
                       <CheckBoxWrap>
                         <Checkbox
-                          onClick={handleToggle(el)}
-                          checked={checked.indexOf(el) !== -1}
+                          onClick={() => {
+                            dispatch(setVoucherDiscount(el));
+                          }}
+                          checked={voucherDiscount?.id === el.id}
                           tabIndex={-1}
                         />
                       </CheckBoxWrap>
@@ -146,7 +159,15 @@ const ModalShopPVoucher = ({ show, action }) => {
                         <VoucherMax> Max: ${el.priceDiscount}</VoucherMax>
                         <Exp>Exp: {FormateDateType(el.expDate)} </Exp>
                       </Flexbox>
-                      <Button onClick={() => ApplyVoucher(el)}>Apply</Button>
+                      <CheckBoxWrap>
+                        <Checkbox
+                          onClick={() => {
+                            dispatch(setVoucherFreeShip(el));
+                          }}
+                          checked={voucherFreeShip?.id === el.id}
+                          tabIndex={-1}
+                        />
+                      </CheckBoxWrap>
                     </VoucherItem>
                   </VoucherList>
                 );
@@ -156,7 +177,13 @@ const ModalShopPVoucher = ({ show, action }) => {
         </ModalContent>
         <ModalFooter>
           <Button onClick={() => action(false)}> Return</Button>
-          <Button> OK</Button>
+          <Button
+            onClick={() => {
+              ApplyVoucher(voucherFreeShip, voucherDiscount);
+            }}
+          >
+            OK
+          </Button>
         </ModalFooter>
       </PopupVoucherDiv>
     </PopupContainer>
@@ -164,3 +191,5 @@ const ModalShopPVoucher = ({ show, action }) => {
 };
 
 export default ModalShopPVoucher;
+// <Button onClick={() => ApplyVoucher(el)}>Apply</Button>
+//

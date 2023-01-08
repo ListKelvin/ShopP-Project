@@ -4,17 +4,17 @@ import { STATUS } from "../utils/status";
 import voucherApi from "../utils/productApiComponent/voucherApi";
 import LocalStorageUtils from "../utils/LocalStorageUtils";
 const initialState = {
-  voucher: {},
-  isSelected: {
-    voucherId: "",
-    selected: false,
-  },
+  voucherFreeShip: {},
+  voucherDiscount: {},
+  applyVoucher: [],
   shopVoucher: [],
   freeShipVoucher: [],
   discountVoucher: [],
+  shopVoucherOfUser: [],
   discountStatus: STATUS.IDLE,
   freeShipStatus: STATUS.IDLE,
   shopVoucherStatus: STATUS.IDLE,
+  shopVoucherOfUserStatus: STATUS.IDLE,
 };
 export const name = "voucher";
 
@@ -33,7 +33,22 @@ export const fetchDiscountVoucher = createAsyncThunk(
     }
   }
 );
+export const fetchShopVoucherOfUser = createAsyncThunk(
+  "voucher/fetchShopVoucherOfUser",
+  async () => {
+    // thunkApi.dispatch(setDiscountStatus(STATUS.LOADING));
+    try {
+      const token = LocalStorageUtils.getToken();
+      const res = await voucherApi.getShopVoucherOfUser(token);
+      const data = await res.data.data;
 
+      return data;
+    } catch (error) {
+      console.log(error);
+      return error.response.data.message;
+    }
+  }
+);
 export const fetchShopVoucher = createAsyncThunk(
   "voucher/fetchShopVoucher",
   async (shopId) => {
@@ -50,6 +65,7 @@ export const fetchShopVoucher = createAsyncThunk(
     }
   }
 );
+
 export const fetchFreeShipVoucher = createAsyncThunk(
   "voucher/fetchFreeShipVoucher",
   async () => {
@@ -70,8 +86,8 @@ const slice = createSlice({
   name,
   initialState,
   reducers: {
-    setVoucher: (state, action) => {
-      state.voucher = action.payload;
+    setApplyVoucher: (state, action) => {
+      state.applyVoucher = action.payload;
     },
     setFreeShipVoucher: (state, action) => {
       state.voucher = action.payload;
@@ -87,6 +103,12 @@ const slice = createSlice({
     },
     setIsSelected: (state, action) => {
       state.isSelected = action.payload;
+    },
+    setVoucherDiscount: (state, action) => {
+      state.voucherDiscount = action.payload;
+    },
+    setVoucherFreeShip: (state, action) => {
+      state.voucherFreeShip = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -120,17 +142,29 @@ const slice = createSlice({
       })
       .addCase(fetchShopVoucher.rejected, (state, action) => {
         state.shopVoucherStatus = STATUS.ERROR;
+      })
+      .addCase(fetchShopVoucherOfUser.pending, (state, action) => {
+        state.shopVoucherOfUserStatus = STATUS.LOADING;
+      })
+      .addCase(fetchShopVoucherOfUser.fulfilled, (state, action) => {
+        state.shopVoucherOfUserStatus = STATUS.IDLE;
+        state.shopVoucherOfUser = action.payload;
+      })
+      .addCase(fetchShopVoucherOfUser.rejected, (state, action) => {
+        state.shopVoucherOfUserStatus = STATUS.ERROR;
       });
   },
 });
 
 injectReducer(name, slice.reducer);
 export const {
-  setVoucher,
+  setApplyVoucher,
   setFreeShipVoucher,
   setDiscountVoucher,
   setDiscountStatus,
   setIsSelected,
+  setVoucherDiscount,
+  setVoucherFreeShip,
 } = slice.actions;
 
 export default slice;

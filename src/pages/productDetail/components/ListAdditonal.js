@@ -13,10 +13,22 @@ const ListAdditional = ({ additional, action, value2 }) => {
       action("");
     }
   };
-  const newArry = additionalChosen.map((el) => {
-    return el.value;
-  });
-  console.log(newArry);
+  // function unique(array) {
+  //   return array.reduce(function (results, currentItem) {
+  //     //using array find
+  //     return results.find(function (result) {
+  //       return currentItem === result;
+  //     })
+  //       ? results
+  //       : [...results, currentItem];
+  //   }, []);
+  // }
+  // const newArry = additionalChosen.map((el) => {
+  //   return el.value;
+  // });
+  // console.log(unique(newArry));
+  // { id: el.id, value: item }
+  console.log(value2);
   return (
     <>
       {additional?.map((el) => {
@@ -29,17 +41,17 @@ const ListAdditional = ({ additional, action, value2 }) => {
               return (
                 <Chip
                   clickable
-                  //   disabled={!(item === value2) || item !== value2}
+                  disabled={item === value2[id]}
                   key={id}
                   onClick={() => {
-                    ToggledChip({ id: el.id, value: item });
+                    ToggledChip(item);
                   }}
                   label={item}
                   size="small"
                   sx={{
                     minWidth: "50px",
                     marginRight: "10px",
-                    color: `${item === value2 ? "#ffffff" : "#55ABAB"}`,
+                    color: `${item === value2[id] ? "#ffffff" : "#55ABAB"}`,
                     userSelect: "none",
                     backgroundColor: `${
                       item === value2 ? "#55ABAB" : "#B6E3E3"

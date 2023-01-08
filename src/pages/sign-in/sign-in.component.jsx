@@ -94,17 +94,21 @@ const SignInComponent = () => {
       .catch((err) => {
         setLoading(false);
       });
+
     if (isLoggedIn) {
       console.log("run1");
-
       // navigate("/home");
     } else {
       console.log("run2");
-      toastWarning("Email/phone or password is incorrect!");
+
+      if (message) {
+        toastWarning(message);
+      }
       resetForm();
     }
     console.log("Form data", values);
   };
+
   if (isLoggedIn) {
     return <Navigate to="/home" />;
   }
@@ -262,13 +266,6 @@ const SignInComponent = () => {
                         </LinkStyle>
                       </Grid>
                     </Grid>
-                    {message && (
-                      <div className="form-group">
-                        <div className="alert alert-danger" role="alert">
-                          {message}
-                        </div>
-                      </div>
-                    )}
                   </FormContainer>
                 );
               }}

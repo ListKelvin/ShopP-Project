@@ -33,8 +33,18 @@ const ProductInfo = ({ product, additional }) => {
   const navigate = useNavigate();
   const [qty, setQty] = useState(1);
   const [value2, setValue2] = useState([]);
-
+  console.log(value2.toString());
   // const { product, additionalInformation } = state;
+  function unique(array) {
+    return array.reduce(function (results, currentItem) {
+      //using array find
+      return results.find(function (result) {
+        return currentItem === result;
+      })
+        ? results
+        : [...results, currentItem];
+    }, []);
+  }
 
   const increaseQty = () => {
     setQty((prevQty) => {
@@ -62,7 +72,7 @@ const ProductInfo = ({ product, additional }) => {
       name: product.name,
       id: product.id,
       cartQuantity: qty,
-      additionalInfo: value2,
+      additionalInfo: unique(value2).toString(),
     };
     dispatch(addToCart(tempProduct));
     navigate("/cart");

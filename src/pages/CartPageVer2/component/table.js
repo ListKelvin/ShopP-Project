@@ -23,6 +23,8 @@ import {
   Text,
   WrapBtn,
 } from "../style";
+import Chip from "@mui/material/Chip";
+
 import { IncreaseAndDecrease } from "../../productDetail/styled";
 import Flexbox from "../../../Component/Flexbox";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
@@ -37,6 +39,7 @@ import {
   addToCart,
   decreaseCart,
   removeFromCart,
+  increaseCart,
   clearCart,
 } from "../../../slices/cartReducer";
 import ModalShopPVoucher from "../../../Component/Modal/ModalShopPVoucher";
@@ -53,17 +56,21 @@ import {
   fetchFreeShipVoucher,
 } from "../../../slices/voucherSlice";
 import CartFooter from "./CartFooter";
+import { CalculatePriceOfOrder } from "../../../slices/orderReducer";
 import { useNavigate } from "react-router-dom";
 import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import cartApi from "../../../utils/productApiComponent/cartApi";
+import { selectApplyVoucher } from "../../../selectors/voucherSelector";
 const TableCart = () => {
   const cartItems = useSelector(selectCartItems);
   const totalItems = useSelector(selectCartTotalBySelected);
+  const ApplyVoucher = useSelector(selectApplyVoucher);
   const dispatch = useDispatch();
   const token = LocalStorageUtils.getToken();
   const [checked, setChecked] = useState([]);
   const [show, setShow] = useState(false);
+  const [newPrice, setNewPrice] = useState();
   const navigate = useNavigate();
 
   //function
@@ -98,6 +105,7 @@ const TableCart = () => {
     const result = await cartApi.updateCart(formatData);
     console.log(result);
   };
+
   // checkbox group handle
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -143,7 +151,7 @@ const TableCart = () => {
     //   );
     // } else newChecked = [];
     setChecked(newChecked);
-    dispatch(addToCart(product));
+    dispatch(increaseCart(product));
   };
 
   const handleDecreaseCart = (product) => {
@@ -176,6 +184,7 @@ const TableCart = () => {
       dispatch(fetchFreeShipVoucher());
     }
   }, [cartItems, dispatch, token]);
+
   useEffect(() => {
     dispatch(getTotalsBySelection(checked));
   }, [dispatch, checked]);
@@ -301,7 +310,7 @@ const TableCart = () => {
                                 )}
                                 {item.additionalInfo ? (
                                   <Classification>
-                                    {item.additionalInfo}
+                                    {item.additionalInfo.toString()}
                                   </Classification>
                                 ) : (
                                   ""
@@ -373,7 +382,36 @@ const TableCart = () => {
               <LocalOfferIcon />
               <div style={{ flexShrink: "0" }}> ShopP voucher</div>
             </Flexbox>
-            <div style={{ flex: "1" }}></div>
+            <div style={{ flex: "1" }}>
+              {ApplyVoucher[0]?.id && (
+                <Chip
+                  label={`FreeShip $${ApplyVoucher[0]?.priceDiscount}`}
+                  size="small"
+                  sx={{
+                    minWidth: "120px",
+                    marginRight: "10px",
+                    color: "#55ABAB",
+                    cursor: "pointer",
+                    backgroundColor: " #B6E3E3",
+                    border: "2px solid #55abab",
+                  }}
+                />
+              )}
+              {ApplyVoucher[1]?.id && (
+                <Chip
+                  label={`Discount - ${ApplyVoucher[1]?.priceDiscount}%`}
+                  size="small"
+                  sx={{
+                    minWidth: "120px",
+                    marginRight: "10px",
+                    color: "#55ABAB",
+                    cursor: "pointer",
+                    backgroundColor: " #B6E3E3",
+                    border: "2px solid #55abab",
+                  }}
+                />
+              )}
+            </div>
             <VoucherBtn onClick={() => setShow(!show)}>
               Voucher <ArrowDropDownIcon />
             </VoucherBtn>
@@ -419,7 +457,14 @@ const TableCart = () => {
 
           <Flexbox justifyContent="space-around" alignItems="center">
             <div> Total ({`${numberOfChecked(cartItems)}`} product):</div>
-            <div> ${totalItems}</div>
+            <div>
+              {" "}
+              $
+              {CalculatePriceOfOrder(
+                totalItems,
+                ApplyVoucher[1]?.priceDiscount
+              )}
+            </div>
           </Flexbox>
           <WrapBtn>
             <Button
@@ -433,7 +478,9 @@ const TableCart = () => {
           </WrapBtn>
         </CartFooterContainer>
       </Flexbox>
-      {show && <ModalShopPVoucher show={show} action={setShow} />}
+      {show && (
+        <ModalShopPVoucher show={show} action={setShow} checkedList={checked} />
+      )}
     </ContainerV2>
   );
 };

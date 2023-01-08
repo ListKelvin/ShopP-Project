@@ -15,6 +15,13 @@ import { setUser, deleteUser } from "../../slices/user";
 import FullScreenLoader from "../../Component/FulllScreenLoader/FullScreenLoader";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import cartApi from "../../utils/productApiComponent/cartApi";
+import { setCart } from "../../slices/cartReducer";
+import {
+  fetchShopVoucherOfUser,
+  fetchFreeShipVoucher,
+  fetchDiscountVoucher,
+} from "../../slices/voucherSlice";
+import { fetchOrderListOfThreeStatus } from "../../slices/orderReducer";
 const Home = () => {
   const dispatch = useDispatch();
   const AllProducts = useSelector(selectProducts);
@@ -24,6 +31,7 @@ const Home = () => {
     const result = await cartApi.getCart();
     const cart = JSON.parse(result.data.data.products);
     LocalStorageUtils.setItem("cartItems", JSON.stringify(cart));
+    dispatch(setCart(cart));
   };
 
   useEffect(() => {
@@ -47,6 +55,10 @@ const Home = () => {
     if (token) {
       getUser();
       getCart();
+      dispatch(fetchOrderListOfThreeStatus());
+      dispatch(fetchDiscountVoucher());
+      dispatch(fetchShopVoucherOfUser());
+      dispatch(fetchFreeShipVoucher());
     }
   }, [dispatch, token]);
 

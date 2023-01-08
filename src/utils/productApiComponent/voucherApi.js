@@ -19,7 +19,10 @@ const voucherApi = {
     const endpoint = `/voucher/list-by-shop-id/${shopId}`;
     return await get(endpoint, {}, { Authorization: token });
   },
-
+  getShopVoucherOfUser: async (token) => {
+    const endpoint = `/voucher/customer-Shop`;
+    return await get(endpoint, {}, { Authorization: token });
+  },
   postApplyVoucher: async (id, token) => {
     const endpoint = `/voucher/save-voucher/${id}`;
     return await post(endpoint, {}, {}, { Authorization: token }).catch(

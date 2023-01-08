@@ -4,11 +4,20 @@ import {
   EvaluationsContainer,
   EvaluationTitle,
 } from "../UserEvaluation/style";
+
+import Img from "../../assets/Product/image 161.png";
 import { FilterContainer } from "../UserVouchers/Components/styleComponents";
 import { TitlePurchase, TitlePurchaseAfter, TitlePurchaseDiv } from "./style";
-
+import {
+  BodyContainer,
+  ImgDiv,
+  NameDiv,
+  PriceDiv,
+  TotalDiv,
+} from "./Components/styleComponents";
 import ProductPurchase from "./Components/ProductPurchase";
-
+import { CardMedia } from "@mui/material";
+import Button from "../../Component/Button";
 const types = [
   { title: "All", table: <ProductPurchase /> },
   { title: "Checking", table: <ProductPurchase /> },
@@ -22,6 +31,7 @@ const types = [
 
 const UserPurchase = () => {
   const [active, setActive] = useState(types[0]);
+
   return (
     <EvaluationDiv>
       <EvaluationsContainer>
@@ -42,6 +52,25 @@ const UserPurchase = () => {
           </TitlePurchaseDiv>
         </FilterContainer>
         {active.table}
+        <BodyContainer>
+          <ImgDiv>
+            <CardMedia
+              sx={{ borderRadius: "10px", width: "6em" }}
+              component="img"
+              image={Img}
+              alt="green iguana"
+            />
+          </ImgDiv>
+          <NameDiv>
+            <div>ID of Order x Product Quantity</div>
+            <div>estimateDeliveryTime</div>
+          </NameDiv>
+          <PriceDiv> Discount price </PriceDiv>
+          <TotalDiv>
+            <div style={{ color: "#2F5E5E" }}>Total bill </div>
+            <Button>View Order</Button>
+          </TotalDiv>
+        </BodyContainer>
       </EvaluationsContainer>
     </EvaluationDiv>
   );
