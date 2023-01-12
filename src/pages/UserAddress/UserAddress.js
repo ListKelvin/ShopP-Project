@@ -24,6 +24,7 @@ import accountApi from "../../utils/productApiComponent/accountApi";
 import customerApi from "../../utils/productApiComponent/customerApi";
 import { toastSuccess } from "../../Component/ToastNotification";
 import { FormateDateType, formatDate } from "../../utils/helper";
+import ModalAddress from "../../Component/Modal/ModalAddress";
 const Address = [
   {
     id: 0,
@@ -33,14 +34,14 @@ const Address = [
       "Số 20, đường Trường Chinh, Bến Nghé, quận 1, Thành phố Hồ Chí Minh",
   },
   {
-    id: 0,
+    id: 1,
     user: "Bùi Phan Long",
     phone: "0987654321",
     addressinf:
       "Số 20, đường Trường Chinh, Bến Nghé, quận 1, Thành phố Hồ Chí Minh",
   },
   {
-    id: 0,
+    id: 2,
     user: "Phạm Công Minh",
     phone: "0987654321",
     addressinf:
@@ -51,6 +52,7 @@ const Address = [
 const UserAddressPage = () => {
   const user = useSelector(selectUser);
   // console.log(JSON.parse(user.customer.placeOfDelivery));
+  const [showCreateModal, toggleCreateModal] = useState(false);
   const token = LocalStorageUtils.getToken();
   const [customer, setCustomer] = useState({
     name: user.customer?.name || "",
@@ -123,7 +125,7 @@ address:
     // console.log("line 45:", resultCustomer);
     // console.log("line 46:", resultAccount);
   };
-
+  console.log(showCreateModal);
   return (
     <>
       <div
@@ -137,6 +139,7 @@ address:
       >
         <Layout>
           <AddButton
+            onClick={() => toggleCreateModal(true)}
             style={{ border: "1px dashed #F64A4A" }}
             startIcon={<AddIcon style={{ color: "#F64A4A" }} />}
           >
@@ -179,6 +182,12 @@ address:
             );
           })}
         </Layout>
+        <ModalAddress
+          show={showCreateModal}
+          onClick={() => toggleCreateModal(true)}
+          onClose={() => toggleCreateModal(false)}
+          // onSubmit={() => navigate("/auth", { replace: true })}
+        />
       </div>
     </>
   );

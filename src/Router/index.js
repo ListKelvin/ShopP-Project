@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import MenuSetting from "../Component/MenuSetting";
 import ProductFilter from "../Component/productFillter";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
@@ -16,14 +15,14 @@ import UserAddressPage from "../pages/UserAddress/UserAddress";
 import UserProfilePage from "../pages/UserProfile";
 import ShopRegister from "../pages/ShopRegister/ShopRegister";
 import ScrollToTop from "../utils/ScrollToTop";
-import UserSetting from "../pages/UserSetting";
-import ChangePassword from "../Component/MenuSetting/Components/ChangePassword";
 import SettingRoute from "./settingRoute";
 import ShopPage from "../pages/shopPage";
 import ShopDashBoard from "../pages/ShopDashBoard";
 import ResetPassword from "../pages/ResetPassword";
 import CartPageV2 from "../pages/CartPageVer2";
 import AdminDashBoard from "../pages/AdminDashBoard/index";
+import ShopLayout from "../Component/layout/shopLayout";
+import AdminLayout from "../Component/layout/adminLayout";
 const publicRoute = [
   {
     index: true,
@@ -98,13 +97,6 @@ const publicRoute = [
   },
   {
     index: false,
-    path: "shop_dash_board",
-    component: <ShopDashBoard />,
-    exact: true,
-    restrict: true,
-  },
-  {
-    index: false,
     path: "cart",
     component: <CartPageV2 />,
     exact: true,
@@ -114,13 +106,6 @@ const publicRoute = [
     index: false,
     path: "orders",
     component: <OrderPage />,
-    exact: true,
-    restrict: true,
-  },
-  {
-    index: false,
-    path: "admin_dash_board",
-    component: <AdminDashBoard />,
     exact: true,
     restrict: true,
   },
@@ -172,6 +157,9 @@ const RouterComponent = () => {
         <Route path="/resetPassword" element={<ResetPassword />} />
         <Route path="/signIn" element={<SignInComponent />} />
         <Route path="/register" element={<SignUp />} />
+        <Route path="/shop_dash_board" element={<ShopLayout />} />
+        <Route path="/admin_dash_board" element={<AdminLayout />} />
+
         <Route path="*" element={<p>404</p>} />
       </Routes>
     </BrowserRouter>
@@ -179,14 +167,3 @@ const RouterComponent = () => {
 };
 
 export default RouterComponent;
-// {route.Children
-//   ? route.Children.map((child, id) => {
-//       return (
-//         <Route
-//           index={child.index}
-//           path={child.path}
-//           element={child.component}
-//         />
-//       );
-//     })
-//   : ""}

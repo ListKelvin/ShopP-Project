@@ -3,6 +3,7 @@ import { down, only } from "styled-breakpoints";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import Flexbox from "../Flexbox";
+import theme from "../../theme/themes";
 export const move = keyframes`
     0%{
         transform: scale(0.5);
@@ -423,3 +424,57 @@ export const CheckBoxWrap = styled.div`
   min-width: 58px;
   box-sizing: border-box;
 `;
+/////////////////  // background-color: ${theme.plum};//////////////  // background-color: ${theme.low_contrast_20};/////////////////////////////////////////////////
+
+const StyledModal = styled.div`
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  // background-color: ${theme.plum};
+  background: rgba(0, 0, 0, 0.38);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Inter", sans-serif;
+  z-index: 999;
+`;
+const StyledModalContent = styled.div`
+  padding: 2rem;
+  background-color: #fff;
+
+  // background-color: ${theme.low_contrast_20};
+  border-radius: 4px;
+`;
+const StyledModalHeader = styled.div`
+  display: flex;
+  flex-direction: ${(props) => props.direction || "row"};
+  justify-content: ${(props) => props.justify || "space-between"};
+  align-items: ${(props) => props.align || "center"};
+  padding-bottom: 10px;
+  font-family: inherit;
+  gap: ${(props) => props.gap + "px" || "auto"};
+`;
+const StyledModalTitle = styled.h4`
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #2f5e5e;
+  margin: 0;
+`;
+const StyledModalBody = styled.div`
+  padding: 10px 0;
+`;
+const StyledModalFooter = styled.div`
+  padding-top: 10px;
+`;
+
+export {
+  StyledModal,
+  StyledModalHeader,
+  StyledModalContent,
+  StyledModalTitle,
+  StyledModalBody,
+  StyledModalFooter,
+};

@@ -1,4 +1,4 @@
-export const XA_PHUONGW_DATA = [
+export const XA_PHUONG_DATA = [
   {
     name: "Tân Xã",
     code: "10000",

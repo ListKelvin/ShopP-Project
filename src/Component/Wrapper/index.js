@@ -27,6 +27,7 @@ const useWindowDimensions = () => {
 const Wrapper = (props) => {
   const { height, width } = useWindowDimensions();
   const { children, minHeight, ...rest } = props;
+
   return (
     <StyledWrapper {...rest} minHeight={minHeight} currentWidth={width}>
       {children}

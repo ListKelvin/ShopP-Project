@@ -1,4 +1,4 @@
-const HUYEN_DATA = [
+export const HUYEN_DATA = [
   {
     name: "Điện Biên",
     code: "100",
