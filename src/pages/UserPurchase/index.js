@@ -1,36 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   EvaluationDiv,
   EvaluationsContainer,
   EvaluationTitle,
 } from "../UserEvaluation/style";
 
-import Img from "../../assets/Product/image 161.png";
 import { FilterContainer } from "../UserVouchers/Components/styleComponents";
 import { TitlePurchase, TitlePurchaseAfter, TitlePurchaseDiv } from "./style";
-import {
-  BodyContainer,
-  ImgDiv,
-  NameDiv,
-  PriceDiv,
-  TotalDiv,
-} from "./Components/styleComponents";
+import TableOrderCustomer from "./Components/TableOrder";
 import ProductPurchase from "./Components/ProductPurchase";
-import { CardMedia } from "@mui/material";
-import Button from "../../Component/Button";
-const types = [
-  { title: "All", table: <ProductPurchase /> },
-  { title: "Checking", table: <ProductPurchase /> },
-  { title: "Confirm", table: <ProductPurchase /> },
-  { title: "Packaging", table: <ProductPurchase /> },
-  { title: "Delivering", table: <ProductPurchase /> },
-  { title: "Delivered", table: <ProductPurchase /> },
-  { title: "Cancelled", table: <ProductPurchase /> },
-  { title: "Returned", table: <ProductPurchase /> },
-];
+import orderApi from "../../utils/productApiComponent/orderApi";
 
 const UserPurchase = () => {
+  const [orderCustomer, setOrderCustomer] = useState();
+  const [orderCustomerDeliver, setOrderCustomerDeliver] = useState();
+  const [orderCustomerHistory, setOrderCustomerHistory] = useState();
+  const [orderCustomerCancel, setOrderCustomerCancel] = useState();
+
+  const types = [
+    { title: "All", table: <TableOrderCustomer data={orderCustomer} /> },
+    { title: "Checking", table: <ProductPurchase /> },
+    { title: "Confirm", table: <ProductPurchase /> },
+    { title: "Packaging", table: <ProductPurchase /> },
+    {
+      title: "Delivering",
+      table: <TableOrderCustomer data={orderCustomerDeliver} />,
+    },
+    {
+      title: "Delivered",
+      table: <TableOrderCustomer data={orderCustomerHistory} />,
+    },
+    {
+      title: "Cancelled",
+      table: <TableOrderCustomer data={orderCustomerCancel} />,
+    },
+    { title: "Returned", table: <ProductPurchase /> },
+  ];
   const [active, setActive] = useState(types[0]);
+  useEffect(() => {
+    return function cleanUp() {
+      orderApi.getOrderCustomer().then((res) => {
+        setOrderCustomer(res.data.data);
+      });
+      orderApi.getOrderCustomerDeliver().then((res) => {
+        setOrderCustomerDeliver(res.data.data);
+      });
+      orderApi.getOrderCustomerHistory().then((res) => {
+        setOrderCustomerHistory(res.data.data);
+      });
+      orderApi.getOrderCustomerCancel().then((res) => {
+        setOrderCustomerCancel(res.data.data);
+      });
+    };
+  }, []);
 
   return (
     <EvaluationDiv>
@@ -51,26 +73,7 @@ const UserPurchase = () => {
             })}
           </TitlePurchaseDiv>
         </FilterContainer>
-        {active.table}
-        <BodyContainer>
-          <ImgDiv>
-            <CardMedia
-              sx={{ borderRadius: "10px", width: "6em" }}
-              component="img"
-              image={Img}
-              alt="green iguana"
-            />
-          </ImgDiv>
-          <NameDiv>
-            <div>ID of Order x Product Quantity</div>
-            <div>estimateDeliveryTime</div>
-          </NameDiv>
-          <PriceDiv> Discount price </PriceDiv>
-          <TotalDiv>
-            <div style={{ color: "#2F5E5E" }}>Total bill </div>
-            <Button>View Order</Button>
-          </TotalDiv>
-        </BodyContainer>
+        {active?.table}
       </EvaluationsContainer>
     </EvaluationDiv>
   );

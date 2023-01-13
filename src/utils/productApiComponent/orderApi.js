@@ -17,6 +17,27 @@ const orderApi = {
       console.log(err)
     );
   },
+  getOrderCustomerDeliver: async () => {
+    const token = LocalStorageUtils.getToken();
+    const endpoint = "/order/customer-deliver";
+    return await get(endpoint, {}, { Authorization: token }).catch((err) =>
+      console.log(err)
+    );
+  },
+  getOrderCustomerHistory: async () => {
+    const token = LocalStorageUtils.getToken();
+    const endpoint = "/order/customer-history";
+    return await get(endpoint, {}, { Authorization: token }).catch((err) =>
+      console.log(err)
+    );
+  },
+  getOrderCustomerCancel: async () => {
+    const token = LocalStorageUtils.getToken();
+    const endpoint = "/order/customer-cancel";
+    return await get(endpoint, {}, { Authorization: token }).catch((err) =>
+      console.log(err)
+    );
+  },
 };
 
 export default orderApi;

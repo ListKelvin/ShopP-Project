@@ -50,7 +50,7 @@ const UserProfilePage = () => {
     name: user.customer?.name || "",
     gender: user.customer?.gender || "",
     dob: user.customer?.dob || "",
-    placeOfDelivery: user.customer?.placeOfDelivery || "",
+    placeOfDelivery: JSON.parse(user?.customer?.placeOfDelivery) || "",
     bio: user.customer?.bio || "",
     phone: user.phone || "",
     email: user.email || "",

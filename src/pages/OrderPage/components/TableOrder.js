@@ -105,7 +105,7 @@ const TableOrder = () => {
         estimateDeliveryTime: "12/12/2022-15/12/2022",
         transportFee: 10000,
         shoppingUnitId: 1,
-        shopVoucherId: "d32c1341-97fe-4493-84c5-41efb5ec8b3e",
+        shopVoucherId: "",
         shopId: el.shopId,
         orderProducts: itemOfShopOrder,
       };
@@ -121,8 +121,8 @@ const TableOrder = () => {
     const formatData = {
       address: "Thu Duc, Ho Chi Minh City",
       paymentId: 1,
-      appVoucherId: applyVoucher[1].id.toString(),
-      freeShipVoucherId: applyVoucher[0].id ? applyVoucher[0]?.id : "",
+      appVoucherId: applyVoucher[1]?.id ? applyVoucher[1]?.id?.toString() : "",
+      freeShipVoucherId: applyVoucher[0]?.id ? applyVoucher[0]?.id : "",
       orders: order,
     };
     console.log(formatData);

@@ -32,12 +32,15 @@ function getStyles(name, personName, theme) {
   };
 }
 const ModalAddress = (props) => {
-  const { show, onClose, onSubmit } = props;
+  const { show, onClose, onSubmit, customer, action } = props;
   const theme = useTheme();
   const [province, setProvince] = React.useState("");
   const [city, setCity] = React.useState("");
   const [district, setDistrict] = React.useState("");
   const [detail, setDetail] = React.useState("");
+  const [newAddress, setNewAddress] = React.useState([
+    ...customer?.placeOfDelivery,
+  ]);
 
   const handleProvinceChange = (event) => {
     const { value } = event.target;
@@ -51,25 +54,49 @@ const ModalAddress = (props) => {
   };
   const handleDistrictChange = (event) => {
     const { value } = event.target;
-
     setDistrict(value);
+  };
+  const handleDetailsChange = (event) => {
+    const { value } = event.target;
+
+    setDetail(value);
   };
   let CityAddress = HUYEN_DATA.filter(
     (el) => el.parent_code === province.toLowerCase()
   );
   let districtAddress = XA_PHUONG_DATA.filter((el) => el.parent_code === city);
-  const GenerateAddress = (province, city, district, detail) => {};
-  const AddNewAddress = () => {
-    const fomateData = {};
+
+  const handleChangeCustomer = (props) => (e) => {
+    action({ ...customer, [props]: e.target.value });
   };
+
+  const GenerateAddress = () => {
+    let provinceName = TINH_DATA.find((el) => el.code === province);
+    let cityName = HUYEN_DATA.find((el) => el.code === city);
+    let districtName = XA_PHUONG_DATA.find((el) => el.code === district);
+    const formatAddress = {
+      default: false,
+      address:
+        detail +
+        ", " +
+        provinceName?.name +
+        ", " +
+        cityName?.name +
+        ", " +
+        districtName?.name,
+    };
+    setNewAddress([...newAddress, { ...formatAddress }]);
+  };
+
   return (
     <Modal show={show} title="Add new address" onClose={onClose}>
       <Flexbox justifyContent="space-between">
         <FormControl fullWidth sx={{ m: 1, mt: 3 }} size="small">
           <TextField
             label="Name"
+            required
             id="outlined-size-small"
-            defaultValue="Small"
+            onChange={handleChangeCustomer("name")}
             size="small"
           />
         </FormControl>
@@ -77,6 +104,7 @@ const ModalAddress = (props) => {
           <TextField
             label="Phone"
             id="outlined-size-small"
+            onChange={handleChangeCustomer("phone")}
             defaultValue=""
             size="small"
           />
@@ -172,13 +200,21 @@ const ModalAddress = (props) => {
           <TextField
             label="Detail Address"
             id="outlined-size-small"
-            defaultValue=""
+            onChange={handleDetailsChange}
             size="small"
           />
         </FormControl>
       </Flexbox>
       <Flexbox justifyContent="flex-end" style={{ marginTop: "10px" }}>
-        <Button> OK</Button>
+        <Button
+          onClick={() => {
+            GenerateAddress();
+            onSubmit(newAddress);
+          }}
+        >
+          {" "}
+          OK
+        </Button>
       </Flexbox>
     </Modal>
   );

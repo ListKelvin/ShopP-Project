@@ -62,6 +62,7 @@ import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import cartApi from "../../../utils/productApiComponent/cartApi";
 import { selectApplyVoucher } from "../../../selectors/voucherSelector";
+import Divider from "../../../Component/Divider";
 const TableCart = () => {
   const cartItems = useSelector(selectCartItems);
   const totalItems = useSelector(selectCartTotalBySelected);
@@ -368,6 +369,16 @@ const TableCart = () => {
                         );
                       })
                     }
+                  </div>
+
+                  <div
+                    style={{
+                      borderTop: "1px solid rgba(0, 0, 0, 0.3)",
+                      padding: "20px",
+                    }}
+                  >
+                    {" "}
+                    voucher of shop here
                   </div>
                 </ShopContainer>
               </Item>

@@ -29,13 +29,13 @@ import { useSelector, useDispatch } from "react-redux";
 import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 const VoucherList = ({ label, titles, status, title }) => {
   const dispatch = useDispatch();
-  const token = LocalStorageUtils.getToken();
+
   useEffect(() => {
-    if (token) {
+    return function cleanup() {
       dispatch(fetchShopVoucherOfUser());
       dispatch(fetchDiscountVoucher());
-    }
-  }, [dispatch, token]);
+    };
+  }, [dispatch]);
 
   const discountVoucher = useSelector(selectDiscountVoucher);
   const freeShopVoucher = useSelector(selectFreeShipVoucher);
