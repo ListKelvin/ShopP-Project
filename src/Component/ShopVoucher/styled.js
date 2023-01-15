@@ -3,7 +3,7 @@ export const ShopWrapper = styled.div`
   min-width: 420px;
   position: absolute;
   //   height: 500px;
-  top: 40px;
+  top: 35px;
   height: 300px;
   right: 50px;
   background: #fff;

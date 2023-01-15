@@ -39,16 +39,13 @@ const ProductFilter = () => {
     category: [],
     response: [],
   });
+  const [isFetching, setIsFetching] = useState(false);
   const [age, setAge] = useState("ASC");
   const [star, setStar] = useState({
     starValue: [],
     response: [],
   });
-  const [filterData, setFilterData] = useState({
-    displayedData: [],
-    initialData: [],
-    loadingState: false,
-  });
+
   const [index, setIndex] = useState(0);
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -126,11 +123,6 @@ const ProductFilter = () => {
       },
     };
     dispatch(FilterProductApi(formatFilterByPrice));
-    // const result = await productApi.filterProductByPrice(product);
-    // if (result.status === 200) {
-    //   console.log(result.data.data);
-    //   dispatch(updateFilterProductByPrice(result.data.data));
-    // }
   };
 
   useEffect(() => {
@@ -156,12 +148,15 @@ const ProductFilter = () => {
       let minNum = star.response.reduce((prev, current) => {
         return Math.min(prev, current);
       });
-      let i = 0;
+
       const onScroll = function () {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        if (
+          window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+          !isFetching
+        ) {
           console.log("you're at the bottom of the page");
-          i = i + 1;
-          setIndex(i);
+          setIsFetching(true);
+          setIndex(index + 1);
         }
       };
       const formatStar = {
@@ -172,6 +167,7 @@ const ProductFilter = () => {
           max: maxNum,
         },
       };
+
       dispatch(FilterProductApi(formatStar));
       window.addEventListener("scroll", onScroll);
       return () => window.removeEventListener("scroll", onScroll);

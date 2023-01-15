@@ -17,6 +17,7 @@ import {
   VoucherMax,
   Exp,
 } from "../Modal/styleComponents";
+import { useEffect } from "react";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import FreeShip from "../../assets/Voucher/FreeShip.png";
@@ -31,13 +32,14 @@ import voucherApi from "../../utils/productApiComponent/voucherApi";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import { toastSuccess, toastWarning } from "../ToastNotification";
 import Empty from "../Empty";
-const ShopVoucher = () => {
+const VoucherOfShop = ({ id }) => {
   const shopVoucher = useSelector(selectShopVoucher);
   const [voucherShop, setVoucherShop] = useState({
     voucher: shopVoucher ? [...shopVoucher] : "",
     itemsToShow: 3,
     expanded: false,
   });
+  const token = LocalStorageUtils.getToken();
   const showMore = () => {
     let voucherShopLength = shopVoucher.length;
     if (voucherShop.expanded) {
@@ -54,7 +56,6 @@ const ShopVoucher = () => {
       });
     }
   };
-
   const SaveVoucher = async (id) => {
     const token = LocalStorageUtils.getToken();
     const res = await voucherApi.postApplyVoucher(id, token);
@@ -64,6 +65,14 @@ const ShopVoucher = () => {
       toastWarning(res.data.message);
     }
   };
+
+  useEffect(() => {
+    return function cleanup() {
+      voucherApi.getVoucherByShopId(id, token).then((res) => {
+        console.log(res);
+      });
+    };
+  }, []);
   return (
     <ShopWrapper>
       <StyledSearchContainer>
@@ -88,7 +97,7 @@ const ShopVoucher = () => {
         {shopVoucher === undefined ? (
           <Empty />
         ) : (
-          shopVoucher?.slice(0, voucherShop.itemsToShow).map((el, id) => {
+          shopVoucher.slice(0, voucherShop.itemsToShow).map((el, id) => {
             return (
               <VoucherItem key={id}>
                 <img src={FreeShip} alt="FreeShip" />
@@ -122,7 +131,7 @@ const ShopVoucher = () => {
   );
 };
 
-export default ShopVoucher;
+export default VoucherOfShop;
 //  <VoucherList key={id}>
 //                     <TypeVoucher>FreeShip</TypeVoucher>
 //                     <VoucherItem>

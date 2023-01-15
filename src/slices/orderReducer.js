@@ -2,6 +2,7 @@ import { injectReducer } from "../store/store";
 import { createSlice, current, createAsyncThunk } from "@reduxjs/toolkit";
 import orderApi from "../utils/productApiComponent/orderApi";
 import { toast } from "react-toastify";
+import { handler } from "../utils/apiHandler";
 import { useState, useEffect } from "react";
 export const initialState = {
   orderItems: [],
@@ -16,7 +17,31 @@ export const fetchOrderListOfThreeStatus = createAsyncThunk(
     console.log(res.data.data);
   }
 );
-
+// export const getAllOrders = createAsyncThunk(
+//   "order/getAllOrders",
+//   async (token, thunkApi) => {
+//     const orderCustomer = await handler("getOrderCustomer", token);
+//     const delivering = await handler("getOrderCustomerDeliver", token);
+//     const delivered = await handler("getOrderCustomerHistory", token);
+//     const cancelled = await handler("getOrderCustomerCancel", token);
+//     if (
+//       orderCustomer == null ||
+//       delivering == null ||
+//       delivered == null ||
+//       cancelled == null
+//     ) {
+//       return thunkApi.rejectWithValue("Phiên đăng nhập hết hạn");
+//     }
+//     if (
+//       orderCustomer instanceof Error ||
+//       cancelled instanceof Error ||
+//       delivered instanceof Error
+//     ) {
+//       return thunkApi.rejectWithValue(delivering);
+//     }
+//     return { orderCustomer, delivering, delivered, cancelled };
+//   }
+// );
 export const CalculatePriceOfOrder = (ToTalSelectItem, Discount) => {
   const [state, setState] = useState(0);
   useEffect(() => {

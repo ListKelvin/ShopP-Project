@@ -24,7 +24,7 @@ import {
   WrapBtn,
 } from "../style";
 import Chip from "@mui/material/Chip";
-
+import VoucherOfShop from "../../../Component/ShopVoucher/shopVoucher";
 import { IncreaseAndDecrease } from "../../productDetail/styled";
 import Flexbox from "../../../Component/Flexbox";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
@@ -377,8 +377,8 @@ const TableCart = () => {
                       padding: "20px",
                     }}
                   >
-                    {" "}
-                    voucher of shop here
+                    voucher here
+                    <div className="voucher"></div>
                   </div>
                 </ShopContainer>
               </Item>

@@ -10,7 +10,7 @@ import { TitlePurchase, TitlePurchaseAfter, TitlePurchaseDiv } from "./style";
 import TableOrderCustomer from "./Components/TableOrder";
 import ProductPurchase from "./Components/ProductPurchase";
 import orderApi from "../../utils/productApiComponent/orderApi";
-
+import BasicTabs from "../../Component/Tabs/MuiTabs";
 const UserPurchase = () => {
   const [orderCustomer, setOrderCustomer] = useState();
   const [orderCustomerDeliver, setOrderCustomerDeliver] = useState();
@@ -36,44 +36,12 @@ const UserPurchase = () => {
     },
     { title: "Returned", table: <ProductPurchase /> },
   ];
-  const [active, setActive] = useState(types[0]);
-  useEffect(() => {
-    return function cleanUp() {
-      orderApi.getOrderCustomer().then((res) => {
-        setOrderCustomer(res.data.data);
-      });
-      orderApi.getOrderCustomerDeliver().then((res) => {
-        setOrderCustomerDeliver(res.data.data);
-      });
-      orderApi.getOrderCustomerHistory().then((res) => {
-        setOrderCustomerHistory(res.data.data);
-      });
-      orderApi.getOrderCustomerCancel().then((res) => {
-        setOrderCustomerCancel(res.data.data);
-      });
-    };
-  }, []);
 
   return (
     <EvaluationDiv>
       <EvaluationsContainer>
         <EvaluationTitle>My Purchase</EvaluationTitle>
-        <FilterContainer>
-          <TitlePurchaseDiv>
-            {types.map((type, id) => {
-              return (
-                <TitlePurchase
-                  key={id}
-                  onClick={() => setActive(type)}
-                  active={active.title === type.title}
-                >
-                  {type.title}
-                </TitlePurchase>
-              );
-            })}
-          </TitlePurchaseDiv>
-        </FilterContainer>
-        {active?.table}
+        <BasicTabs />
       </EvaluationsContainer>
     </EvaluationDiv>
   );

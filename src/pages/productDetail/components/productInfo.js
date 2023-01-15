@@ -22,6 +22,7 @@ import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined
 import ListAdditional from "./ListAdditonal";
 import { addToCart } from "../../../slices/cartReducer";
 import Button from "../../../Component/Button";
+import { toastWarning } from "../../../Component/ToastNotification";
 const Voucher = [
   { id: 1, label: "Discount -30%" },
   { id: 2, label: "Discount -50%" },
@@ -32,19 +33,13 @@ const ProductInfo = ({ product, additional }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [qty, setQty] = useState(1);
-  const [value2, setValue2] = useState([]);
-  console.log(value2.toString());
+  const [selectedVariations, setSelectedVariations] = useState([]);
+
   // const { product, additionalInformation } = state;
-  function unique(array) {
-    return array.reduce(function (results, currentItem) {
-      //using array find
-      return results.find(function (result) {
-        return currentItem === result;
-      })
-        ? results
-        : [...results, currentItem];
-    }, []);
-  }
+
+  let additionalInformation = selectedVariations.map((el) => {
+    return el.option;
+  });
 
   const increaseQty = () => {
     setQty((prevQty) => {
@@ -64,18 +59,37 @@ const ProductInfo = ({ product, additional }) => {
   };
 
   const addToCartHandler = (product) => {
-    const tempProduct = {
-      shopId: product.shop.id,
-      shopName: product.shop.name,
-      productImage: product.productImage[0],
-      amount: product.amount,
-      name: product.name,
-      id: product.id,
-      cartQuantity: qty,
-      additionalInfo: unique(value2).toString(),
-    };
-    dispatch(addToCart(tempProduct));
-    navigate("/cart");
+    if (additional.length === 0) {
+      const tempProduct = {
+        shopId: product.shop.id,
+        shopName: product.shop.name,
+        productImage: product.productImage[0],
+        amount: product.amount,
+        name: product.name,
+        id: product.id,
+        cartQuantity: qty,
+        additionalInfo: additionalInformation.toString(),
+      };
+      dispatch(addToCart(tempProduct));
+      navigate("/cart");
+    } else {
+      if (selectedVariations.length === 0) {
+        toastWarning("you need to choose a variant");
+      } else {
+        const tempProduct = {
+          shopId: product.shop.id,
+          shopName: product.shop.name,
+          productImage: product.productImage[0],
+          amount: product.amount,
+          name: product.name,
+          id: product.id,
+          cartQuantity: qty,
+          additionalInfo: additionalInformation.toString(),
+        };
+        dispatch(addToCart(tempProduct));
+        navigate("/cart");
+      }
+    }
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -191,8 +205,8 @@ const ProductInfo = ({ product, additional }) => {
         </ShopVoucherContainer>
         <ListAdditional
           additional={additional}
-          action={setValue2}
-          value2={value2}
+          action={setSelectedVariations}
+          value2={selectedVariations}
         />
         <ShopVoucherContainer>
           <div className="title">Amount</div>

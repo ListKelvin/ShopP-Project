@@ -10,29 +10,25 @@ const orderApi = {
       (err) => console.log(err)
     );
   },
-  getOrderCustomer: async () => {
-    const token = LocalStorageUtils.getToken();
+  getOrderCustomer: async (token) => {
     const endpoint = "/order/customer";
     return await get(endpoint, {}, { Authorization: token }).catch((err) =>
       console.log(err)
     );
   },
-  getOrderCustomerDeliver: async () => {
-    const token = LocalStorageUtils.getToken();
+  getOrderCustomerDeliver: async (token) => {
     const endpoint = "/order/customer-deliver";
     return await get(endpoint, {}, { Authorization: token }).catch((err) =>
       console.log(err)
     );
   },
-  getOrderCustomerHistory: async () => {
-    const token = LocalStorageUtils.getToken();
+  getOrderCustomerHistory: async (token) => {
     const endpoint = "/order/customer-history";
     return await get(endpoint, {}, { Authorization: token }).catch((err) =>
       console.log(err)
     );
   },
-  getOrderCustomerCancel: async () => {
-    const token = LocalStorageUtils.getToken();
+  getOrderCustomerCancel: async (token) => {
     const endpoint = "/order/customer-cancel";
     return await get(endpoint, {}, { Authorization: token }).catch((err) =>
       console.log(err)
