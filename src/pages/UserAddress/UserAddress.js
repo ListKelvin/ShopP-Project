@@ -26,29 +26,6 @@ import { toastSuccess } from "../../Component/ToastNotification";
 import { FormateDateType, formatDate } from "../../utils/helper";
 import ModalAddress from "../../Component/Modal/ModalAddress";
 import { useNavigate } from "react-router-dom";
-const Address = [
-  {
-    id: 0,
-    user: "Lê Thành Long",
-    phone: "0987654321",
-    addressinf:
-      "Số 20, đường Trường Chinh, Bến Nghé, quận 1, Thành phố Hồ Chí Minh",
-  },
-  {
-    id: 1,
-    user: "Bùi Phan Long",
-    phone: "0987654321",
-    addressinf:
-      "Số 20, đường Trường Chinh, Bến Nghé, quận 1, Thành phố Hồ Chí Minh",
-  },
-  {
-    id: 2,
-    user: "Phạm Công Minh",
-    phone: "0987654321",
-    addressinf:
-      "Số 20, đường Trường Chinh, Bến Nghé, quận 1, Thành phố Hồ Chí Minh",
-  },
-];
 
 const UserAddressPage = () => {
   const navigate = useNavigate();
@@ -66,9 +43,9 @@ const UserAddressPage = () => {
     email: user.email || "",
     avatar: user.customer?.avatar || "",
   });
-  const [addresses, setAddresses] = useState([]);
 
   const EditAccount = async (address) => {
+    console.log(address);
     const formatDataCustomer = {
       name: customer.name,
       gender: customer.gender,
@@ -81,10 +58,6 @@ const UserAddressPage = () => {
       avatar: customer.avatar,
     };
     const resultCustomer = await customerApi.editCustomer(formatDataCustomer);
-    // const resultAccount = await accountApi.EditAccount(
-    //   formatDataAccount,
-    //   token
-    // );
     if (resultCustomer.status === 200) {
       console.log(resultCustomer);
       toastSuccess("Edit Information successfully");

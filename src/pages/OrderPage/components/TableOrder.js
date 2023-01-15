@@ -44,6 +44,7 @@ import orderApi from "../../../utils/productApiComponent/orderApi";
 import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 import { selectOrderItems } from "../../../selectors/orderSelector";
 import transportApi from "../../../utils/productApiComponent/transportFee";
+
 const TableOrder = () => {
   const dispatch = useDispatch();
   const orderItems = useSelector(selectOrderItems);
@@ -100,7 +101,7 @@ const TableOrder = () => {
       let itemOfShopOrder = NewArray.filter((el2) => {
         return el2.productId === el.id;
       });
-      console.log(itemOfShopOrder);
+
       const formatOrder = {
         estimateDeliveryTime: "12/12/2022-15/12/2022",
         transportFee: 10000,
@@ -173,11 +174,6 @@ const TableOrder = () => {
                     {
                       /*map function here */ itemOfShop.map((item, id) => {
                         const { productImage } = item;
-                        console.log(TotalItemOfShop(itemOfShop));
-                        // const CheckItemSelection = checked.some((checkItem) =>
-                        //   checkItem.id === item.id ? true : false
-                        // );
-
                         return (
                           <Wrap key={id}>
                             <Flexbox alignItems="center">

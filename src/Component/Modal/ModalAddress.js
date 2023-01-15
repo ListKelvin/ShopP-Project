@@ -41,7 +41,7 @@ const ModalAddress = (props) => {
   const [newAddress, setNewAddress] = React.useState([
     ...customer?.placeOfDelivery,
   ]);
-
+  console.log(newAddress);
   const handleProvinceChange = (event) => {
     const { value } = event.target;
 
@@ -74,7 +74,7 @@ const ModalAddress = (props) => {
     let provinceName = TINH_DATA.find((el) => el.code === province);
     let cityName = HUYEN_DATA.find((el) => el.code === city);
     let districtName = XA_PHUONG_DATA.find((el) => el.code === district);
-    const formatAddress = {
+    return {
       default: false,
       address:
         detail +
@@ -85,7 +85,6 @@ const ModalAddress = (props) => {
         ", " +
         districtName?.name,
     };
-    setNewAddress([...newAddress, { ...formatAddress }]);
   };
 
   return (
@@ -208,8 +207,8 @@ const ModalAddress = (props) => {
       <Flexbox justifyContent="flex-end" style={{ marginTop: "10px" }}>
         <Button
           onClick={() => {
-            GenerateAddress();
-            onSubmit(newAddress);
+            console.log([...newAddress, GenerateAddress()]);
+            onSubmit([...newAddress, GenerateAddress()]);
           }}
         >
           {" "}

@@ -62,16 +62,20 @@ import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import cartApi from "../../../utils/productApiComponent/cartApi";
 import { selectApplyVoucher } from "../../../selectors/voucherSelector";
-import Divider from "../../../Component/Divider";
+
 const TableCart = () => {
   const cartItems = useSelector(selectCartItems);
   const totalItems = useSelector(selectCartTotalBySelected);
   const ApplyVoucher = useSelector(selectApplyVoucher);
   const dispatch = useDispatch();
   const token = LocalStorageUtils.getToken();
+  const [showShopVoucher, setShowShopVoucher] = useState({
+    isOpen: false,
+    id: "",
+  });
   const [checked, setChecked] = useState([]);
   const [show, setShow] = useState(false);
-  const [newPrice, setNewPrice] = useState();
+  // const [newPrice, setNewPrice] = useState();
   const navigate = useNavigate();
 
   //function
@@ -264,10 +268,6 @@ const TableCart = () => {
                       /*map function here */ itemOfShop.map((item, id) => {
                         const { productImage } = item;
 
-                        // const CheckItemSelection = checked.some((checkItem) =>
-                        //   checkItem.id === item.id ? true : false
-                        // );
-
                         return (
                           <Wrap key={id}>
                             <Flexbox alignItems="center">
@@ -377,8 +377,21 @@ const TableCart = () => {
                       padding: "20px",
                     }}
                   >
-                    voucher here
-                    <div className="voucher"></div>
+                    <button
+                      onClick={() =>
+                        setShowShopVoucher({ isOpen: true, id: id })
+                      }
+                    >
+                      add voucher of shop
+                    </button>
+                    <div className="voucher" style={{ position: "relative" }}>
+                      <VoucherOfShop
+                        show={
+                          showShopVoucher.isOpen && showShopVoucher.id === id
+                        }
+                        setShow={setShowShopVoucher}
+                      />
+                    </div>
                   </div>
                 </ShopContainer>
               </Item>
