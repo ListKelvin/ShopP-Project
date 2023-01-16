@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Toast from "./Component/ToastNotification/index";
+
 import { Provider } from "react-redux";
-import RouterComponent from "./Router/index";
+
 import reportWebVitals from "./reportWebVitals";
 import { fetchCategories } from "./slices/categoryReducer";
 import { fetchProduct } from "./slices/productReducer";
 import store from "./store/store";
+import App from "./App";
 // import { PersistGate } from "redux-persist/integration/react";
 // import { persistStore } from "redux-persist";
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -21,8 +22,7 @@ store.dispatch(fetchProduct());
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterComponent />
-      <Toast />
+      <App />
     </Provider>
   </React.StrictMode>
 );

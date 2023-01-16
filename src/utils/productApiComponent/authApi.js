@@ -46,6 +46,22 @@ const authApi = {
         return err.response;
       });
   },
+  getRefreshToken: async () => {
+    const token = LocalStorageUtils.getToken();
+    const endpoint = "/auth/refresh";
+    return await get(endpoint, {}, { "content-type": "application/json" })
+      .then((res) => {
+        console.log("line 54: ", res);
+        return res;
+      })
+      .catch((err) => {
+        console.log(err.response);
+        {
+          const mute = err;
+        }
+        return err.response;
+      });
+  },
 };
 
 export default authApi;

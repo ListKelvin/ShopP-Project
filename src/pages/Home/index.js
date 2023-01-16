@@ -22,6 +22,7 @@ import {
   fetchDiscountVoucher,
 } from "../../slices/voucherSlice";
 import { fetchOrderListOfThreeStatus } from "../../slices/orderReducer";
+import authApi from "../../utils/productApiComponent/authApi";
 const Home = () => {
   const dispatch = useDispatch();
   const AllProducts = useSelector(selectProducts);
@@ -60,6 +61,9 @@ const Home = () => {
       dispatch(fetchShopVoucherOfUser());
       dispatch(fetchFreeShipVoucher());
     }
+    return function cleanup() {
+      authApi.getRefreshToken();
+    };
   }, [dispatch, token]);
 
   return (

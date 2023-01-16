@@ -21,6 +21,7 @@ import * as Yup from "yup";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import ModalForgotPassword from "../../Component/Modal/ModalForgotPassword";
 import { toastWarning } from "../../Component/ToastNotification";
+import { readCookie } from "../../utils/cookie.utils";
 const SignInComponent = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
@@ -73,9 +74,9 @@ const SignInComponent = () => {
       if (res.data?.customer === null) {
         console.log("run");
         navigate("/info");
-        window.location.reload();
+        // window.location.reload();
       } else {
-        window.location.reload();
+        // window.location.reload();
       }
     });
 

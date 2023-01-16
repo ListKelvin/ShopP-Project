@@ -5,6 +5,7 @@ import AuthService from "../services/auth.service";
 import { Navigate } from "react-router-dom";
 import { toastWarning } from "../Component/ToastNotification";
 import LocalStorageUtils from "../utils/LocalStorageUtils";
+import { readCookie } from "../utils/cookie.utils";
 const user = JSON.parse(localStorage.getItem("user"));
 
 export const register = createAsyncThunk(
@@ -36,6 +37,7 @@ export const login = createAsyncThunk(
     try {
       const data = await AuthService.login(formdata);
       console.log("line 38:", data);
+
       LocalStorageUtils.setItem("token", data.data.token);
       return { user: data.data };
     } catch (error) {

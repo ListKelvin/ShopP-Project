@@ -34,7 +34,7 @@ const Modal = (props) => {
 
   return (
     <StyledModal onClick={props.onClose}>
-      <Wrapper>
+      <Wrapper widthNew="700">
         <StyledModalContent onClick={(e) => e.stopPropagation()}>
           <StyledModalHeader gap={4}>
             <StyledModalTitle>{props.title}</StyledModalTitle>

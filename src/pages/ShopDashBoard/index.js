@@ -12,6 +12,8 @@ import Finance from "./Components/Finance";
 import Setting from "./Components/Setting";
 import { ContainerStyled } from "../../Component/layout/styles";
 import { Outlet } from "react-router-dom";
+import { Container } from "@mui/system";
+
 const ShopDashBoard = () => {
   return (
     <>
@@ -39,9 +41,9 @@ const ShopDashBoard = () => {
               </Flexbox>
             </div>
           </DashBoardTop>
-          <ContainerStyled maxWidth={false}>
+          <Container maxWidth={false}>
             <Outlet />
-          </ContainerStyled>
+          </Container>
         </Flexbox>
       </Flexbox>
     </>
