@@ -24,6 +24,7 @@ import AdminLayout from "../Component/layout/adminLayout";
 import AddProductPage from "../pages/AddProductPage";
 import MainPage from "../pages/AdMainPage";
 import ShopProfile from "../pages/ShopProfile";
+import ShopProduct from "../pages/ShopProduct";
 const publicRoute = [
   {
     index: true,
@@ -132,6 +133,13 @@ const shopRoute = [
     index: false,
     path: "addProduct",
     component: <AddProductPage />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "shop_products",
+    component: <ShopProduct />,
     exact: true,
     restrict: true,
   },

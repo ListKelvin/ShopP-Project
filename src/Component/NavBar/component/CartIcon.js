@@ -21,8 +21,8 @@ const CartIcon = () => {
       onClick={toggleIsCartOpen}
     >
       <Badge
-        invisible={cartItems.length === 0 ? true : false}
-        badgeContent={cartItems.length !== 0 && cartItems.length}
+        invisible={cartItems?.length === 0 ? true : false}
+        badgeContent={cartItems?.length !== 0 && cartItems?.length}
         color="error"
       >
         <ShoppingCartIcon />

@@ -9,7 +9,12 @@ import {
 } from "./styleComponents";
 
 const ProductsList = [
-  { id: 1, iconList: <StoreIcon />, func: "All Products", linkTo: "" },
+  {
+    id: 1,
+    iconList: <StoreIcon />,
+    func: "All Products",
+    linkTo: "shop_products",
+  },
   {
     id: 2,
     iconList: <AddCircleIcon />,

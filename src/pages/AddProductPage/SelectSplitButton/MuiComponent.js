@@ -11,23 +11,16 @@ import MenuList from "@mui/material/MenuList";
 import styled from "@emotion/styled";
 import InputLabel from "@mui/material/InputLabel";
 import Flexbox from "../../../Component/Flexbox";
-const options = [
-  "Create a merge commit",
-  "Squash and merge",
-  "Rebase and merge",
-];
 
-export default function SplitButton() {
+export default function SplitButton(props) {
+  const { category, categoryId, action } = props;
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
-
-  const handleClick = () => {
-    console.info(`You clicked ${options[selectedIndex]}`);
-  };
+  const [selectedIndex, setSelectedIndex] = React.useState();
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
+    action(index);
     setOpen(false);
   };
 
@@ -44,13 +37,13 @@ export default function SplitButton() {
   };
 
   return (
-    <Flexbox flexDirection="column">
+    <Flexbox flexDirection="column" gap="10px">
       <InputLabelStyle htmlFor="label" required>
-        Name
+        Category
       </InputLabelStyle>
       <ButtonGroup variant="outlined" ref={anchorRef} aria-label="split button">
-        <ButtonStyled onClick={handleToggle}>
-          {options[selectedIndex]}
+        <ButtonStyled sx={{ width: "50%" }}>
+          {selectedIndex?.name ? selectedIndex?.name : "Select a category"}
         </ButtonStyled>
         <ButtonStyled
           size="small"
@@ -66,6 +59,7 @@ export default function SplitButton() {
       <Popper
         sx={{
           zIndex: 1,
+          minWidth: "30%",
         }}
         open={open}
         anchorEl={anchorRef.current}
@@ -84,14 +78,14 @@ export default function SplitButton() {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu" autoFocusItem>
-                  {options.map((option, index) => (
+                  {category?.data?.map((option, index) => (
                     <MenuItem
-                      key={option}
+                      key={option.id}
                       //   disabled={index === 2}
-                      selected={index === selectedIndex}
-                      onClick={(event) => handleMenuItemClick(event, index)}
+                      selected={index + 1 === selectedIndex}
+                      onClick={(event) => handleMenuItemClick(event, option)}
                     >
-                      {option}
+                      {option.name}
                     </MenuItem>
                   ))}
                 </MenuList>

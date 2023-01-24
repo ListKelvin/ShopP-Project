@@ -3,18 +3,51 @@ import Wrapper from "../../Component/Wrapper";
 import { DivStyle } from "./styled";
 import TextField from "@mui/material/TextField";
 import styled from "@emotion/styled";
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
+import productApi from "../../utils/productApiComponent/productApi";
 import InputLabel from "@mui/material/InputLabel";
 import SplitButton from "./SelectSplitButton/MuiComponent";
 import Flexbox from "../../Component/Flexbox";
+import Button from "../../Component/Button";
+import { IncreaseDecreaseInput } from "./SelectSplitButton/IncreaseDecreaseInput";
+import UploadImg from "./SelectSplitButton/UploadImg";
+import CreateVariants from "./SelectSplitButton/CreateVariants";
+import { useSelector } from "react-redux";
+import LocalStorageUtils from "../../utils/LocalStorageUtils";
+import { selectCategories } from "../../selectors/categorySelect";
 const CHARACTER_LIMIT = 1000;
 const AddProductPage = () => {
+  const token = LocalStorageUtils.getToken();
+  const category = useSelector(selectCategories);
+  const [amount, setAmount] = useState(1);
+  const [quantity, setQuantity] = useState(1);
+  const [categoryId, setCategoryId] = useState();
+  const [files, setFiles] = useState([]);
   const [state, setState] = useState(0);
+  const [product, setProduct] = useState({
+    name: "",
+    detail: "",
+  });
+  const handleChangeProduct = (props) => (e) => {
+    setProduct({ ...product, [props]: e.target.value });
+  };
+  console.log(categoryId);
+  const onSubmit = async () => {
+    const formatDate = {
+      name: product.name,
+      detail: product.detail,
+      categoryId: categoryId?.id?.toString(),
+      amount: amount,
+      quantity: quantity,
+      productImages: files,
+    };
+    console.log(formatDate);
+    const result = await productApi.postProduct(formatDate, token);
+    console.log("line 43", result);
+  };
   return (
-    <Wrapper widthNew="1100">
+    <Wrapper minHeight="100vh" widthNew="1100">
       <DivStyle>
-        <Flexbox flexDirection="column">
+        <Flexbox flexDirection="column" gap="10px">
           <InputLabelStyle htmlFor="label" required>
             Name
           </InputLabelStyle>
@@ -22,23 +55,43 @@ const AddProductPage = () => {
             id="label"
             fullWidth
             required
+            onChange={handleChangeProduct("name")}
             inputProps={{
               classes: {
                 root: classes.textField,
               },
             }}
             placeholder="Please enter product name"
-            //   error
-            //   onChange={(e) => {
-            //     setEmail(e.target.value);
-            //   }}
           />
         </Flexbox>
 
-        <Flexbox style={{ marginTop: "10px" }}>
-          <SplitButton />
+        <Flexbox
+          style={{ marginTop: "10px" }}
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <SplitButton
+            category={category}
+            action={setCategoryId}
+            categoryId={categoryId}
+          />
+          <IncreaseDecreaseInput
+            name="Quantity"
+            action={setQuantity}
+            value={quantity}
+          />
+          <IncreaseDecreaseInput
+            name="Amount"
+            action={setAmount}
+            value={amount}
+          />
         </Flexbox>
-        <Flexbox flexDirection="column" style={{ marginTop: "10px" }}>
+        <Flexbox
+          flexDirection="column"
+          style={{ marginTop: "10px" }}
+          gap="10px"
+        >
           <InputLabelStyle htmlFor="description" required>
             Description
           </InputLabelStyle>
@@ -52,15 +105,22 @@ const AddProductPage = () => {
                 root: classes.textField,
               },
             }}
+            onChange={handleChangeProduct("detail")}
             multiline
-            minRows={5}
+            minRows={7}
             placeholder="Please enter a detailed description of the product"
-            helperText=<span>{`${state}/${CHARACTER_LIMIT}`}</span>
-            //   error
-            //   onChange={(e) => {
-            //     setEmail(e.target.value);
-            //   }}
+            helperText=<span
+              style={{ textAlign: "end" }}
+            >{`${state}/${CHARACTER_LIMIT}`}</span>
           />
+        </Flexbox>
+        {/* Upload 5 img section */}
+        <UploadImg setFiles={setFiles} files={files} />
+        {/* create variant of product */}
+        <CreateVariants />
+        <Flexbox justifyContent="flex-end" gap="10px">
+          <Button buttonType={"light"}> cancel</Button>
+          <Button onClick={onSubmit}> add</Button>
         </Flexbox>
       </DivStyle>
     </Wrapper>

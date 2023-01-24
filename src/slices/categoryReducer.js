@@ -8,8 +8,6 @@ export const initialState = {
   isLoading: false,
   isError: false,
   categories: [],
-
-  //   isSingleLoading: false,
 };
 
 const urlGetCategories = API_URL + "/category/list-all";

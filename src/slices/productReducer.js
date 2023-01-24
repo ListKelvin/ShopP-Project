@@ -2,10 +2,13 @@ import { injectReducer } from "../store/store";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_URL } from "../config/config";
 import axios from "axios";
+import productApi from "../utils/productApiComponent/productApi";
+import LocalStorageUtils from "../utils/LocalStorageUtils";
 export const initialState = {
   isLoading: false,
   isError: false,
   products: [],
+  shopProducts: [],
   featureProducts: [],
   isSingleLoading: false,
   singleProduct: {},
@@ -28,6 +31,21 @@ export const fetchSingleProduct = createAsyncThunk(
     const response = await axios.get(SINGLEPRODUCT_URL);
 
     return response.data;
+  }
+);
+export const fetchShopProduct = createAsyncThunk(
+  "product/fetchShopProduct",
+  async (shopId) => {
+    // thunkApi.dispatch(setDiscountStatus(STATUS.LOADING));
+    try {
+      const res = await productApi.getProductByShopId(shopId);
+      const data = await res.data.data;
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      return error.response.data.message;
+    }
   }
 );
 export const slice = createSlice({
@@ -105,6 +123,9 @@ export const slice = createSlice({
       .addCase(fetchSingleProduct.fulfilled, (state, action) => {
         state.isSingleLoading = false;
         state.singleProduct = action.payload;
+      })
+      .addCase(fetchShopProduct.fulfilled, (state, action) => {
+        state.shopProducts = action.payload;
       });
   },
 });

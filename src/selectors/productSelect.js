@@ -17,3 +17,7 @@ export const selectIsError = createSelector(
   [selectDomain],
   (state) => state.isError
 );
+export const selectShopProducts = createSelector(
+  [selectDomain],
+  (state) => state.shopProducts
+);

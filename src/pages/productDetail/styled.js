@@ -33,6 +33,13 @@ export const ProductName = styled.h2`
   font-size: 18px;
   line-height: 25px;
   color: #55abab;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
 `;
 
 export const ProductEvaluated = styled.div`
@@ -61,6 +68,7 @@ export const ShopVoucherContainer = styled.div`
   display: flex;
   position: relative;
   align-items: flex-start;
+
   & .title {
     color: #757575;
     width: 120px;

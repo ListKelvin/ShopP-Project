@@ -13,38 +13,6 @@ import { usePersistedState } from "../../utils/UsePersistedState";
 const UserProfilePage = () => {
   const user = useSelector(selectUser);
   const token = LocalStorageUtils.getToken();
-  // const [customer2, setCustomer2] = useState({
-  //   name: "",
-  //   gender: "",
-  //   dob: "",
-  //   placeOfDelivery: "",
-  //   bio: "",
-  //   phone: "",
-  //   email: "",
-  //   avatar: "",
-  // });
-
-  // useEffect(() => {
-  //   const getUserInfo = async () => {
-  //     const result = await accountApi.getOwnUser(token).then((res) => {
-  //       return res;
-  //     });
-  //     console.log("line 32: ", result);
-
-  //     await setCustomer2({
-  //       name: result.customer?.name || "",
-  //       gender: result.customer?.gender || "",
-  //       dob: result.customer?.dob || "",
-  //       placeOfDelivery: result.customer?.placeOfDelivery || "",
-  //       bio: result.customer?.bio || "",
-  //       phone: result.phone || "",
-  //       email: result.email || "",
-  //       avatar: result.customer?.avatar || "",
-  //     });
-  //   };
-
-  //   getUserInfo();
-  // }, [token]);
 
   const [customer, setCustomer] = useState({
     name: user.customer?.name || "",

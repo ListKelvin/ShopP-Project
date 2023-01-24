@@ -7,7 +7,7 @@ import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceR
 import FormResetPassword from "./components/FormResetPassword";
 const ResetPassword = () => {
   const location = useLocation();
-  console.log(location);
+
   return (
     <Wrapper>
       <Flexbox

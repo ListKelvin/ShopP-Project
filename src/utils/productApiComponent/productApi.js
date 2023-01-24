@@ -30,6 +30,18 @@ const productApi = {
       console.log(err)
     );
   },
+  postProduct: async (formData, token) => {
+    const endpoint = "/product/new";
+    return await post(
+      endpoint,
+      formData,
+      {},
+      { Authorization: token, "content-type": "multipart/form-data" }
+    ).catch((err) => {
+      console.log(err);
+      return err.response;
+    });
+  },
 };
 
 export default productApi;
