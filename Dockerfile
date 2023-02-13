@@ -4,3 +4,4 @@ COPY package.json .
 RUN npm install
 COPY . .
 COPY .env.deploy .env
+CMD ["npm", "start"]

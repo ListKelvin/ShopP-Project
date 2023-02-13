@@ -11,7 +11,7 @@ const AppAppBar = () => {
     { label: "Product", path: "/productPage" },
     { label: "Support", path: "/support" },
     { label: "Contact", path: "/contact" },
-    { label: "cartPage", path: "/cart_page" },
+    { label: "cartPage", path: "/cart" },
   ];
 
   return (

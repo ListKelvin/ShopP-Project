@@ -13,7 +13,8 @@ const fakeDate = [
   { Quantity: "1000" },
 ];
 const Detail = ({ product }) => {
-  const { shop } = product;
+  // const { product } = state;
+
   return (
     <StyleDetailWrapper>
       <Flexbox flexDirection="column">

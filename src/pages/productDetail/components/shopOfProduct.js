@@ -13,6 +13,7 @@ import Button from "../../../Component/Button";
 import Avatar from "@mui/material/Avatar";
 import { API_URL } from "../../../config/config";
 const ShopOfProduct = ({ product }) => {
+  // const { product } = state;
   const { shop } = product;
   const navigate = useNavigate();
   return (

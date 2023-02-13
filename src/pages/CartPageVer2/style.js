@@ -187,6 +187,7 @@ export const DeleteProduct = styled(SelectAllProduct)`
 
 export const VoucherBtn = styled(SelectAllProduct)`
   display: flex;
+  margin-right: 1.875rem;
   color: blue;
   opacity: 0.5;
   font-weight: 600;
@@ -203,4 +204,25 @@ export const WrapBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+export const ShopPContainers = styled.div`
+  grid-column-start: 2;
+  grid-column-end: 4;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0;
+`;
+export const ChooseVoucher = styled.div`
+  margin-right: 1.875rem;
+  text-transform: capitalize;
+  color: #05a;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  cursor: pointer;
+`;
+export const DividerDashed = styled.div`
+  grid-column-start: 1;
+  grid-column-end: 4;
+
+  border-top: 1px dashed rgba(0, 0, 0, 0.09);
 `;

@@ -1,6 +1,7 @@
 import ProductCard from "../../Component/ProductCard";
 import { ProductWrapper } from "./style";
-import { useEffect, useState } from "react";
+import { Wrapper } from "../../Component/ProductList/style";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SuggestContainer from "./Components/CategoryFilter";
 import Branding from "./Components/Branding";
@@ -9,18 +10,30 @@ import FlashSale from "./Components/FlashSale";
 import { Box } from "@mui/material";
 import CategoryContainer from "../../pages/Home/Components/CategoryContainer";
 import Brand from "../../assets/Branding/image 69.png";
-import { ProductLink } from "./style";
+import { STATUS } from "../../utils/status";
 import { setUser, deleteUser } from "../../slices/user";
-import GridView from "../../Component/ProductList/ProductList";
+import FullScreenLoader from "../../Component/FulllScreenLoader/FullScreenLoader";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
-import Modal from "../../Component/Modal/Modal";
-import { toastError } from "../../Component/ToastNotification";
 import cartApi from "../../utils/productApiComponent/cartApi";
+import { setCart } from "../../slices/cartReducer";
+import {
+  fetchShopVoucherOfUser,
+  fetchFreeShipVoucher,
+  fetchDiscountVoucher,
+} from "../../slices/voucherSlice";
+import { fetchOrderListOfThreeStatus } from "../../slices/orderReducer";
+import authApi from "../../utils/productApiComponent/authApi";
 const Home = () => {
   const dispatch = useDispatch();
   const AllProducts = useSelector(selectProducts);
 
   const token = LocalStorageUtils.getToken();
+  const getCart = async () => {
+    const result = await cartApi.getCart();
+    const cart = JSON.parse(result.data.data.products);
+    LocalStorageUtils.setItem("cartItems", JSON.stringify(cart));
+    dispatch(setCart(cart));
+  };
 
   useEffect(() => {
     const getUser = async () => {
@@ -41,9 +54,17 @@ const Home = () => {
       dispatch(setUser(simplifyUser));
     };
     if (token) {
+      getUser();
+      getCart();
+      dispatch(fetchOrderListOfThreeStatus());
+      dispatch(fetchDiscountVoucher());
+      dispatch(fetchShopVoucherOfUser());
+      dispatch(fetchFreeShipVoucher());
     }
-    getUser();
-  }, []);
+    return function cleanup() {
+      authApi.getRefreshToken();
+    };
+  }, [dispatch, token]);
 
   return (
     <>
@@ -54,9 +75,10 @@ const Home = () => {
       </Box>
       <SuggestContainer />
       <CategoryContainer />
-      <ProductWrapper>
-        {AllProducts[0] !== undefined
-          ? AllProducts[0].map((el, index) => {
+      <Wrapper className="section">
+        <div className="container grid grid-three-column">
+          {AllProducts[0] !== undefined ? (
+            AllProducts[0].map((el, index) => {
               const { amount, name, star, sold, productImage, id } = el;
 
               return (
@@ -71,10 +93,14 @@ const Home = () => {
                 />
               );
             })
-          : ""}
-      </ProductWrapper>
+          ) : (
+            <FullScreenLoader />
+          )}
+        </div>
+      </Wrapper>
     </>
   );
 };
 
 export default Home;
+//

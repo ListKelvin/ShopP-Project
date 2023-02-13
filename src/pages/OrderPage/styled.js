@@ -212,7 +212,9 @@ export const CartFooterContainer = styled.div`
   grid-column-gap: 10px;
   //   justify-content: flex-end;
 `;
-
+export const ShopPVoucherContainer = styled(CartFooterContainer)`
+  width: 100%;
+`;
 export const ToolFooter = styled.div`
   padding: 12px 20px;
   grid-column-start: 1;
@@ -304,14 +306,21 @@ export const GridAlignRow3 = styled(GridAlign)`
   grid-row-start: 19;
   grid-row-end: 20;
 `;
+export const GridAlignRow4 = styled(GridAlign)`
+  grid-row-start: 20;
+  grid-row-end: 21;
+`;
 export const GridAlignColumn3 = styled(GridAlignColumn)`
-  grid-row-start: 19;
-  grid-row-end: 20;
+  grid-row-start: 20;
+  grid-row-end: 21;
   height: 50px;
   font-size: 28px;
   //   color: #55abab;
 `;
-
+export const GridAlignColumn4 = styled(GridAlignColumn)`
+  grid-row-start: 19;
+  grid-row-end: 20;
+`;
 export const WrapStyled = styled.div`
   //   background-color: #fafdff;
   display: flex;

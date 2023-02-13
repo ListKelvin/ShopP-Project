@@ -25,20 +25,6 @@ export const slice = createSlice({
       state.user = initialState.user;
     },
   },
-  //   extraReducers: (builder) => {
-  //     builder
-  //       .addCase(fetchCategories.pending, (state, action) => {
-  //         state.isLoading = true;
-  //       })
-  //       .addCase(fetchCategories.fulfilled, (state, action) => {
-  //         state.isLoading = false;
-  //         state.categories = action.payload;
-  //       })
-  //       .addCase(fetchCategories.rejected, (state, action) => {
-  //         state.isLoading = false;
-  //         state.isError = true;
-  //       });
-  //   },
 });
 injectReducer(name, slice.reducer);
 export const { setUser, deleteUser } = slice.actions;

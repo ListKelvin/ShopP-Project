@@ -2,21 +2,22 @@ import React, { useEffect, useState } from "react";
 
 import CategoryCard from "./CategoryCard";
 import { useSelector } from "react-redux";
-
+import FullScreenLoader from "../../../Component/FulllScreenLoader/FullScreenLoader";
 import {
   selectCategories,
   selectIsLoading,
   selectIsError,
 } from "../../../selectors/categorySelect";
 
-const CategoryContainer = () => {
+const CategoryContainer = ({ status }) => {
   const isLoading = useSelector(selectIsLoading);
   const isError = useSelector(selectIsError);
   const categories = useSelector(selectCategories);
+  // if (status === STATUS.LOADING) return <FullScreenLoader />;
 
   let content;
   if (isLoading === true) {
-    content = <p>"Loading..."</p>;
+    content = <FullScreenLoader />;
   } else if (isLoading === false) {
     content = categories.data.map((el) => {
       return <CategoryCard key={el.id} label={el.name} img={el.image} />;

@@ -4,10 +4,15 @@ import { up, down, between } from "styled-breakpoints";
 export const Wrapper = styled.section`
   padding: 2rem 0;
   transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .grid-three-column {
     grid-template-columns: repeat(6, 1fr);
   }
-
+  .grid-eight-column {
+    grid-template-columns: repeat(6, 1fr);
+  }
   .container {
     display: grid;
     max-width: 120rem;

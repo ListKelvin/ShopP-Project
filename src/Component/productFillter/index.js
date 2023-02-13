@@ -26,35 +26,30 @@ import GridView from "../ProductList/ProductList";
 import productApi from "../../utils/productApiComponent/productApi";
 import { selectProducts } from "../../selectors/productSelect";
 import { useSelector, useDispatch } from "react-redux";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import {
-  loadFilterProduct,
-  updateFilterValues,
-  filterProducts,
-} from "../../slices/filterReducer";
 import { clearFilterProducts } from "../../slices/filterReducer";
 import { selectCategories } from "../../selectors/categorySelect";
 import Rating from "@mui/material/Rating";
 import { selectFilterProductsApi } from "../../selectors/filterSelector";
-import { updateFilterProductByPrice } from "../../slices/filterReducer";
+
 const ProductFilter = () => {
   const [userinfo, setUserInfo] = useState({
     category: [],
     response: [],
   });
+  const [isFetching, setIsFetching] = useState(false);
   const [age, setAge] = useState("ASC");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
   const [star, setStar] = useState({
     starValue: [],
     response: [],
   });
+
+  const [index, setIndex] = useState(0);
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
   const min = 1;
   const max = 1000000;
   if (star.response.length !== 0) {
@@ -87,6 +82,7 @@ const ProductFilter = () => {
         category: [...category, parseInt(id)],
         response: [...category, parseInt(id)],
       });
+      dispatch(clearFilterProducts());
     }
     // Case 2  : The user unchecks the box
     else {
@@ -107,12 +103,10 @@ const ProductFilter = () => {
   //change min max
   const handleChangeMax = (e) => {
     const value = Math.max(min, Math.min(max, Number(e.target.value)));
-    console.log("line 100", value);
     setMaxRange(value);
   };
   const handleChangeMin = (e) => {
     const value = Math.max(min, Math.min(max, Number(e.target.value)));
-    console.log("line 105", value);
     setMinRange(value);
   };
 
@@ -129,11 +123,6 @@ const ProductFilter = () => {
       },
     };
     dispatch(FilterProductApi(formatFilterByPrice));
-    // const result = await productApi.filterProductByPrice(product);
-    // if (result.status === 200) {
-    //   console.log(result.data.data);
-    //   dispatch(updateFilterProductByPrice(result.data.data));
-    // }
   };
 
   useEffect(() => {
@@ -143,11 +132,13 @@ const ProductFilter = () => {
         skip: 0,
         categoryIds: userinfo.response,
       };
+
       dispatch(FilterProductApi(formatCategories));
     } else {
       dispatch(loadFilterProductAPi(productItems[0]));
     }
   }, [userinfo.response, dispatch, productItems]);
+  console.log(index);
   useEffect(() => {
     if (star.response.length !== 0) {
       let maxNum = star.response.reduce((prev, current) => {
@@ -157,19 +148,34 @@ const ProductFilter = () => {
       let minNum = star.response.reduce((prev, current) => {
         return Math.min(prev, current);
       });
+
+      const onScroll = function () {
+        if (
+          window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+          !isFetching
+        ) {
+          console.log("you're at the bottom of the page");
+          setIsFetching(true);
+          setIndex(index + 1);
+        }
+      };
       const formatStar = {
         take: 5,
-        skip: 0,
+        skip: index,
         star: {
           min: minNum,
           max: maxNum,
         },
       };
+
       dispatch(FilterProductApi(formatStar));
+      window.addEventListener("scroll", onScroll);
+      return () => window.removeEventListener("scroll", onScroll);
     } else {
       dispatch(loadFilterProductAPi(productItems[0]));
     }
-  }, [star.response, dispatch, productItems]);
+  }, [star.response, dispatch, productItems, index]);
+
   return (
     <>
       <h1>Product</h1>
@@ -178,7 +184,7 @@ const ProductFilter = () => {
           <FilterTitle>Search Filter</FilterTitle>
           <Accordion>
             <TypeofFilter label="By Category">
-              {allCategories?.data.map((el, index) => {
+              {allCategories?.data?.map((el, index) => {
                 return (
                   <WrapperFlexStyled key={index}>
                     <FilterCategory
@@ -213,7 +219,7 @@ const ProductFilter = () => {
               </ApplyFlex>
             </TypeofFilter>
             <TypeofFilter label="By Star">
-              {allCategories?.data.map((el, index) => {
+              {allCategories?.data?.map((el, index) => {
                 return (
                   <WrapperFlexStyled key={index}>
                     <FilterCategory

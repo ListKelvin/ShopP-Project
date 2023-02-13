@@ -6,8 +6,6 @@ export const initialState = {
   filter_products: [],
   all_products: [],
   filterProductsApi: [],
-
-  sorting_value: "lowest",
   filters: {
     text: "",
     category: "all",
@@ -26,7 +24,7 @@ export const FilterProductApi = createAsyncThunk(
 
     try {
       const result = await axios.post(endpoint, product);
-      console.log(result);
+
       return result.data.data;
     } catch (error) {
       console.log(error.response.data);
@@ -42,7 +40,6 @@ export const slice = createSlice({
   initialState,
   reducers: {
     loadFilterProductAPi: (state, action) => {
-      console.log(action.payload);
       state.filterProductsApi = action.payload;
     },
     loadFilterProduct: (state, action) => {
@@ -52,12 +49,10 @@ export const slice = createSlice({
     filterProducts: (state, action) => {
       let { all_products } = state;
       let tempFilterProduct = [...all_products];
-
       state.filter_products = tempFilterProduct;
     },
     updateFilterValues: (state, action) => {
       const { name, value } = action.payload;
-
       state.filters = { ...state.filters, [name]: value };
     },
     clearFilterProducts: (state, action) => {

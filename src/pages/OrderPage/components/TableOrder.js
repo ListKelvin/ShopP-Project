@@ -25,30 +25,36 @@ import {
   GridAlignColumn3,
   GridAlignRow3,
   WrapStyled,
+  ShopPVoucherContainer,
+  GridAlignRow4,
+  GridAlignColumn4,
 } from "../styled";
 import { toastSuccess } from "../../../Component/ToastNotification";
 import Flexbox from "../../../Component/Flexbox";
 import { useNavigate } from "react-router-dom";
-
+import { selectApplyVoucher } from "../../../selectors/voucherSelector";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 import { useSelector, useDispatch } from "react-redux";
-
+import { CalculatePriceOfOrder } from "../../../slices/orderReducer";
 import { API_URL } from "../../../config/config";
 import Button from "../../../Component/Button";
 import orderApi from "../../../utils/productApiComponent/orderApi";
 // import CartFooter from "./CartFooter";
 import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 import { selectOrderItems } from "../../../selectors/orderSelector";
+import transportApi from "../../../utils/productApiComponent/transportFee";
+
 const TableOrder = () => {
   const dispatch = useDispatch();
   const orderItems = useSelector(selectOrderItems);
+  const applyVoucher = useSelector(selectApplyVoucher);
   //function
   function unique(array) {
     return array.reduce(function (results, currentItem) {
       //using array find
       return results.find(function (result) {
-        return currentItem.shop.id === result.shop.id;
+        return currentItem.shopId === result.shopId;
       })
         ? results
         : [...results, currentItem];
@@ -70,16 +76,23 @@ const TableOrder = () => {
     );
     return (total = parseFloat(total.toFixed(3)));
   };
+  const totalOrder = () => {
+    let freeShipVoucherIds = applyVoucher[0]?.priceDiscount;
+    let subtotal = CalculatePriceOfOrder(
+      TotalItemOfShop(orderItems),
+      applyVoucher[1]?.priceDiscount
+    );
 
+    return subtotal + 1000;
+  };
   let ShopInOrder = unique(orderItems);
   const GenerateOrders = () => {
     let ShopInOrder2 = unique(orderItems);
     let NewArray = orderItems.map((orderItem) => {
       let formateData = {
         productId: orderItem.id,
-        price: orderItem.amount,
         quantity: orderItem.cartQuantity,
-        additionalInfo: "no sugar",
+        additionalInfo: orderItem.additionalInfo.toString(),
       };
       return formateData;
     });
@@ -88,13 +101,13 @@ const TableOrder = () => {
       let itemOfShopOrder = NewArray.filter((el2) => {
         return el2.productId === el.id;
       });
-      console.log(itemOfShopOrder);
+
       const formatOrder = {
         estimateDeliveryTime: "12/12/2022-15/12/2022",
         transportFee: 10000,
         shoppingUnitId: 1,
-        voucherIds: ["70adc07c-74aa-4aa0-a5a6-0677002811dd"],
-        shopId: el.shop.id,
+        shopVoucherId: "",
+        shopId: el.shopId,
         orderProducts: itemOfShopOrder,
       };
 
@@ -102,21 +115,28 @@ const TableOrder = () => {
     });
     return Orders;
   };
+  const calculateCoupons = () => {};
   const PostOrder = async () => {
     let order = GenerateOrders();
+    console.log(order);
     const formatData = {
       address: "Thu Duc, Ho Chi Minh City",
       paymentId: 1,
+      appVoucherId: applyVoucher[1]?.id ? applyVoucher[1]?.id?.toString() : "",
+      freeShipVoucherId: applyVoucher[0]?.id ? applyVoucher[0]?.id : "",
       orders: order,
     };
-    console.log(order);
+    console.log(formatData);
     const results = await orderApi.createOrder(formatData);
     console.log(results);
     if (results.status === 200) {
       toastSuccess(results.data.message);
     }
   };
-
+  // const getTransportFee = async () => {
+  //   const res = await transportApi.getTransportFee();
+  // };
+  // useEffect(() => {}, []);
   return (
     <ContainerV2>
       <Flexbox flexDirection="column" gap="10px" alignItems="flex-end">
@@ -140,25 +160,20 @@ const TableOrder = () => {
           /* map function shop here */
           ShopInOrder.map((el, id) => {
             let itemOfShop = orderItems.filter(
-              (el2) => el2.shop?.id === el.shop?.id
+              (el2) => el2.shopId === el.shopId
             );
 
             return (
               <Item key={id}>
                 <ShopContainer>
                   <ShopInfo>
-                    <div> {el.shop?.name}</div>
+                    <div> {el.shopName}</div>
                   </ShopInfo>
                   <div style={{ position: "relative", paddingBottom: "1px" }}>
                     {/* Item Section  */}
                     {
                       /*map function here */ itemOfShop.map((item, id) => {
                         const { productImage } = item;
-                        console.log(TotalItemOfShop(itemOfShop));
-                        // const CheckItemSelection = checked.some((checkItem) =>
-                        //   checkItem.id === item.id ? true : false
-                        // );
-
                         return (
                           <Wrap key={id}>
                             <Flexbox alignItems="center">
@@ -166,7 +181,7 @@ const TableOrder = () => {
                                 <Flexbox alignItems="center" gap="10px">
                                   <LinkImg>
                                     <img
-                                      src={`${API_URL}/file/${productImage[0].localFile.filename}`}
+                                      src={`${API_URL}/file/${productImage.localFile.filename}`}
                                       alt={item.name}
                                     />
                                   </LinkImg>
@@ -238,9 +253,22 @@ const TableOrder = () => {
           <GridAlign> Total product:</GridAlign>
           <GridAlignColumn> ${TotalItemOfShop(orderItems)}</GridAlignColumn>
           <GridAlignRow> Shipping fee:</GridAlignRow>
-          <GridAlignColumn2>$3280000</GridAlignColumn2>
-          <GridAlignRow3> Total:</GridAlignRow3>
-          <GridAlignColumn3> ${TotalItemOfShop(orderItems)}</GridAlignColumn3>
+          <GridAlignColumn2>$1000</GridAlignColumn2>
+
+          {applyVoucher[1]?.priceDiscount && (
+            <>
+              <GridAlignRow3> Total voucher discount:</GridAlignRow3>
+              <GridAlignColumn4>
+                - $
+                {CalculatePriceOfOrder(
+                  TotalItemOfShop(orderItems),
+                  applyVoucher[1]?.priceDiscount
+                )}
+              </GridAlignColumn4>
+            </>
+          )}
+          <GridAlignRow4>Total: </GridAlignRow4>
+          <GridAlignColumn3> ${totalOrder()}</GridAlignColumn3>
           <ToolFooter alignItems="center" flexDirection="row">
             <VoucherBtn>
               Payment

@@ -8,10 +8,7 @@ import TransferList from "./component/Test";
 import cartApi from "../../utils/productApiComponent/cartApi";
 const CartPageV2 = () => {
   const cartItems = useSelector(selectCartItems);
-  const getCart = async () => {
-    const result = await cartApi.getCart();
-    console.log(result);
-  };
+
   return (
     <>
       <TitleCartPage />

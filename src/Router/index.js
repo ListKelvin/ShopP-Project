@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import MenuSetting from "../Component/MenuSetting";
 import ProductFilter from "../Component/productFillter";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
@@ -16,14 +15,16 @@ import UserAddressPage from "../pages/UserAddress/UserAddress";
 import UserProfilePage from "../pages/UserProfile";
 import ShopRegister from "../pages/ShopRegister/ShopRegister";
 import ScrollToTop from "../utils/ScrollToTop";
-import UserSetting from "../pages/UserSetting";
-import ChangePassword from "../Component/MenuSetting/Components/ChangePassword";
 import SettingRoute from "./settingRoute";
 import ShopPage from "../pages/shopPage";
-import ShopDashBoard from "../pages/ShopDashBoard";
 import ResetPassword from "../pages/ResetPassword";
 import CartPageV2 from "../pages/CartPageVer2";
-import AdminDashBoard from "../pages/AdminDashBoard/index";
+import ShopLayout from "../Component/layout/shopLayout";
+import AdminLayout from "../Component/layout/adminLayout";
+import AddProductPage from "../pages/AddProductPage";
+import MainPage from "../pages/AdMainPage";
+import ShopProfile from "../pages/ShopProfile";
+import ShopProduct from "../pages/ShopProduct";
 const publicRoute = [
   {
     index: true,
@@ -98,13 +99,6 @@ const publicRoute = [
   },
   {
     index: false,
-    path: "shop_dash_board",
-    component: <ShopDashBoard />,
-    exact: true,
-    restrict: true,
-  },
-  {
-    index: false,
     path: "cart",
     component: <CartPageV2 />,
     exact: true,
@@ -114,13 +108,6 @@ const publicRoute = [
     index: false,
     path: "orders",
     component: <OrderPage />,
-    exact: true,
-    restrict: true,
-  },
-  {
-    index: false,
-    path: "admin_dash_board",
-    component: <AdminDashBoard />,
     exact: true,
     restrict: true,
   },
@@ -134,13 +121,45 @@ const privateRoute = [
     restrict: true,
   },
 ];
-
+const shopRoute = [
+  {
+    index: true,
+    path: "shop_profile",
+    component: <ShopProfile />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "addProduct",
+    component: <AddProductPage />,
+    exact: true,
+    restrict: true,
+  },
+  {
+    index: false,
+    path: "shop_products",
+    component: <ShopProduct />,
+    exact: true,
+    restrict: true,
+  },
+];
+const adminRoute = [
+  {
+    path: "admin_dashboard",
+    component: <MainPage />,
+    exact: true,
+    restrict: true,
+  },
+];
 const RouterComponent = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
         <Route exact path="/" element={<Navigate to="home" />} />
+        <Route exact path="/shop" element={<Navigate to="shop_profile" />} />
+        {/* customer section*/}
         <Route exact element={<PrivateRoute />}>
           {privateRoute.map((route) => (
             <Route
@@ -152,9 +171,44 @@ const RouterComponent = () => {
             ></Route>
           ))}
         </Route>
+        {/* user section*/}
         <Route exact element={<PublicRoute />}>
           <Route exact element={<LayoutComponent />}>
             {publicRoute.map((route) => {
+              return (
+                <Route
+                  index={route.index}
+                  key={route.path}
+                  path={route.path}
+                  element={route.component}
+                  exact={route.exact}
+                  restrict={route.restrict}
+                />
+              );
+            })}
+          </Route>
+        </Route>
+        {/* Shop section*/}
+        <Route exact element={<PublicRoute />}>
+          <Route exact path="/shop" element={<ShopLayout />}>
+            {shopRoute.map((route) => {
+              return (
+                <Route
+                  index={route.index}
+                  key={route.path}
+                  path={route.path}
+                  element={route.component}
+                  exact={route.exact}
+                  restrict={route.restrict}
+                />
+              );
+            })}
+          </Route>
+        </Route>
+        {/* admin section*/}
+        <Route exact element={<PublicRoute />}>
+          <Route exact element={<AdminLayout />}>
+            {adminRoute.map((route) => {
               return (
                 <Route
                   index={route.index}
@@ -177,16 +231,6 @@ const RouterComponent = () => {
     </BrowserRouter>
   );
 };
+// <Route path="/shop_dash_board" element={<ShopLayout />} />
 
 export default RouterComponent;
-// {route.Children
-//   ? route.Children.map((child, id) => {
-//       return (
-//         <Route
-//           index={child.index}
-//           path={child.path}
-//           element={child.component}
-//         />
-//       );
-//     })
-//   : ""}

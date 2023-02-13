@@ -6,6 +6,7 @@ import UserAddressPage from "../pages/UserAddress/UserAddress";
 import UserPurchase from "../pages/UserPurchase";
 import UserVouchers from "../pages/UserVouchers";
 import UsrEvaluation from "../pages/UserEvaluation";
+import BasicTabs from "../Component/Tabs/MuiTabs";
 const SettingRoute = () => {
   let element = useRoutes([
     {

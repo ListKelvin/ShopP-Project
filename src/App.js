@@ -1,10 +1,16 @@
-// <div className="">fdskjflksdjlkfdsjk</div>
-// <SignUp />
-// <MuiInput />
-// import SignUp from "./pages/sign-up/sign-up.component";
-// <SignInComponent />
+import RouterComponent from "./Router/index";
+import { useAutoLogout } from "./utils/UseAutoLogout";
+import Toast from "./Component/ToastNotification/index";
+import LocalStorageUtils from "./utils/LocalStorageUtils";
 function App() {
-  return <div className="App"></div>;
+  const jwt = LocalStorageUtils.getJWTUser();
+  useAutoLogout(jwt);
+  return (
+    <>
+      <RouterComponent />
+      <Toast />
+    </>
+  );
 }
 
 export default App;

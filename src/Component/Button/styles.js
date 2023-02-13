@@ -64,5 +64,17 @@ export const StyleResetButton = styled(BaseButton)`
   padding: 26px 0;
 `;
 export const StyleButton = styled(BaseButton)`
-  min-width: 80px;
+  cursor: ${(props) => (props.disable ? "not-allowed" : "pointer")};
+  background: ${(props) => (props.disable ? "#fff" : "#55abab")};
+  color: ${(props) => (props.disable ? "#ccc" : "#ffffff")};
+  border: 1px solid ${(props) => (props.disable ? "#ccc" : "none")};
+  box-shadow: ${(props) =>
+    props.disable ? "none" : `0px 4px 4px rgba(0, 0, 0, 0.25);`};
+  &:hover {
+    box-shadow: ${(props) =>
+      props.disable
+        ? "none"
+        : `0px 2px 2px rgba(0, 0, 0, 0.14) 0px 3px 1px rgba(0, 0, 0, 0.12)
+  0px 1px 5px rgba(0, 0, 0, 0.2)`};
+  }
 `;

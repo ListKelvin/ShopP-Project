@@ -23,6 +23,8 @@ import {
   Text,
   WrapBtn,
 } from "../style";
+import Chip from "@mui/material/Chip";
+import VoucherOfShop from "../../../Component/ShopVoucher/shopVoucher";
 import { IncreaseAndDecrease } from "../../productDetail/styled";
 import Flexbox from "../../../Component/Flexbox";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
@@ -30,14 +32,17 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Checkbox from "@mui/material/Checkbox";
+import { ShopPContainers, ChooseVoucher, DividerDashed } from "../style";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getTotals,
   addToCart,
   decreaseCart,
   removeFromCart,
+  increaseCart,
   clearCart,
 } from "../../../slices/cartReducer";
+import ModalShopPVoucher from "../../../Component/Modal/ModalShopPVoucher";
 import { addToOrder } from "../../../slices/orderReducer";
 import { selectCartTotalBySelected } from "../../../selectors/cartSelector";
 import { selectCartItems } from "../../../selectors/cartSelector";
@@ -46,17 +51,31 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import Button from "../../../Component/Button";
 import { getTotalsBySelection } from "../../../slices/cartReducer";
+import {
+  fetchDiscountVoucher,
+  fetchFreeShipVoucher,
+} from "../../../slices/voucherSlice";
 import CartFooter from "./CartFooter";
+import { CalculatePriceOfOrder } from "../../../slices/orderReducer";
 import { useNavigate } from "react-router-dom";
 import LocalStorageUtils from "../../../utils/LocalStorageUtils";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import cartApi from "../../../utils/productApiComponent/cartApi";
+import { selectApplyVoucher } from "../../../selectors/voucherSelector";
+
 const TableCart = () => {
   const cartItems = useSelector(selectCartItems);
   const totalItems = useSelector(selectCartTotalBySelected);
+  const ApplyVoucher = useSelector(selectApplyVoucher);
   const dispatch = useDispatch();
   const token = LocalStorageUtils.getToken();
+  const [showShopVoucher, setShowShopVoucher] = useState({
+    isOpen: false,
+    id: "",
+  });
   const [checked, setChecked] = useState([]);
-  const [left, setLeft] = useState(cartItems);
+  const [show, setShow] = useState(false);
+  // const [newPrice, setNewPrice] = useState();
   const navigate = useNavigate();
 
   //function
@@ -64,7 +83,7 @@ const TableCart = () => {
     return array.reduce(function (results, currentItem) {
       //using array find
       return results.find(function (result) {
-        return currentItem.shop.id === result.shop.id;
+        return currentItem.shopId === result.shopId;
       })
         ? results
         : [...results, currentItem];
@@ -91,6 +110,7 @@ const TableCart = () => {
     const result = await cartApi.updateCart(formatData);
     console.log(result);
   };
+
   // checkbox group handle
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -106,9 +126,7 @@ const TableCart = () => {
     setChecked(newChecked);
   };
   const numberOfChecked = (items) => intersection(checked, items).length;
-  console.log(checked);
-  console.log(numberOfChecked(cartItems));
-  console.log(cartItems);
+
   const handleToggleAll = (items) => () => {
     if (numberOfChecked(items) === items.length) {
       setChecked(not(checked, items));
@@ -138,7 +156,7 @@ const TableCart = () => {
     //   );
     // } else newChecked = [];
     setChecked(newChecked);
-    dispatch(addToCart(product));
+    dispatch(increaseCart(product));
   };
 
   const handleDecreaseCart = (product) => {
@@ -167,8 +185,11 @@ const TableCart = () => {
   useEffect(() => {
     if (token) {
       UpdateCart(cartItems);
+      dispatch(fetchDiscountVoucher());
+      dispatch(fetchFreeShipVoucher());
     }
   }, [cartItems, dispatch, token]);
+
   useEffect(() => {
     dispatch(getTotalsBySelection(checked));
   }, [dispatch, checked]);
@@ -214,7 +235,7 @@ const TableCart = () => {
           /* map function shop here */
           ShopInCart.map((el, id) => {
             let itemOfShop = cartItems.filter(
-              (el2) => el2.shop?.id === el.shop?.id
+              (el2) => el2.shopId === el.shopId
             );
 
             return (
@@ -238,7 +259,7 @@ const TableCart = () => {
                         }}
                       />
                     </CheckBoxWrap>
-                    <div> {el.shop?.name}</div>
+                    <div> {el.shopName}</div>
                   </ShopInfo>
                   <div style={{ position: "relative", paddingBottom: "1px" }}>
                     {/* Item Section  */}
@@ -246,10 +267,6 @@ const TableCart = () => {
                     {
                       /*map function here */ itemOfShop.map((item, id) => {
                         const { productImage } = item;
-
-                        // const CheckItemSelection = checked.some((checkItem) =>
-                        //   checkItem.id === item.id ? true : false
-                        // );
 
                         return (
                           <Wrap key={id}>
@@ -269,7 +286,7 @@ const TableCart = () => {
                                 <Flexbox alignItems="center" gap="10px">
                                   <LinkImg to={`/productpage/${item.id}`}>
                                     <img
-                                      src={`${API_URL}/file/${productImage[0].localFile.filename}`}
+                                      src={`${API_URL}/file/${productImage.localFile.filename}`}
                                       alt={item.name}
                                     />
                                   </LinkImg>
@@ -285,12 +302,20 @@ const TableCart = () => {
                                 justifyContent="center"
                                 flexDirection="column"
                               >
-                                <Classification>
-                                  Classification <ArrowDropDownIcon />
-                                </Classification>
-                                <Classification>
-                                  test additional info
-                                </Classification>
+                                {item.additionalInfo ? (
+                                  <Classification>
+                                    Classification <ArrowDropDownIcon />
+                                  </Classification>
+                                ) : (
+                                  ""
+                                )}
+                                {item.additionalInfo ? (
+                                  <Classification>
+                                    {item.additionalInfo.toString()}
+                                  </Classification>
+                                ) : (
+                                  ""
+                                )}
                               </Flexbox>
                               <Flexbox
                                 width="15.88022%"
@@ -345,6 +370,29 @@ const TableCart = () => {
                       })
                     }
                   </div>
+
+                  <div
+                    style={{
+                      borderTop: "1px solid rgba(0, 0, 0, 0.3)",
+                      padding: "20px",
+                    }}
+                  >
+                    <button
+                      onClick={() =>
+                        setShowShopVoucher({ isOpen: true, id: id })
+                      }
+                    >
+                      add voucher of shop
+                    </button>
+                    <div className="voucher" style={{ position: "relative" }}>
+                      <VoucherOfShop
+                        show={
+                          showShopVoucher.isOpen && showShopVoucher.id === id
+                        }
+                        setShow={setShowShopVoucher}
+                      />
+                    </div>
+                  </div>
                 </ShopContainer>
               </Item>
             );
@@ -353,6 +401,46 @@ const TableCart = () => {
 
         {/* Cart Footer  */}
         <CartFooterContainer>
+          <ShopPContainers>
+            <Flexbox gap="10px" width="150px">
+              <LocalOfferIcon />
+              <div style={{ flexShrink: "0" }}> ShopP voucher</div>
+            </Flexbox>
+            <div style={{ flex: "1" }}>
+              {ApplyVoucher[0]?.id && (
+                <Chip
+                  label={`FreeShip $${ApplyVoucher[0]?.priceDiscount}`}
+                  size="small"
+                  sx={{
+                    minWidth: "120px",
+                    marginRight: "10px",
+                    color: "#55ABAB",
+                    cursor: "pointer",
+                    backgroundColor: " #B6E3E3",
+                    border: "2px solid #55abab",
+                  }}
+                />
+              )}
+              {ApplyVoucher[1]?.id && (
+                <Chip
+                  label={`Discount - ${ApplyVoucher[1]?.priceDiscount}%`}
+                  size="small"
+                  sx={{
+                    minWidth: "120px",
+                    marginRight: "10px",
+                    color: "#55ABAB",
+                    cursor: "pointer",
+                    backgroundColor: " #B6E3E3",
+                    border: "2px solid #55abab",
+                  }}
+                />
+              )}
+            </div>
+            <VoucherBtn onClick={() => setShow(!show)}>
+              Voucher <ArrowDropDownIcon />
+            </VoucherBtn>
+          </ShopPContainers>
+          <DividerDashed />
           <ToolFooter alignItems="center" flexDirection="row" gap="10px">
             <CheckBoxWrap>
               <Checkbox
@@ -382,9 +470,7 @@ const TableCart = () => {
             >
               Delete
             </DeleteProduct>
-            <VoucherBtn>
-              Voucher <ArrowDropDownIcon />
-            </VoucherBtn>
+
             <Button>
               <FavoriteBorderIcon
                 style={{ marginLeft: "0.5rem", textAlign: "center" }}
@@ -395,7 +481,14 @@ const TableCart = () => {
 
           <Flexbox justifyContent="space-around" alignItems="center">
             <div> Total ({`${numberOfChecked(cartItems)}`} product):</div>
-            <div> ${totalItems}</div>
+            <div>
+              {" "}
+              $
+              {CalculatePriceOfOrder(
+                totalItems,
+                ApplyVoucher[1]?.priceDiscount
+              )}
+            </div>
           </Flexbox>
           <WrapBtn>
             <Button
@@ -409,6 +502,9 @@ const TableCart = () => {
           </WrapBtn>
         </CartFooterContainer>
       </Flexbox>
+      {show && (
+        <ModalShopPVoucher show={show} action={setShow} checkedList={checked} />
+      )}
     </ContainerV2>
   );
 };
