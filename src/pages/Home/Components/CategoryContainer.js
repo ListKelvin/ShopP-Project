@@ -8,8 +8,9 @@ import {
   selectIsLoading,
   selectIsError,
 } from "../../../selectors/categorySelect";
-
-const CategoryContainer = ({ status }) => {
+import { CategoriesGrid } from "../style";
+import CategoryTest from "./TestCategoryCard";
+const CategoryContainer = () => {
   const isLoading = useSelector(selectIsLoading);
   const isError = useSelector(selectIsError);
   const categories = useSelector(selectCategories);
@@ -20,7 +21,7 @@ const CategoryContainer = ({ status }) => {
     content = <FullScreenLoader />;
   } else if (isLoading === false) {
     content = categories.data.map((el) => {
-      return <CategoryCard key={el.id} label={el.name} img={el.image} />;
+      return <CategoryTest key={el.id} category={el} />;
     });
   } else if (isError === true) {
     content = <p>some error</p>;
@@ -28,6 +29,7 @@ const CategoryContainer = ({ status }) => {
   return (
     <div
       style={{
+        display: "grid",
         background: "#B6E3E3",
         borderRadius: "5px",
         padding: "10px",
@@ -47,22 +49,26 @@ const CategoryContainer = ({ status }) => {
       >
         CATEGORY
       </div>
-      <div
-        style={{
-          // padding: "20px 30px",
-          background: "#B6E3E3",
-          width: "100%",
-          display: "flex",
-
-          justifyContent: "left",
-          // gap: "10px",
-          overflowX: "scroll",
-        }}
-      >
-        {content}
-      </div>
+      <CategoriesGrid>
+        <div className="category-items ">{content} </div>
+      </CategoriesGrid>
     </div>
   );
 };
 
 export default CategoryContainer;
+
+// <div
+//   style={{
+//     // padding: "20px 30px",
+//     background: "#B6E3E3",
+//     width: "100%",
+//     display: "flex",
+
+//     justifyContent: "left",
+
+//     overflowX: "scroll",
+//   }}
+// >
+//   {content}
+// </div>

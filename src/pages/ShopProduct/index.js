@@ -11,6 +11,8 @@ import { grey } from "@mui/material/colors";
 import ProductActions from "./components/ProductAction";
 import { selectShopProducts } from "../../selectors/productSelect";
 import { fetchShopProduct } from "../../slices/productReducer";
+import { formatPrice } from "../../utils/helper";
+import { API_URL } from "../../config/config";
 const ShopProduct = () => {
   const [pageSize, setPageSize] = useState(5);
   const dispatch = useDispatch();
@@ -71,7 +73,12 @@ const ShopProduct = () => {
         headerName: "Photo",
         width: 70,
         renderCell: (params) => {
-          return <Avatar src={params.row.images} variant="rounded" />;
+          return (
+            <Avatar
+              src={`${API_URL}/file/${params.row.productImage[0]?.localFile?.filename}`}
+              variant="rounded"
+            />
+          );
         },
         sortable: false,
         filterable: false,
@@ -84,7 +91,7 @@ const ShopProduct = () => {
         field: "amount",
         headerName: "Cost",
         width: 100,
-        renderCell: (params) => "$" + params.row.amount,
+        renderCell: (params) => formatPrice(params.row.amount),
       },
       {
         field: "sold",
@@ -122,7 +129,7 @@ const ShopProduct = () => {
   return (
     <Box
       sx={{
-        height: 400,
+        height: 500,
         width: "100%",
       }}
     >

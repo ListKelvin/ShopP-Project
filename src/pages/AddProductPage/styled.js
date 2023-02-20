@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { TextField } from "@mui/material";
-export const DivStyle = styled.div`
+export const DivStyle = styled.form`
   background-color: #fff;
   padding: 20px;
   margin-top: 1rem;

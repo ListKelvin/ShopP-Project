@@ -15,10 +15,12 @@ import { ProductSearchResult } from "./Styled.components";
 import productApi from "../../../utils/productApiComponent/productApi";
 import { useSelector, useDispatch } from "react-redux";
 import { updateFilterValues } from "../../../slices/filterReducer";
+import ShopPLogo from "../../../assets/Logo/ShopP.png";
 import { selectFilters } from "../../../selectors/filterSelector";
 import { useNavigate } from "react-router-dom";
 import { ShopButton, RightToolbar } from "../style";
 import CartDropdown from "../../CartDropDown/CartDropDown";
+import Avatar from "@mui/material/Avatar";
 import { ClickAwayListener } from "@mui/material";
 const NavBarAbove = () => {
   const navigate = useNavigate();
@@ -27,6 +29,7 @@ const NavBarAbove = () => {
   const isCartOpen = useSelector(selectIsCartOpen);
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
+
   const useDebounce = (value, delay) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -83,15 +86,17 @@ const NavBarAbove = () => {
             textDecoration: "none",
           }}
         >
-          <Box
-            sx={{
-              width: 50,
-              height: 50,
-              backgroundColor: "black",
-              marginRight: 2,
-              marginLeft: 4,
+          <img
+            alt="Logo"
+            src={ShopPLogo}
+            style={{
+              width: 56,
+              height: 56,
+              objectFit: "cover",
+              filter: "sepia(17%) brightness(119%) saturate(99%)",
             }}
-          ></Box>
+            variant="square"
+          />
           ShopP
         </Typography>
         <SearchBar action={setShow} />

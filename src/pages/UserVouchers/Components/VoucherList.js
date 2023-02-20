@@ -25,6 +25,7 @@ import {
   selectDiscountVoucher,
   selectShopVoucherOfUser,
 } from "../../../selectors/voucherSelector";
+import Empty from "../../../Component/Empty";
 import { useSelector, useDispatch } from "react-redux";
 import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 const VoucherList = ({ label, titles, status, title }) => {
@@ -36,100 +37,109 @@ const VoucherList = ({ label, titles, status, title }) => {
       dispatch(fetchDiscountVoucher());
     };
   }, [dispatch]);
-
   const discountVoucher = useSelector(selectDiscountVoucher);
   const freeShopVoucher = useSelector(selectFreeShipVoucher);
   const shopVoucherOfUser = useSelector(selectShopVoucherOfUser);
+
   return (
     <VoucherListDiv>
       {label === "Ship" ? (
         <ShipVoucherContainer>
           <ShipTitle>Shop Voucher</ShipTitle>
-          {shopVoucherOfUser.map(
-            ({
-              id,
-              name,
-              minBillPrice,
-              priceDiscount,
-              maxPriceDiscount,
-              mfgDate,
-              expDate,
-            }) => {
-              return (
-                <ShipContainer key={id}>
-                  <VoucherContainer>
-                    <IconContainer>
-                      {status === "ship" ? (
-                        <LocalShippingIcon
-                          sx={{ color: "#55ABAB", fontSize: "4em" }}
-                        />
-                      ) : (
-                        <StorefrontIcon
-                          sx={{ color: "#55ABAB", fontSize: "4em" }}
-                        />
-                      )}
-                    </IconContainer>
-                    <ShipVoucherContent>
-                      <Name>{name}</Name>
-                      <SalePrice>
-                        Min price: ${minBillPrice} sale: ${priceDiscount}, Max
-                        sale: ${maxPriceDiscount}
-                      </SalePrice>
-                      <Exp>
-                        Time: {FormateDateType(mfgDate)} -{" "}
-                        {FormateDateType(expDate)}
-                      </Exp>
-                    </ShipVoucherContent>
-                  </VoucherContainer>
-                  <Button>Apply</Button>
-                </ShipContainer>
-              );
-            }
+
+          {typeof shopVoucherOfUser === typeof "" ? (
+            <Empty />
+          ) : (
+            shopVoucherOfUser?.map(
+              ({
+                id,
+                name,
+                minBillPrice,
+                priceDiscount,
+                maxPriceDiscount,
+                mfgDate,
+                expDate,
+              }) => {
+                return (
+                  <ShipContainer key={id}>
+                    <VoucherContainer>
+                      <IconContainer>
+                        {status === "ship" ? (
+                          <LocalShippingIcon
+                            sx={{ color: "#55ABAB", fontSize: "4em" }}
+                          />
+                        ) : (
+                          <StorefrontIcon
+                            sx={{ color: "#55ABAB", fontSize: "4em" }}
+                          />
+                        )}
+                      </IconContainer>
+                      <ShipVoucherContent>
+                        <Name>{name}</Name>
+                        <SalePrice>
+                          Min price: ${minBillPrice} sale: ${priceDiscount}, Max
+                          sale: ${maxPriceDiscount}
+                        </SalePrice>
+                        <Exp>
+                          Time: {FormateDateType(mfgDate)} -{" "}
+                          {FormateDateType(expDate)}
+                        </Exp>
+                      </ShipVoucherContent>
+                    </VoucherContainer>
+                    <Button>Apply</Button>
+                  </ShipContainer>
+                );
+              }
+            )
           )}
         </ShipVoucherContainer>
       ) : (
         <ShipVoucherContainer>
           <ShipTitle>{titles}</ShipTitle>
-          {discountVoucher.map(
-            ({
-              id,
-              name,
-              minBillPrice,
-              priceDiscount,
-              maxPriceDiscount,
-              mfgDate,
-              expDate,
-            }) => {
-              return (
-                <ShipContainer key={id}>
-                  <VoucherContainer>
-                    <IconContainer>
-                      {status === "ship" ? (
-                        <LocalShippingIcon
-                          sx={{ color: "#55ABAB", fontSize: "4em" }}
-                        />
-                      ) : (
-                        <StorefrontIcon
-                          sx={{ color: "#55ABAB", fontSize: "4em" }}
-                        />
-                      )}
-                    </IconContainer>
-                    <ShipVoucherContent>
-                      <Name>{name}</Name>
-                      <SalePrice>
-                        Min price: ${minBillPrice} sale: {priceDiscount}%, Max
-                        price: ${maxPriceDiscount}
-                      </SalePrice>
-                      <Exp>
-                        Time: {FormateDateType(mfgDate)} -{" "}
-                        {FormateDateType(expDate)}
-                      </Exp>
-                    </ShipVoucherContent>
-                  </VoucherContainer>
-                  <Button>Apply</Button>
-                </ShipContainer>
-              );
-            }
+          {typeof discountVoucher === typeof "" ? (
+            <Empty />
+          ) : (
+            discountVoucher?.map(
+              ({
+                id,
+                name,
+                minBillPrice,
+                priceDiscount,
+                maxPriceDiscount,
+                mfgDate,
+                expDate,
+              }) => {
+                return (
+                  <ShipContainer key={id}>
+                    <VoucherContainer>
+                      <IconContainer>
+                        {status === "ship" ? (
+                          <LocalShippingIcon
+                            sx={{ color: "#55ABAB", fontSize: "4em" }}
+                          />
+                        ) : (
+                          <StorefrontIcon
+                            sx={{ color: "#55ABAB", fontSize: "4em" }}
+                          />
+                        )}
+                      </IconContainer>
+                      <ShipVoucherContent>
+                        <Name>{name}</Name>
+                        <SalePrice>
+                          Min price: ${minBillPrice} sale: {priceDiscount}%, Max
+                          price: ${maxPriceDiscount}
+                        </SalePrice>
+                        <Exp>
+                          Time: {FormateDateType(mfgDate)} -{" "}
+                          {FormateDateType(expDate)}
+                        </Exp>
+                      </ShipVoucherContent>
+                    </VoucherContainer>
+                    <Button>Apply</Button>
+                  </ShipContainer>
+                );
+              }
+            )
           )}
         </ShipVoucherContainer>
       )}

@@ -8,19 +8,29 @@ import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
-import styled from "@emotion/styled";
-import InputLabel from "@mui/material/InputLabel";
-import Flexbox from "../../../Component/Flexbox";
+import { IconButton } from "@mui/material";
+import paymentApi from "../../../utils/productApiComponent/paymentApi";
+import { Box } from "@mui/material";
+import { useEffect } from "react";
+import LocalStorageUtils from "../../../utils/LocalStorageUtils";
+const options = [
+  "Create a merge commit",
+  "Squash and merge",
+  "Rebase and merge",
+];
 
-export default function SplitButton(props) {
-  const { category, categoryId, action } = props;
+export default function PaymentLit({ selected, action }) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const [selectedIndex, setSelectedIndex] = React.useState();
+  const [payments, setPayments] = React.useState([]);
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const token = LocalStorageUtils.getToken();
+  const handleClick = () => {
+    console.info(`You clicked ${options[selectedIndex]}`);
+  };
 
-  const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
-    action(index);
+  const handleMenuItemClick = (event, option) => {
+    action(option);
     setOpen(false);
   };
 
@@ -36,30 +46,32 @@ export default function SplitButton(props) {
     setOpen(false);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await paymentApi.getAllPayMent(token);
+
+      setPayments(data);
+    };
+    fetchData();
+  }, [token]);
+
   return (
-    <Flexbox flexDirection="column" gap="10px">
-      <InputLabelStyle htmlFor="label" required>
-        Category
-      </InputLabelStyle>
-      <ButtonGroup variant="outlined" ref={anchorRef} aria-label="split button">
-        <ButtonStyled sx={{ width: "50%" }}>
-          {categoryId?.name ? categoryId?.name : "Select a category"}
-        </ButtonStyled>
-        <ButtonStyled
-          size="small"
-          aria-controls={open ? "split-button-menu" : undefined}
-          aria-expanded={open ? "true" : undefined}
-          aria-label="select merge strategy"
-          aria-haspopup="menu"
+    <>
+      <Box ref={anchorRef}>
+        <Button
+          style={{
+            backgroundColor: "transparent",
+            color: "#2F5E5E",
+          }}
+          endIcon={<ArrowDropDownIcon />}
           onClick={handleToggle}
         >
-          <ArrowDropDownIcon />
-        </ButtonStyled>
-      </ButtonGroup>
+          {selected ? selected?.name : "Payment"}
+        </Button>
+      </Box>
       <Popper
         sx={{
           zIndex: 1,
-          minWidth: "30%",
         }}
         open={open}
         anchorEl={anchorRef.current}
@@ -72,17 +84,16 @@ export default function SplitButton(props) {
             {...TransitionProps}
             style={{
               transformOrigin:
-                placement === "bottom" ? "center bottom" : "center bottom",
+                placement === "bottom" ? "center top" : "center bottom",
             }}
           >
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu" autoFocusItem>
-                  {category?.data?.map((option, index) => (
+                  {payments?.data?.map((option, index) => (
                     <MenuItem
                       key={option.id}
-                      //   disabled={index === 2}
-                      selected={index + 1 === categoryId}
+                      selected={option?.id === selected?.id}
                       onClick={(event) => handleMenuItemClick(event, option)}
                     >
                       {option.name}
@@ -94,20 +105,6 @@ export default function SplitButton(props) {
           </Grow>
         )}
       </Popper>
-    </Flexbox>
+    </>
   );
 }
-export const ButtonStyled = styled(Button)`
-  color: #2f5e5e;
-  background-color: #fff;
-  border: 1px solid #eaeaea;
-`;
-export const InputLabelStyle = styled(InputLabel)({
-  display: "flex",
-  color: "#2F5E5E",
-  flexDirection: "row-reverse",
-  justifyContent: "flex-end",
-  gap: "4px",
-  fontWeight: "700",
-  fontSize: "20px",
-});

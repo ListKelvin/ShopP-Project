@@ -14,15 +14,18 @@ import CreateVariants from "./SelectSplitButton/CreateVariants";
 import { useSelector } from "react-redux";
 import LocalStorageUtils from "../../utils/LocalStorageUtils";
 import { selectCategories } from "../../selectors/categorySelect";
+import { jsonToFormData } from "../../utils/helper";
 const CHARACTER_LIMIT = 1000;
 const AddProductPage = () => {
   const token = LocalStorageUtils.getToken();
   const category = useSelector(selectCategories);
   const [amount, setAmount] = useState(1);
   const [quantity, setQuantity] = useState(1);
-  const [categoryId, setCategoryId] = useState();
+  const [categoryId, setCategoryId] = useState("");
   const [files, setFiles] = useState([]);
+  const [preview, setPreview] = useState([]);
   const [state, setState] = useState(0);
+
   const [product, setProduct] = useState({
     name: "",
     detail: "",
@@ -30,20 +33,40 @@ const AddProductPage = () => {
   const handleChangeProduct = (props) => (e) => {
     setProduct({ ...product, [props]: e.target.value });
   };
-  console.log(categoryId);
-  const onSubmit = async () => {
-    const formatDate = {
+  // const formData = new FormData();
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const formatData = {
       name: product.name,
       detail: product.detail,
       categoryId: categoryId?.id?.toString(),
       amount: amount,
       quantity: quantity,
-      productImages: files,
     };
-    console.log(formatDate);
-    const result = await productApi.postProduct(formatDate, token);
-    console.log("line 43", result);
+    let formData = jsonToFormData(formatData);
+    for (let i = 0; i < files.length; i++) {
+      formData.append("productImages", files[i]);
+    }
+
+    const result = await productApi.postProduct(formData, token);
+    console.log(result);
+    if (result.status === 201) {
+      setAmount(1);
+      setQuantity(1);
+      setCategoryId("");
+      setFiles([]);
+      setProduct({
+        name: "",
+        detail: "",
+      });
+      setPreview([]);
+    }
+    for (const value of formData.values()) {
+      console.log(value);
+    }
   };
+
   return (
     <Wrapper minHeight="100vh" widthNew="1100">
       <DivStyle>
@@ -55,6 +78,7 @@ const AddProductPage = () => {
             id="label"
             fullWidth
             required
+            value={product.name}
             onChange={handleChangeProduct("name")}
             inputProps={{
               classes: {
@@ -98,6 +122,7 @@ const AddProductPage = () => {
           <TextField
             id="description"
             fullWidth
+            value={product.detail}
             required
             inputProps={{
               maxlength: CHARACTER_LIMIT,
@@ -115,12 +140,19 @@ const AddProductPage = () => {
           />
         </Flexbox>
         {/* Upload 5 img section */}
-        <UploadImg setFiles={setFiles} files={files} />
+        <UploadImg
+          setFiles={setFiles}
+          files={files}
+          setPreview={setPreview}
+          preview={preview}
+        />
         {/* create variant of product */}
         <CreateVariants />
         <Flexbox justifyContent="flex-end" gap="10px">
           <Button buttonType={"light"}> cancel</Button>
-          <Button onClick={onSubmit}> add</Button>
+          <Button type="submit" onClick={(e) => onSubmit(e)}>
+            add
+          </Button>
         </Flexbox>
       </DivStyle>
     </Wrapper>

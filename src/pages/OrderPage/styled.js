@@ -324,6 +324,9 @@ export const GridAlignColumn4 = styled(GridAlignColumn)`
 export const WrapStyled = styled.div`
   //   background-color: #fafdff;
   display: flex;
-  flex-direction: column;
+  // flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
   padding: 16px 30px 20px;
 `;

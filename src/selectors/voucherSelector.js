@@ -45,3 +45,11 @@ export const selectShopVoucherOfUser = createSelector(
   [selectDomain],
   (state) => state.shopVoucherOfUser
 );
+export const selectShopPVoucher = createSelector(
+  [selectDomain],
+  (state) => state.shopPVoucher
+);
+export const selectShopPVoucherStatus = createSelector(
+  [selectDomain],
+  (state) => state.shopPVoucherStatus
+);

@@ -5,8 +5,8 @@ import AddIcon from "@mui/icons-material/Add";
 import { FormHelperText } from "@mui/material";
 import { InputLabelStyle } from "..";
 const UploadImg = (props) => {
-  const { files, setFiles } = props;
-  const [preview, setPreview] = useState([]);
+  const { files, setFiles, preview, setPreview } = props;
+
   const fileRef = useRef(null);
   const reader = new FileReader();
 

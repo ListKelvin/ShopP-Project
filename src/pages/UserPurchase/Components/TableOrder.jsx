@@ -9,9 +9,13 @@ import {
 } from "./styleComponents";
 import Img from "../../../assets/Product/image 161.png";
 import { CardMedia } from "@mui/material";
+import { TexOverflow } from "../style";
 import { FormateDateType } from "../../../utils/helper";
 import Button from "../../../Component/Button";
-const TableOrderCustomer = ({ data }) => {
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+import { formatPrice } from "../../../utils/helper";
+import OrderDialog from "./OrderDialog";
+const TableOrderCustomer = ({ data, open, setOpen }) => {
   function unique(array) {
     return array?.reduce(function (results, currentItem) {
       //using array find
@@ -22,8 +26,25 @@ const TableOrderCustomer = ({ data }) => {
         : [...results, currentItem];
     }, []);
   }
+  function GenerateDiscount(
+    shopVoucher,
+    appVoucher,
+    freeShipVoucher,
+    totalBill
+  ) {
+    let discount;
+    if (appVoucher > 100) {
+      discount = appVoucher;
+    } else if (appVoucher < 100 && appVoucher > 0) {
+      discount = (totalBill * (100 - appVoucher)) / 100;
+    } else {
+      discount = 0;
+    }
+
+    return discount + shopVoucher + freeShipVoucher;
+  }
   let uniShop = unique(data);
-  console.log("line 26:", uniShop);
+
   return (
     <Flexbox flexDirection="column" gap="10px">
       {uniShop?.length !== 0
@@ -31,32 +52,36 @@ const TableOrderCustomer = ({ data }) => {
             let orderOfShop = data.filter((el2) => el2.shop.id === el.shop.id);
             return (
               <div key={id}>
-                <div> {el.shop.name}</div>
+                <div> Order of {el.shop.name}</div>
                 <Divider />
                 {orderOfShop?.map((order, id) => {
+                  console.log(order);
                   return (
                     <BodyContainer key={id}>
-                      <ImgDiv>
-                        <CardMedia
-                          sx={{ borderRadius: "10px", width: "6em" }}
-                          component="img"
-                          image={Img}
-                          alt="green iguana"
-                        />
-                      </ImgDiv>
+                      <ReceiptLongIcon sx={{ fontSize: 40, m: 2 }} />
                       <NameDiv>
-                        <div>
-                          {order.id} x createdAt:{" "}
-                          {FormateDateType(order.createdAt)}
-                        </div>
+                        <Flexbox flexDirection="row" alignItems="center">
+                          Order ID: <TexOverflow>{order.id}</TexOverflow> x
+                          createdAt: {FormateDateType(order.createdAt)}
+                        </Flexbox>
                         <div>{order.estimateDeliveryTime}</div>
                       </NameDiv>
-                      <PriceDiv> Discount price </PriceDiv>
+                      <PriceDiv>
+                        -{" "}
+                        {formatPrice(
+                          GenerateDiscount(
+                            order.shopVoucher,
+                            order.appVoucher,
+                            order.freeShipVoucher,
+                            order.totalBill
+                          )
+                        )}
+                      </PriceDiv>
                       <TotalDiv>
                         <div style={{ color: "#2F5E5E" }}>
-                          $ {order.totalBill}
+                          {formatPrice(order.totalBill + order.transportFee)}
                         </div>
-                        <Button>View Order</Button>
+                        <OrderDialog order={order} />
                       </TotalDiv>
                     </BodyContainer>
                   );

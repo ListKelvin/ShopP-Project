@@ -34,6 +34,12 @@ const orderApi = {
       console.log(err)
     );
   },
+  getOrderShopChecking: async (token) => {
+    const endpoint = "/order/shop";
+    return await get(endpoint, {}, { Authorization: token }).catch((err) =>
+      console.log(err)
+    );
+  },
 };
 
 export default orderApi;

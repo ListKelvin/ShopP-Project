@@ -5,21 +5,21 @@ import styled from "styled-components";
 
 const CarouselImg = (props) => {
   const linkFile = `${API_URL}/file/`;
-  // const { item } = state;
-  //   const renderThumbnail = () => {
-  //     const thumbList = item.productImage.map((product, index) => (
-  //       <picture style={{ border: "none" }} key={index}>
-  //         <img
-  //           key={product._id}
-  //           src={`${linkFile}${product.localFile.filename}`}
-  //           alt={product.name}
-  //           height="70"
-  //         />
-  //       </picture>
-  //     ));
 
-  //     return thumbList;
-  //   };
+  const renderThumbnail = () => {
+    const thumbList = props.img.map((product, index) => (
+      <picture style={{ border: "none" }} key={index}>
+        <img
+          key={product._id}
+          src={`${linkFile}${product.localFile.filename}`}
+          alt={product.name}
+          height="70"
+        />
+      </picture>
+    ));
+
+    return thumbList;
+  };
   return (
     <CarouselStyled
       autoPlay={true}
@@ -28,10 +28,16 @@ const CarouselImg = (props) => {
       showArrows={true}
       showStatus={false}
       showIndicators={false}
-      //   renderThumbs={renderThumbnail}
+      renderThumbs={renderThumbnail}
     >
       {props.img.map((el, id) => {
-        return <img src={el} alt="ImgPreview" key={id} />;
+        return (
+          <img
+            src={linkFile + el.localFile.filename}
+            alt="ImgPreview"
+            key={id}
+          />
+        );
       })}
     </CarouselStyled>
   );

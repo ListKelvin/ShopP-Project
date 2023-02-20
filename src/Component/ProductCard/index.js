@@ -7,11 +7,12 @@ import { Box } from "@mui/system";
 import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
 import { ProductLink } from "../../pages/Home/style";
+import { formatPrice } from "../../utils/helper";
 const ProductCard = ({ rate, price, sold, name, img, id }) => {
   const [value, setValue] = React.useState(rate);
 
-  const { filename } = img[0].localFile;
-
+  // const { filename } = img[0]?.localFile;
+  console.log(img[0]);
   return (
     <ProductLink to={`/productpage/${id}`}>
       <Card sx={{ maxWidth: 180 }}>
@@ -23,7 +24,7 @@ const ProductCard = ({ rate, price, sold, name, img, id }) => {
             sx={{ borderRadius: "10px" }}
             component="img"
             height="140"
-            image={`https://shopp-be.lethanhlong.me/file/${filename}`}
+            image={`https://shopp-be.lethanhlong.me/file/${img[0]?.localFile.filename}`}
             alt="green iguana"
           />
         </Box>
@@ -73,7 +74,7 @@ const ProductCard = ({ rate, price, sold, name, img, id }) => {
                 color: "#F64A4A",
               }}
             >
-              ${price}
+              {formatPrice(price)}
             </span>
             <Chip
               label="-30%"

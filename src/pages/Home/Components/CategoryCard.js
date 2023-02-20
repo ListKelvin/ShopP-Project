@@ -4,7 +4,6 @@ import { Typography, Box } from "@mui/material";
 const CategoryCard = ({ label, img }) => {
   return (
     <div
-      className=""
       style={{
         minWidth: 120,
         padding: "10px",

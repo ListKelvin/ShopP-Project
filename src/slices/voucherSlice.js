@@ -6,11 +6,14 @@ import LocalStorageUtils from "../utils/LocalStorageUtils";
 const initialState = {
   voucherFreeShip: {},
   voucherDiscount: {},
+  voucherSelected: [],
   applyVoucher: [],
   shopVoucher: [],
+  shopPVoucher: [],
   freeShipVoucher: [],
   discountVoucher: [],
   shopVoucherOfUser: [],
+  shopPVoucherStatus: STATUS.IDLE,
   discountStatus: STATUS.IDLE,
   freeShipStatus: STATUS.IDLE,
   shopVoucherStatus: STATUS.IDLE,
@@ -82,10 +85,35 @@ export const fetchFreeShipVoucher = createAsyncThunk(
     }
   }
 );
+export const fetchShopPVoucher = createAsyncThunk(
+  "voucher/fetchShopPVoucher",
+  async () => {
+    // thunkApi.dispatch(setDiscountStatus(STATUS.LOADING));
+    try {
+      const token = LocalStorageUtils.getToken();
+      const res = await voucherApi.getAllVoucherOfShopP(token);
+      const data = await res.data.data;
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      return error.response.data.message;
+    }
+  }
+);
+// export const applyVoucher = (voucherCode) => {
+//   if (voucherCode === "DISCOUNT10") {
+//     setDiscountedPrice(props.price - props.price * 0.1);
+//   }
+// };
+
 const slice = createSlice({
   name,
   initialState,
   reducers: {
+    setVoucherOfShop: (state, action) => {
+      state.voucherSelected = action.payload;
+    },
     setApplyVoucher: (state, action) => {
       state.applyVoucher = action.payload;
     },
@@ -152,6 +180,16 @@ const slice = createSlice({
       })
       .addCase(fetchShopVoucherOfUser.rejected, (state, action) => {
         state.shopVoucherOfUserStatus = STATUS.ERROR;
+      })
+      .addCase(fetchShopPVoucher.pending, (state, action) => {
+        state.shopPVoucherStatus = STATUS.LOADING;
+      })
+      .addCase(fetchShopPVoucher.fulfilled, (state, action) => {
+        state.shopPVoucherStatus = STATUS.IDLE;
+        state.shopPVoucher = action.payload;
+      })
+      .addCase(fetchShopPVoucher.rejected, (state, action) => {
+        state.shopPVoucherStatus = STATUS.ERROR;
       });
   },
 });
@@ -165,6 +203,7 @@ export const {
   setIsSelected,
   setVoucherDiscount,
   setVoucherFreeShip,
+  setVoucherOfShop,
 } = slice.actions;
 
 export default slice;

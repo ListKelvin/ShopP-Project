@@ -130,6 +130,7 @@ export const PopupVoucherDiv = styled(PopupDiv)`
   width: 40%;
   min-width: 500px;
   // min-height: 500px;
+  max-height: 700px;
   position: absolute;
   top: 0;
   left: 0;
@@ -140,6 +141,7 @@ export const PopupVoucherDiv = styled(PopupDiv)`
   transform: translate(-50%, -50%);
   border-radius: 10px;
   padding: 25px;
+  // overflow-y: scroll;
 `;
 export const TitlePopup = styled.div`
   // padding-bottom: 12px;
@@ -313,7 +315,7 @@ export const ModalFooter = styled.div`
 `;
 export const ModalContent = styled.div`
   flex: 1;
-  overflow-y: auto;
+  // overflow-y: auto;
   // padding-right: 50px;
   // margin-right: -50px;
   // padding-left: 50px;
@@ -358,15 +360,15 @@ export const SearchInput = styled.input.attrs({ type: "text" })`
   flex: none;
 `;
 export const VoucherList = styled.div`
+  width: 100%;
+  max-height: 200px;
   // margin-left: -0.25rem;
   padding-left: 0.25rem;
-  overflow: auto;
+  overflow-y: scroll;
 
   position: relative;
   padding-right: 1.25rem;
   margin-top: 1.25rem;
-  width: 100%;
-  height: 100%;
 `;
 
 export const TypeVoucher = styled.span`
@@ -388,9 +390,11 @@ export const VoucherItem = styled.div`
   background-color: #b6e3e3;
   border-radius: 4px;
   padding: 1rem 2rem;
-  margin-top: 10px;
 `;
-
+export const InValidVoucher = styled.div`
+  padding: 10px;
+  width: 100%;
+`;
 export const InforOfVoucher = styled.div`
   width: 12rem;
   white-space: nowrap;
@@ -410,6 +414,7 @@ export const VoucherMax = styled.span`
   width: fit-content;
   min-width: 25%;
 `;
+export const MinBillPrice = styled.span``;
 export const Exp = styled.span`
   font-weight: 400;
   font-size: 12px;

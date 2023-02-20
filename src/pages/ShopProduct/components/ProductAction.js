@@ -9,7 +9,7 @@ const ProductActions = ({ params }) => {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  console.log(params);
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -30,9 +30,7 @@ const ProductActions = ({ params }) => {
         </IconButton>
       </Tooltip>
       <Tooltip title="Delete this product">
-        <IconButton
-        //   onClick={() => deleteRoom(params.row, currentUser, dispatch)}
-        >
+        <IconButton>
           <Delete />
         </IconButton>
       </Tooltip>

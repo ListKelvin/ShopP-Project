@@ -58,3 +58,44 @@ export const ProductLink = styled(LinkStyle)`
       0px 1px 5px rgba(0, 0, 0, 0.2);
   }
 `;
+
+export const CategoriesGrid = styled.div`
+  .category-items {
+    display: grid;
+    row-gap: 20px;
+    .category-item {
+      max-width: 10rem;
+      &-img {
+        max-height: 6rem;
+        border-radius: 10px;
+        overflow: hidden;
+        & > img {
+          width: 500px;
+          height: 200px;
+          object-fit: cover;
+        }
+      }
+      &-name {
+        text-align: center;
+        padding: 12px 0;
+      }
+    }
+
+    @media screen and (min-width: 576px) {
+      grid-template-columns: repeat(2, 0.5fr);
+      column-gap: 20px;
+    }
+
+    @media screen and (min-width: 992px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media screen and (min-width: 1200px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media screen and (min-width: 1400px) {
+      grid-template-columns: repeat(6, 0.5fr);
+    }
+  }
+`;

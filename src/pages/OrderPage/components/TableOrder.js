@@ -15,8 +15,6 @@ import {
   Classification,
   CartFooterContainer,
   ToolFooter,
-  VoucherBtn,
-  Text,
   WrapBtn,
   GridAlign,
   GridAlignColumn,
@@ -25,16 +23,19 @@ import {
   GridAlignColumn3,
   GridAlignRow3,
   WrapStyled,
-  ShopPVoucherContainer,
   GridAlignRow4,
   GridAlignColumn4,
 } from "../styled";
-import { toastSuccess } from "../../../Component/ToastNotification";
+import {
+  toastSuccess,
+  toastWarning,
+} from "../../../Component/ToastNotification";
+import { formatPrice } from "../../../utils/helper";
 import Flexbox from "../../../Component/Flexbox";
 import { useNavigate } from "react-router-dom";
+import PaymentLit from "./PaymentList";
 import { selectApplyVoucher } from "../../../selectors/voucherSelector";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-
 import { useSelector, useDispatch } from "react-redux";
 import { CalculatePriceOfOrder } from "../../../slices/orderReducer";
 import { API_URL } from "../../../config/config";
@@ -44,11 +45,28 @@ import orderApi from "../../../utils/productApiComponent/orderApi";
 import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 import { selectOrderItems } from "../../../selectors/orderSelector";
 import transportApi from "../../../utils/productApiComponent/transportFee";
+export const TotalItemOfShop = (itemOfShop) => {
+  let { total } = itemOfShop.reduce(
+    (cartTotal, cartItem) => {
+      const { amount, cartQuantity } = cartItem;
+      const itemTotal = amount * cartQuantity;
 
+      cartTotal.total += itemTotal;
+
+      return cartTotal;
+    },
+    {
+      total: 0,
+    }
+  );
+  return (total = parseFloat(total.toFixed(3)));
+};
 const TableOrder = () => {
   const dispatch = useDispatch();
   const orderItems = useSelector(selectOrderItems);
   const applyVoucher = useSelector(selectApplyVoucher);
+  const [selectedPayment, setSelectedPayment] = useState();
+
   //function
   function unique(array) {
     return array.reduce(function (results, currentItem) {
@@ -60,22 +78,7 @@ const TableOrder = () => {
         : [...results, currentItem];
     }, []);
   }
-  const TotalItemOfShop = (itemOfShop) => {
-    let { total } = itemOfShop.reduce(
-      (cartTotal, cartItem) => {
-        const { amount, cartQuantity } = cartItem;
-        const itemTotal = amount * cartQuantity;
 
-        cartTotal.total += itemTotal;
-
-        return cartTotal;
-      },
-      {
-        total: 0,
-      }
-    );
-    return (total = parseFloat(total.toFixed(3)));
-  };
   const totalOrder = () => {
     let freeShipVoucherIds = applyVoucher[0]?.priceDiscount;
     let subtotal = CalculatePriceOfOrder(
@@ -83,16 +86,17 @@ const TableOrder = () => {
       applyVoucher[1]?.priceDiscount
     );
 
-    return subtotal + 1000;
+    return formatPrice(subtotal + 1000);
   };
   let ShopInOrder = unique(orderItems);
+
   const GenerateOrders = () => {
     let ShopInOrder2 = unique(orderItems);
     let NewArray = orderItems.map((orderItem) => {
       let formateData = {
         productId: orderItem.id,
         quantity: orderItem.cartQuantity,
-        additionalInfo: orderItem.additionalInfo.toString(),
+        additionalInfo: orderItem?.additionalInfo?.toString(),
       };
       return formateData;
     });
@@ -108,35 +112,43 @@ const TableOrder = () => {
         shoppingUnitId: 1,
         shopVoucherId: "",
         shopId: el.shopId,
-        orderProducts: itemOfShopOrder,
+        orderProducts: NewArray,
       };
 
       return { ...formatOrder };
     });
     return Orders;
   };
-  const calculateCoupons = () => {};
+
   const PostOrder = async () => {
     let order = GenerateOrders();
-    console.log(order);
-    const formatData = {
-      address: "Thu Duc, Ho Chi Minh City",
-      paymentId: 1,
-      appVoucherId: applyVoucher[1]?.id ? applyVoucher[1]?.id?.toString() : "",
-      freeShipVoucherId: applyVoucher[0]?.id ? applyVoucher[0]?.id : "",
-      orders: order,
-    };
-    console.log(formatData);
-    const results = await orderApi.createOrder(formatData);
-    console.log(results);
-    if (results.status === 200) {
-      toastSuccess(results.data.message);
+    console.log(selectedPayment);
+    if (selectedPayment === undefined) {
+      toastWarning(" you haven't choose a payment");
+      return;
+    } else {
+      const formatData = {
+        address: "Thu Duc, Ho Chi Minh City",
+        paymentId: selectedPayment?.id,
+        appVoucherId: applyVoucher[1]?.id
+          ? applyVoucher[1]?.id?.toString()
+          : "",
+        freeShipVoucherId: applyVoucher[0]?.id ? applyVoucher[0]?.id : "",
+        orders: order,
+      };
+      console.log(formatData);
+      const results = await orderApi.createOrder(formatData);
+      console.log(results);
+      if (results?.status === 200) {
+        toastSuccess(results.data.message);
+      }
     }
   };
   // const getTransportFee = async () => {
   //   const res = await transportApi.getTransportFee();
   // };
   // useEffect(() => {}, []);
+
   return (
     <ContainerV2>
       <Flexbox flexDirection="column" gap="10px" alignItems="flex-end">
@@ -251,9 +263,12 @@ const TableOrder = () => {
         {/* Order Footer  */}
         <CartFooterContainer>
           <GridAlign> Total product:</GridAlign>
-          <GridAlignColumn> ${TotalItemOfShop(orderItems)}</GridAlignColumn>
+          <GridAlignColumn>
+            {" "}
+            {formatPrice(TotalItemOfShop(orderItems))}
+          </GridAlignColumn>
           <GridAlignRow> Shipping fee:</GridAlignRow>
-          <GridAlignColumn2>$1000</GridAlignColumn2>
+          <GridAlignColumn2>{formatPrice(1000)}</GridAlignColumn2>
 
           {applyVoucher[1]?.priceDiscount && (
             <>
@@ -268,12 +283,12 @@ const TableOrder = () => {
             </>
           )}
           <GridAlignRow4>Total: </GridAlignRow4>
-          <GridAlignColumn3> ${totalOrder()}</GridAlignColumn3>
+          <GridAlignColumn3> {totalOrder()}</GridAlignColumn3>
           <ToolFooter alignItems="center" flexDirection="row">
-            <VoucherBtn>
-              Payment
-              <ArrowDropDownIcon />
-            </VoucherBtn>
+            <PaymentLit
+              selected={selectedPayment}
+              action={setSelectedPayment}
+            />
             <WrapBtn>
               <Button onClick={() => PostOrder()}>Place Order</Button>
             </WrapBtn>
@@ -285,3 +300,7 @@ const TableOrder = () => {
 };
 
 export default TableOrder;
+// <VoucherBtn>
+// Payment
+// <ArrowDropDownIcon />
+// </VoucherBtn>

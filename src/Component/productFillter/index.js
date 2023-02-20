@@ -239,30 +239,6 @@ const ProductFilter = () => {
                 );
               })}
             </TypeofFilter>
-            <TypeofFilter label="test3">
-              <FilterComponent>
-                <NameofFilter>Service and Promotion</NameofFilter>
-                <KeyboardArrowRightIcon />
-              </FilterComponent>
-            </TypeofFilter>
-            <TypeofFilter label="test4">
-              <FilterComponent>
-                <NameofFilter>Shipping options</NameofFilter>
-                <KeyboardArrowRightIcon />
-              </FilterComponent>
-            </TypeofFilter>
-            <TypeofFilter label="test5">
-              <FilterComponent>
-                <NameofFilter>Shipping froms</NameofFilter>
-                <KeyboardArrowRightIcon />
-              </FilterComponent>
-            </TypeofFilter>
-            <TypeofFilter label="test6">
-              <FilterComponent>
-                <NameofFilter>Brands</NameofFilter>
-                <KeyboardArrowRightIcon />
-              </FilterComponent>
-            </TypeofFilter>
           </Accordion>
         </FilterFrame>
         <WrapperFlexColumn>

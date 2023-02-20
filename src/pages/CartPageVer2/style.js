@@ -114,7 +114,7 @@ export const LinkImg = styled(Link)`
     border-radius: 3px;
   }
 `;
-
+export const CartFooter = styled.div``;
 export const LinkName = styled(Link)`
   max-width: 300px;
   // height: 4rem;

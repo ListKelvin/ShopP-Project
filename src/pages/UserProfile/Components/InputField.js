@@ -28,7 +28,7 @@ export default function InputField({ customer, shopName, action }) {
   const handleChangeCustomer = (props) => (e) => {
     action({ ...customer, [props]: e.target.value });
   };
-  const address = customer.placeOfDelivery.find((el) => el.default === true);
+  // const address = customer.placeOfDelivery.find((el) => el.default === true);
   const CHARACTER_LIMIT = 200;
 
   return (
@@ -122,7 +122,7 @@ export default function InputField({ customer, shopName, action }) {
       <InputFieldStyle>
         <TextField
           required
-          defaultValue={address.address}
+          defaultValue={customer.placeOfDelivery}
           onChange={handleChangeCustomer("placeOfDelivery")}
           sx={{ width: "100%" }}
           label="Place of delivery"

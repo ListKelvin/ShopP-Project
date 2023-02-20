@@ -14,3 +14,10 @@ export const TitlePurchaseAfter = styled(TitleAfter)`
 export const OrderContainer = styled.div`
   width: 100%;
 `;
+export const TexOverflow = styled.div`
+  display: inline-block;
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;

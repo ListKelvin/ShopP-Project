@@ -1,9 +1,11 @@
+import { useState, useEffect } from "react";
 import { Grid, Button, Typography, DialogTitle, Dialog } from "@mui/material";
 import CarouselImg from "./Carousel";
 import { ProductName, ShopVoucherContainer } from "../../productDetail/styled";
 import Chip from "@mui/material/Chip";
 import { DescriptionWrapper } from "../styled";
-
+import productApi from "../../../utils/productApiComponent/productApi";
+import LocalStorageUtils from "../../../utils/LocalStorageUtils";
 const options = [
   { id: 1, label: "Discount -30%" },
   { id: 2, label: "Discount -50%" },
@@ -13,54 +15,73 @@ const options = [
 
 const ProductDialog = (props) => {
   const { onClose, open, item } = props;
+  const [additional, setAdditional] = useState();
 
+  const token = LocalStorageUtils.getToken();
+  const fetchAdditionalInformation = async (productId, token) => {
+    const data = await productApi.getProductAdditionalInfo(productId, token);
+    setAdditional(data.data.data);
+  };
+  console.log(additional);
+  useEffect(() => {
+    return function () {
+      fetchAdditionalInformation(item.id, token);
+    };
+  }, []);
   return (
     <Dialog onClose={onClose} open={open} fullWidth maxWidth={"lg"}>
       <DialogTitle>Product Information</DialogTitle>
       <Grid container>
         <Grid item xs={7}>
-          <CarouselImg img={item.images} />
+          <CarouselImg img={item.productImage} />
         </Grid>
         <Grid item xs={5}>
           <ProductName style={{ marginBottom: "20px" }}>
-            testtesttesttesttesttesttesttesttesttesttesttest
+            {item.name}
           </ProductName>
           <ShopVoucherContainer>
             <div className="title">Price:</div>
             <div className="content">
-              <div className="description"> Free Ship</div>
+              <div className="description"> {item.amount}</div>
             </div>
           </ShopVoucherContainer>
           <ShopVoucherContainer>
             <div className="title">Category:</div>
             <div className="content">
-              <div className="description"> Free Ship</div>
+              <div className="description"> {item?.category.name}</div>
             </div>
           </ShopVoucherContainer>
           <ShopVoucherContainer>
             <div className="title">Amount:</div>
             <div className="content">
-              <div className="description"> Free Ship</div>
+              <div className="description"> {item.quantity}</div>
             </div>
           </ShopVoucherContainer>
-          <ShopVoucherContainer>
-            <div className="title">color</div>
-            {options.map((option, id) => {
-              return (
-                <Chip
-                  key={option.label}
-                  label={option.label}
-                  size="small"
-                  sx={{
-                    minWidth: "50px",
-                    marginRight: "10px",
-                    color: `${"#ffffff"}`,
-                    backgroundColor: `${"#55ABAB"}`,
-                  }}
-                />
-              );
-            })}
-          </ShopVoucherContainer>
+          {additional?.map((el) => {
+            let options = el?.value?.split(",");
+
+            return (
+              <ShopVoucherContainer key={el.id}>
+                <div className="title">{el.key}</div>
+
+                {options.map((option, id) => {
+                  return (
+                    <Chip
+                      key={option}
+                      label={option}
+                      size="small"
+                      sx={{
+                        minWidth: "50px",
+                        marginRight: "10px",
+                        color: "#ffffff",
+                        backgroundColor: "#55ABAB",
+                      }}
+                    />
+                  );
+                })}
+              </ShopVoucherContainer>
+            );
+          })}
         </Grid>
         <Grid item xs={12} direction="column">
           <Typography
@@ -70,17 +91,7 @@ const ProductDialog = (props) => {
           >
             Description
           </Typography>
-          <DescriptionWrapper>
-            {" "}
-            AKKO MonsGeek MG108 Black&Pink hứa hẹn sẽ là bàn phím nổi bật ở phân
-            khúc giá dưới 1.5 triệu Đồng nhờ những ưu điểm dưới đây: Kết nối dây
-            Type-C to Type-A có thể tháo dời, thuận tiện di chuyển LED nền RGB
-            Keycap PBT Double-Shot, ASA profile đã quá quen thuộc với người dùng
-            AKKO switch v3 (Cream Blue / Cream Yellow) kết hợp cùng foam tiêu âm
-            PCB cho trải nghiệm gõ tối ưu và êm ái Giá thành hấp dẫn, phù hợp
-            với người dùng mới và dễ tiếp cận Layout Fullsize phù hợp với đa số
-            người dùng, dễ chơi keycap
-          </DescriptionWrapper>
+          <DescriptionWrapper>{item.detail}</DescriptionWrapper>
         </Grid>
       </Grid>
     </Dialog>
